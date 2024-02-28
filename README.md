@@ -14,8 +14,8 @@ project structure (scratch)
 11. ctrl-\ does nothing.
 12. $
 13. pipes
-14. < should redirect input.
-15. > should redirect output
-16. << should be given a delimiter, then read the input until a line containing the
+14. '<' should redirect input.
+15. '>' should redirect output
+16. '<< should be given a delimiter, then read the input until a line containing the
     delimiter is seen. However, it doesn’t have to update the history!
-17. >> should redirect output in append mode.
+17. '>>' should redirect output in append mode.
