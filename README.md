@@ -1,7 +1,7 @@
 # 42_minishell
 
 project structure (scratch)
-?1. environment variables?
+1. ?environment variables?
 2. echo with option -n
 3. cd with only a relative or absolute path
 4. pwd with no options
