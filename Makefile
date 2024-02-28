@@ -6,7 +6,7 @@
 #    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/02/28 22:28:13 by kaan             ###   ########.fr        #
+#    Updated: 2024/02/28 22:40:28 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ READFLAG = -lreadline
 
 RM = rm -f
 
-SRC = $(SRC_DIR)*.c\
+SRC = $(SRC_DIR)minishell.c\
+		$(SRC_DIR)ft_echo.c\
 
 OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 

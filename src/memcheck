@@ -1,1 +1,0 @@
-cc *.c -Wall -Wextra -Werror -lreadline && valgrind ./a.out
