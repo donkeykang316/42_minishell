@@ -1,0 +1,1 @@
+cc *.c -Wall -Wextra -Werror -lreadline && ./a.out
