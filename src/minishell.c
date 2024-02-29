@@ -25,6 +25,7 @@ int	main(void)
 				ft_echo(str);
 			else if (!ft_memcmp(str, "exit", 4))
 				break ;
+			free(str);
 		}
 		else
 		{
@@ -32,13 +33,4 @@ int	main(void)
 			break ;
 		}
 	}
-	free(str);
 }
-
-	/* char *path = getenv("PATH");
-
-    if (path != NULL) {
-        printf("The value of PATH is: %s\n", path);
-    } else {
-        printf("PATH environment variable is not set\n");
-    }*/

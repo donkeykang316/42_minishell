@@ -20,5 +20,6 @@
 # include <stdlib.h>
 
 void	ft_echo(const char *str);
+void	ft_echo_n(const char *str);
 
 #endif
