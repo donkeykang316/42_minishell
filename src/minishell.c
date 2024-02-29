@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:41:47 by kaan              #+#    #+#             */
-/*   Updated: 2024/02/28 23:19:05 by kaan             ###   ########.fr       */
+/*   Updated: 2024/02/29 01:23:07 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,27 @@
 
 int	main(void)
 {
- 	ft_echo("");
+	char	*str;
+
+	while (1)
+	{
+		str = readline("");
+		if (str)
+		{
+			if (!ft_memcmp(str, "echo ", 5))
+				ft_echo(str);
+			else if (!ft_memcmp(str, "exit", 4))
+				break ;
+		}
+		else
+		{
+			printf("readline error\n");
+			break ;
+		}
+	}
+	free(str);
+}
+
 	/* char *path = getenv("PATH");
 
     if (path != NULL) {
@@ -22,4 +42,3 @@ int	main(void)
     } else {
         printf("PATH environment variable is not set\n");
     }*/
-}
