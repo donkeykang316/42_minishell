@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:10:54 by kaan              #+#    #+#             */
-/*   Updated: 2024/02/29 01:04:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/02 06:44:31 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	ft_echo_n(const char *str)
 
 static void	quatation_case(const char *str, int c, char *pr)
 {
-	char	*sec_str;
-	int		len;
+	static char	*stemp = NULL;
+	char		*temp;
+	int			len;
 
 	if (str[ft_strlen(str) - 1] == c)
 	{
@@ -32,11 +33,28 @@ static void	quatation_case(const char *str, int c, char *pr)
 		pr = ft_memchr(str, str[6], len - 1);
 		pr[ft_strlen(pr) - 1] = '\0';
 		printf("%s\n", pr);
+		return ;
 	}
-	/*else
+	else
 	{
-		
-	}*/
+		temp = NULL;
+		stemp = ft_strdup(str);
+		while (1)
+		{
+			temp = readline("quote> ");
+			stemp = ft_strjoin(stemp, temp);
+			free(temp);
+			if (stemp[ft_strlen(stemp) - 1] == c)
+			{
+				len = ft_strlen(stemp);
+				pr = ft_memchr(stemp, stemp[6], len - 1);
+				pr[ft_strlen(pr) - 1] = '\0';
+				printf("%s\n", pr);
+				free(stemp);
+				return ;
+			}
+		}
+	}
 }
 
 void	ft_echo(const char *str)
