@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/05 18:39:52 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/05 19:14:03 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ typedef struct s_echo
 	int		i;
 }	t_echo;
 
-
-void	ft_echo(const char *str);
-void	ft_echo_n(const char *str);
+void	ft_echo(char *str);
 
 #endif

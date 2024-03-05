@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:10:54 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/05 18:40:01 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/05 19:13:39 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	free_echo(t_echo *var)
 		free(var->temp2);
 }
 
-void	ft_echo_n(const char *str)
+void	ft_echo_n(char *str)
 {
 	char	*pr;
 
@@ -39,7 +39,7 @@ void	ft_echo_n(const char *str)
 	free(pr);
 }
 
-static void	quotation_case(const char *str, int c, t_echo *var)
+static void	quotation_case(char *str, int c, t_echo *var)
 {
 	if (str[ft_strlen(str) - 1] == c)
 	{
@@ -76,7 +76,7 @@ static void	quotation_case(const char *str, int c, t_echo *var)
 	}
 }
 
-void	ft_echo(const char *str)
+void	ft_echo(char *str)
 {
 	t_echo	var;
 
@@ -94,4 +94,5 @@ void	ft_echo(const char *str)
 		printf("%s\n", var.pr);
 	}
 	free_echo(&var);
+	free(str);
 }
