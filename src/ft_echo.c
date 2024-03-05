@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:10:54 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/05 16:10:54 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/05 16:22:42 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_echo_n(const char *str)
 	free(pr);
 }
 
-static void	quatation_case(const char *str, int c, char *pr)
+static void	quotation_case(const char *str, int c, char *pr)
 {
 	static char	*stemp = NULL;
 	static char	*temp = NULL;
@@ -68,9 +68,9 @@ void	ft_echo(const char *str)
 
 	pr = NULL;
 	if (ft_strchr(str, 34))
-		quatation_case(str, 34, pr);
+		quotation_case(str, 34, pr);
 	else if (ft_strchr(str, 39))
-		quatation_case(str, 39, pr);
+		quotation_case(str, 39, pr);
 	else
 	{
 		i = 5;
