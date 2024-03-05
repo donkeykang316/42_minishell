@@ -6,11 +6,29 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:10:54 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/05 16:22:42 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/05 18:40:01 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static void	echo_init(t_echo *var)
+{
+	var->pr = NULL;
+	var->temp1 = NULL;
+	var->temp2 = NULL;
+	var->i = 0;
+}
+
+static void	free_echo(t_echo *var)
+{
+	if (var->pr)
+		free(var->pr);
+	if (var->temp1)
+		free(var->temp1);
+	if (var->temp2)
+		free(var->temp2);
+}
 
 void	ft_echo_n(const char *str)
 {
@@ -21,40 +39,37 @@ void	ft_echo_n(const char *str)
 	free(pr);
 }
 
-static void	quotation_case(const char *str, int c, char *pr)
+static void	quotation_case(const char *str, int c, t_echo *var)
 {
-	static char	*stemp = NULL;
-	static char	*temp = NULL;
-	int			i;
-
 	if (str[ft_strlen(str) - 1] == c)
 	{
-		i = 0;
-		while (str[i] != c)
-			i++;
-		pr = ft_substr(str, i + 1, ft_strlen(str) - 1);
-		pr[ft_strlen(pr) - 1] = '\0';
-		printf("%s\n", pr);
+		var->i = 0;
+		while (str[var->i] != c)
+			var->i++;
+		var->pr = ft_substr(str, var->i + 1, ft_strlen(str) - 1);
+		var->pr[ft_strlen(var->pr) - 1] = '\0';
+		printf("%s\n", var->pr);
 		return ;
 	}
 	else
 	{
-		i = 0;
-		stemp = ft_strjoin(ft_substr(str, i, ft_strlen(str) - 1), "\n");
+		var->i = 0;
+		var->temp1 = ft_strjoin(ft_substr(str, var->i, ft_strlen(str)), "\n");
 		while (1)
 		{
-			temp = ft_strjoin(readline("quote> "), "\n");
-			stemp = ft_strjoin(stemp, temp);
-			free(temp);
-			if (stemp[ft_strlen(stemp) - 2] == c)
+			var->temp2 = readline("quote> ");
+			var->temp2 = ft_strjoin(var->temp2, "\n");
+			var->temp1 = ft_strjoin(var->temp1, var->temp2);
+			if (var->temp1[ft_strlen(var->temp1) - 2] == c)
 			{
-				stemp[ft_strlen(stemp) - 1] = '\0';
-				add_history(stemp);
-				while (str[i] != c)
-					i++;
-				pr = ft_substr(stemp, i + 1, ft_strlen(stemp) - 2);
-				pr[ft_strlen(pr) - 2] = '\0';
-				printf("%s\n", pr);
+				var->temp1[ft_strlen(var->temp1) - 1] = '\0';
+				add_history(var->temp1);
+				while (str[var->i] != c)
+					var->i++;
+				var->pr = ft_substr(var->temp1, var->i + 1,
+						ft_strlen(var->temp1) - 1);
+				var->pr[ft_strlen(var->pr) - 1] = '\0';
+				printf("%s\n", var->pr);
 				return ;
 			}
 		}
@@ -63,21 +78,20 @@ static void	quotation_case(const char *str, int c, char *pr)
 
 void	ft_echo(const char *str)
 {
-	char	*pr;
-	int		i;
+	t_echo	var;
 
-	pr = NULL;
+	echo_init(&var);
 	if (ft_strchr(str, 34))
-		quotation_case(str, 34, pr);
+		quotation_case(str, 34, &var);
 	else if (ft_strchr(str, 39))
-		quotation_case(str, 39, pr);
+		quotation_case(str, 39, &var);
 	else
 	{
-		i = 5;
-		while (str[i] == 32)
-			i++;
-		pr = ft_substr(str, i, ft_strlen(str));
-		printf("%s\n", pr);
-		free(pr);
+		var.i = 5;
+		while (str[var.i] == 32)
+			var.i++;
+		var.pr = ft_substr(str, var.i, ft_strlen(str));
+		printf("%s\n", var.pr);
 	}
+	free_echo(&var);
 }
