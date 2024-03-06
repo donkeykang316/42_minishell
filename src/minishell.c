@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:41:47 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/06 10:58:14 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/06 14:51:45 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ static int	builtin_command(char *str, char *temp)
 {
 	if (!ft_memcmp(str, "echo ", 5))
 		ft_echo(str);
+	else if (!ft_memcmp(str, "pwd", 3))
+		ft_pwd(str);
+	else if (!ft_memcmp(str, "cd ", 3))
+		ft_cd(str);
 	else if (!ft_memcmp(str, "exit", 4))
 		return (0);
 	else

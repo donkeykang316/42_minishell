@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:10:54 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/06 10:40:04 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/06 14:51:04 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ static void	quotation_case(char *str, int c, t_echo *var, char *end)
 static void	std_echo(char *str, t_echo *var, int n, char *end)
 {
 	var->i = 5;
-	while (str[var->i] != n)
+	if (n == 110)
+	{
+		while (str[var->i] != n)
+			var->i++;
 		var->i++;
-	var->i++;
+	}
 	while (str[var->i] == 32)
 		var->i++;
 	var->pr = ft_substr(str, var->i, ft_strlen(str));
