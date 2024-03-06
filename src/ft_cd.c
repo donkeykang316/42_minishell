@@ -6,16 +6,16 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 11:00:18 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/06 14:22:53 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/06 15:23:44 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void	ft_chdir(char *pwd)
+static void	ft_chdir(char *str, char *pwd)
 {
 	if (chdir(pwd))
-		printf("Invalid path!\n");
+		printf("%s: No such directory\n", str);
 }
 
 void	ft_cd(char *str)
@@ -30,10 +30,17 @@ void	ft_cd(char *str)
 		while (pwd[len] != 47)
 			len--;
 		pwd[len] = '\0';
-		ft_chdir(pwd);
+		ft_chdir(str, pwd);
 		free(pwd);
 	}
 	else
-		printf("%s: No such directory\n", str);
+	{
+		len = 3;
+		while (str[len] == 32)
+			len++;
+		pwd = ft_substr(str, len, ft_strlen(str));
+		ft_chdir(str, pwd);
+		free(pwd);
+	}
 	free(str);
 }
