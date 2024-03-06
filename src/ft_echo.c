@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:10:54 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/06 10:19:24 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/06 10:40:04 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	case_loop(char *str, int c, t_echo *var, char *end)
 		var->temp2 = readline("quote> ");
 		var->temp2 = ft_strjoin(var->temp2, "\n");
 		var->temp1 = ft_strjoin(var->temp1, var->temp2);
+		free(var->temp2);
+		var->temp2 = NULL;
 		if (var->temp1[ft_strlen(var->temp1) - 2] == c)
 		{
 			var->temp1[ft_strlen(var->temp1) - 1] = '\0';
