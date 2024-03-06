@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 11:00:18 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/06 17:58:19 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/06 18:29:13 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ static void	ft_chdir(char *str, char *pwd)
 		printf("%s: No such directory\n", str);
 }
 
+static void	cd_back(char *str, char *pwd, int len)
+{
+	len = ft_strlen(pwd);
+	while (pwd[len] != 47)
+		len--;
+	pwd[len] = '\0';
+	ft_chdir(str, pwd);
+}
+
 void	ft_cd(char *str)
 {
 	char	*pwd;
@@ -25,14 +34,9 @@ void	ft_cd(char *str)
 	int		len;
 
 	pwd = getcwd(NULL, 0);
+	len = 0;
 	if (ft_strnstr(str, "..", ft_strlen(str)))
-	{
-		len = ft_strlen(pwd);
-		while (pwd[len] != 47)
-			len--;
-		pwd[len] = '\0';
-		ft_chdir(str, pwd);
-	}
+		cd_back(str, pwd, len);
 	else if (!ft_memcmp(pwd, str, ft_strlen(pwd)))
 	{
 		dpath = ft_substr(str, ft_strlen(pwd), ft_strlen(str));

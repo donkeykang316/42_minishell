@@ -2,10 +2,10 @@
 
 project structure (scratch)
 1. ?environment variables?
-2. echo with option -n (ready for proofread)
-3. exit with no options (ready for proofread)
-4. cd with only a relative or absolute path
-5. pwd with no options (ready for proofread)
+2. echo with option -n (ready for QA)
+3. exit with no options (ready for QA)
+4. cd with only a relative or absolute path (ready for QA)
+5. pwd with no options (ready for QA)
 6. export with no options
 7. unset with no options
 8. env with no options or arguments
