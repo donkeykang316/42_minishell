@@ -6,7 +6,7 @@
 #    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/06 14:53:02 by kaan             ###   ########.fr        #
+#    Updated: 2024/03/07 11:53:55 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC = $(SRC_DIR)minishell.c\
 		$(SRC_DIR)ft_echo_utils.c\
 		$(SRC_DIR)ft_pwd.c\
 		$(SRC_DIR)ft_cd.c\
+		$(SRC_DIR)ft_cd_utils.c\
 
 OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 
