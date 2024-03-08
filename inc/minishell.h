@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/07 12:03:18 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/07 16:22:56 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_cd
 	char	*pwd;
 	char	*dpath;
 	int		len;
+	int		i;
 }	t_cd;
 
 void	ft_echo(char *str);
@@ -43,5 +44,8 @@ void	ft_pwd(char *str);
 void	ft_cd(char *str);
 void	cd_init(t_cd *var);
 void	ft_chdir(char *str, char *pwd);
+void	ab_path(char *str, int c, t_cd *var);
+void	re_path(char *str, int c, t_cd *var);
+void	cd_back(char *str, int c, t_cd *var);
 
 #endif
