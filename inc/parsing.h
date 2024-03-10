@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/10 13:13:52 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/10 15:33:46 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,13 @@ typedef enum
 	
 } tokennames;
 
-void tokenize(char *str);
+void tokenize(char *str, t_token **token);
 t_token	*ft_lstnew_ms(char *content);
 t_token	*ft_lstlast_ms(t_token *lst);
 void	ft_lstadd_back_ms(t_token **lst, t_token *new);
+void	print_stack(t_token **tokens);
+void	ft_free(t_token **tokens);
+char	*ft_strdup_ms(char *s1);
+int	ft_strlen_ms(char *s);
 
 #endif
