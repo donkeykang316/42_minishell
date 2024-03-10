@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/10 15:33:46 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/10 16:10:59 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ typedef enum
 	
 } tokennames;
 
+// typedef enum
+// {
+// 	STRING = 11,
+// 	COMMAND = 12,
+// 	OPERATOR = 13,
+// }
+
+//lexing_token.c
 void tokenize(char *str, t_token **token);
 t_token	*ft_lstnew_ms(char *content);
 t_token	*ft_lstlast_ms(t_token *lst);
@@ -40,4 +48,6 @@ void	ft_free(t_token **tokens);
 char	*ft_strdup_ms(char *s1);
 int	ft_strlen_ms(char *s);
 
+//defining.c
+void assignment(t_token **tokens);
 #endif

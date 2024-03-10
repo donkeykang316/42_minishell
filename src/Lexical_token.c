@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:09 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/10 15:47:51 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/10 16:24:57 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int	main(void)
 	{
 		str = readline("[minishell]$ ");
 		tokenize(str, &tokens);
+		// assignment(&tokens);
 		print_stack(&tokens);
 		ft_free(&tokens);
 		free(str);
+		exit(1);
 	}
 	return (0);
 }
@@ -39,9 +41,9 @@ void tokenize(char *str, t_token **token)
 	int		j;
 
 	i = 0;
-	j = 0;
 	while(str[i] != '\0')
 	{
+		j = 0;
 		if (str[i] != ' ' && str[i] != '\n' && str[i] != '\t' && str[i] != '\0')
 		{
 			while(str[i + j] != ' ' && str[i + j] != '\n' && str[i + j] != '\t' && str[i + j] != '\0')
@@ -59,6 +61,8 @@ void tokenize(char *str, t_token **token)
 			ft_lstadd_back_ms(token, temp);
 			free(data);
 		}
+		if (str[i] == '\0')
+			break ;
 		i++;
 	}
 }
@@ -129,6 +133,7 @@ void	ft_free(t_token **tokens)
 	while (*tokens)
 	{
 		temp = (*tokens)->next;
+		free((*tokens)->value);
 		free(*tokens);
 		*tokens = temp;
 	}

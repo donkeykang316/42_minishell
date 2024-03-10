@@ -6,7 +6,7 @@
 #    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/10 15:42:08 by mdomnik          ###   ########.fr        #
+#    Updated: 2024/03/10 16:10:49 by mdomnik          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJ_DIR	= obj/
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror -I
+FLAGS = -g -Wall -Wextra -Werror -I
 
 READFLAG = -lreadline
 
@@ -36,6 +36,7 @@ SRC = $(SRC_DIR)minishell.c\
 		$(SRC_DIR)ft_cd_utils.c\
 		$(SRC_DIR)ft_env.c\
 		$(SRC_DIR)Lexical_token.c\
+		$(SRC_DIR)defining.c\
 
 OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 
