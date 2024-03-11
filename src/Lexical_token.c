@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:09 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/10 16:24:57 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/11 10:03:25 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ int	main(void)
 	{
 		str = readline("[minishell]$ ");
 		tokenize(str, &tokens);
-		// assignment(&tokens);
+		assignment(&tokens);
 		print_stack(&tokens);
 		ft_free(&tokens);
 		free(str);
-		exit(1);
 	}
 	return (0);
 }
