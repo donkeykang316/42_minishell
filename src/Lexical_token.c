@@ -6,12 +6,13 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:09 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/11 10:03:25 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:47:12 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+// main
 int	main(void)
 {
 	char	*str;
@@ -32,6 +33,7 @@ int	main(void)
 	return (0);
 }
 
+// skips whitespaces, and creates nodes from strings seperated by the whitespaces
 void tokenize(char *str, t_token **token)
 {
 	t_token	*temp;
@@ -66,6 +68,7 @@ void tokenize(char *str, t_token **token)
 	}
 }
 
+// creates new nodes, with parameters of t_token
 t_token	*ft_lstnew_ms(char *content)
 {
 	t_token	*element;
@@ -79,6 +82,7 @@ t_token	*ft_lstnew_ms(char *content)
 	return (element);
 }
 
+//adds new node to the back of the list
 void	ft_lstadd_back_ms(t_token **lst, t_token *new)
 {
 	t_token	*last;
@@ -93,6 +97,7 @@ void	ft_lstadd_back_ms(t_token **lst, t_token *new)
 	}
 }
 
+// finds the last element of the list
 t_token	*ft_lstlast_ms(t_token *lst)
 {
 	t_token	*temp;
@@ -107,6 +112,7 @@ t_token	*ft_lstlast_ms(t_token *lst)
 	return (temp);
 }
 
+//prints the entire stack (linked list)
 void	print_stack(t_token **token)
 {
 	t_token	*current;
@@ -123,6 +129,7 @@ void	print_stack(t_token **token)
 	}
 }
 
+// frees the stack
 void	ft_free(t_token **tokens)
 {
 	t_token	*temp;
@@ -139,6 +146,7 @@ void	ft_free(t_token **tokens)
 	*tokens = NULL;
 }
 
+// duplicates string
 char	*ft_strdup_ms(char *s1)
 {
 	char	*dest;
@@ -157,6 +165,7 @@ char	*ft_strdup_ms(char *s1)
 	return (dest);
 }
 
+// finds length of string
 int	ft_strlen_ms(char *s)
 {
 	int	i;

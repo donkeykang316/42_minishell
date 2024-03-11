@@ -6,12 +6,14 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:56 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/11 10:21:45 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:43:21 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+// this function loops through the tokenized linked list, and assigns values 
+// to the node->type parameter, which identifies what time of string it holds
 void assignment(t_token **tokens)
 {
 	t_token	*current;
@@ -26,6 +28,7 @@ void assignment(t_token **tokens)
 	}
 }
 
+// finds the type of the string (operator, command, string [check parsing.h])
 void	find_type(t_token *node)
 {
 	find_cmd(node);
@@ -34,6 +37,8 @@ void	find_type(t_token *node)
 		node->type = T_WORD;
 }
 
+//compares the string with names of commands, if perfect comparison, then assigns
+// corresponding value
 int	find_cmd(t_token *node)
 {
 	if (!ft_memcmp_ms(node->value, "echo"))
@@ -55,6 +60,7 @@ int	find_cmd(t_token *node)
 	return(0);
 }
 
+// compares the string with operands, assigns them if identical
 int	find_op(t_token *node)
 {
 	if (!ft_memcmp_ms(node->value, "|"))
@@ -72,6 +78,7 @@ int	find_op(t_token *node)
 	return(0);
 }
 
+//changed version of memcmp, checks the entire string, looking for the perfect match
 int	ft_memcmp_ms(const void *s1, const void *s2)
 {
 	char	*p1;
