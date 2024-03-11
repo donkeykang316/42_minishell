@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:09 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/11 14:47:12 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/11 21:10:05 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@
 int	main(void)
 {
 	char	*str;
-	char	*temp;
 	t_token	*tokens;
 	
 	tokens = NULL;
-	temp = NULL;
 	while (1)
 	{
 		str = readline("[minishell]$ ");
