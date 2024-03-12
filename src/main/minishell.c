@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:40:56 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/12 15:42:02 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/12 17:16:21 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	main(void)
 		str = readline("[minishell]$ ");
 		tokenize(str, &tokens);
 		assignment(&tokens);
-		print_stack(&tokens);
-		grammar();
+		//print_stack(&tokens);
+		grammar(tokens);
 		ft_free(&tokens);
 		free(str);
 	}
