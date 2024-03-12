@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/11 09:58:36 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/12 14:40:26 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
-# include <../inc/parsing.h>
+# include <../inc/lexer.h>
 
 typedef struct s_echo
 {

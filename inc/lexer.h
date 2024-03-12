@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/11 10:23:33 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/12 14:40:35 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef LEXER_H
+# define LEXER_H
 
 typedef struct s_token
 {
