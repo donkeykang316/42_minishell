@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Lexical_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:09 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/12 16:15:52 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/12 20:12:50 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	tok_loop(char *str, t_tmp *tp)
+static void	tok_loop(char *str, t_lextmp *tp)
 {
 	while (str[tp->i + tp->j] != ' ' && str[tp->i + tp->j] != '\n'
 		&& str[tp->i + tp->j] != '\t' && str[tp->i + tp->j] != '\0')
@@ -34,7 +34,7 @@ static void	tok_loop(char *str, t_tmp *tp)
 void	tokenize(char *str, t_token **token)
 {
 	t_token	*temp;
-	t_tmp	tp;
+	t_lextmp	tp;
 
 	tp.i = 0;
 	while (str[tp.i] != '\0')

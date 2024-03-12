@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grammar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:24:56 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/12 17:51:43 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/12 20:16:26 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 //trying to start parser
 void	grammar(t_token *tokens)
 {
-	while (tokens)
-	{
-		printf("grammar:%s\n", tokens->value);
-		tokens = tokens->next;
-	}
+	if (tokens->type < 10 || tokens->type > 70)
+		printf("%s: command not found\n", tokens->value);
+	tokens = tokens->next;
 }

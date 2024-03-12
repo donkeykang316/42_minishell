@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/12 16:07:36 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/12 20:12:17 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_tmp
+typedef struct s_lextmp
 {
 	char	*data;
 	int		i;
 	int		j;
-}	t_tmp;
+}	t_lextmp;
 
 typedef enum e_operators
 {
