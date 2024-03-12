@@ -1,1 +1,1 @@
-make && valgrind --leak-check=full ./minishell
+make && make clean && valgrind --leak-check=full ./minishell

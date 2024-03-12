@@ -18,6 +18,8 @@ INC	= inc/
 
 SRC_DIR = src/
 
+lEX_DIR = lexer/
+
 OBJ_DIR	= obj/
 
 CC = cc
@@ -28,17 +30,10 @@ READFLAG = -lreadline
 
 RM = rm -f
 
-SRC = $(SRC_DIR)minishell.c\
-		$(SRC_DIR)ft_echo.c\
-		$(SRC_DIR)ft_echo_utils.c\
-		$(SRC_DIR)ft_pwd.c\
-		$(SRC_DIR)ft_cd.c\
-		$(SRC_DIR)ft_cd_utils.c\
-		$(SRC_DIR)ft_env.c\
-		$(SRC_DIR)Lexical_token.c\
-		$(SRC_DIR)defining.c\
+SRC = 	src/lexer/Lexical_token.c\
+		src/lexer/defining.c\
 
-OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
+OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 
 start:
 	@make all
@@ -51,7 +46,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(FLAGS) $(INC) $(OBJ) $(LIBFT) $(READFLAG) -o $(NAME)
 
-$(OBJ_DIR)%.o:		$(SRC_DIR)%.c
+$(OBJ_DIR)%.o:		%.c
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) $(INC) -c $< -o $@
 

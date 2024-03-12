@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 // this function loops through the tokenized linked list, and assigns values 
 // to the node->type parameter, which identifies what time of string it holds
