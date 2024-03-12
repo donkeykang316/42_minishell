@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:41:47 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/10 10:15:58 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/12 16:18:20 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	builtin_command(char *str, char *temp)
 {
-	char *catstr;
-	
+	char	*catstr;
+
 	catstr = str;
 	while (*catstr == ' ')
 		catstr++;
@@ -37,5 +37,3 @@ int	builtin_command(char *str, char *temp)
 	}
 	return (1);
 }
-
-

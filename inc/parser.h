@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/12 15:43:53 by kaan             ###   ########.fr       */
+/*   Created: 2024/03/12 15:37:46 by kaan              #+#    #+#             */
+/*   Updated: 2024/03/12 15:50:23 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef PARSER_H
+# define PARSER_H
 
-# include "../lib/libft/inc/libft.h"
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdlib.h>
-# include "lexer.h"
-# include "parser.h"
-
-typedef struct s_echo
-{
-	char	*pr;
-	char	*temp1;
-	char	*temp2;
-	int		i;
-}	t_echo;
-
-typedef struct s_cd
-{
-	char	*pwd;
-	char	*dpath;
-	int		len;
-}	t_cd;
+void	grammar(void);
 
 #endif

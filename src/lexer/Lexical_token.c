@@ -3,66 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   Lexical_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 09:15:09 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/11 21:10:05 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/12 16:15:52 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// main
-int	main(void)
+static void	tok_loop(char *str, t_tmp *tp)
 {
-	char	*str;
-	t_token	*tokens;
-	
-	tokens = NULL;
-	while (1)
+	while (str[tp->i + tp->j] != ' ' && str[tp->i + tp->j] != '\n'
+		&& str[tp->i + tp->j] != '\t' && str[tp->i + tp->j] != '\0')
+		tp->j++;
+	tp->data = malloc((tp->j + 1) * sizeof(char));
+	tp->j = 0;
+	while (str[tp->i] != ' ' && str[tp->i] != '\n'
+		&& str[tp->i] != '\t' && str[tp->i] != '\0')
 	{
-		str = readline("[minishell]$ ");
-		tokenize(str, &tokens);
-		assignment(&tokens);
-		print_stack(&tokens);
-		ft_free(&tokens);
-		free(str);
+		tp->data[tp->j] = str[tp->i];
+		tp->j++;
+		tp->i++;
 	}
-	return (0);
+	tp->data[tp->j] = '\0';
 }
 
-// skips whitespaces, and creates nodes from strings seperated by the whitespaces
-void tokenize(char *str, t_token **token)
+// skips whitespaces, and creates nodes from
+// strings seperated by the whitespaces
+void	tokenize(char *str, t_token **token)
 {
 	t_token	*temp;
-	char	*data;
-	int		i;
-	int		j;
+	t_tmp	tp;
 
-	i = 0;
-	while(str[i] != '\0')
+	tp.i = 0;
+	while (str[tp.i] != '\0')
 	{
-		j = 0;
-		if (str[i] != ' ' && str[i] != '\n' && str[i] != '\t' && str[i] != '\0')
+		tp.j = 0;
+		if (str[tp.i] != ' ' && str[tp.i] != '\n'
+			&& str[tp.i] != '\t' && str[tp.i] != '\0')
 		{
-			while(str[i + j] != ' ' && str[i + j] != '\n' && str[i + j] != '\t' && str[i + j] != '\0')
-				j++;
-			data = malloc((j + 1) * sizeof(char));
-			j = 0;
-			while(str[i] != ' ' && str[i] != '\n' && str[i] != '\t' && str[i] != '\0')
-			{
-				data[j] = str[i];
-				j++;
-				i++;
-			}
-			data[j] = '\0';
-			temp = ft_lstnew_ms(data);
+			tok_loop(str, &tp);
+			temp = ft_lstnew_ms(tp.data);
 			ft_lstadd_back_ms(token, temp);
-			free(data);
+			free(tp.data);
 		}
-		if (str[i] == '\0')
+		if (str[tp.i] == '\0')
 			break ;
-		i++;
+		tp.i++;
 	}
 }
 
@@ -108,70 +96,4 @@ t_token	*ft_lstlast_ms(t_token *lst)
 		temp = temp->next;
 	}
 	return (temp);
-}
-
-//prints the entire stack (linked list)
-void	print_stack(t_token **token)
-{
-	t_token	*current;
-	current = (*token);
-	if (token == NULL)
-	{
-		printf("Stack is empty\n");
-	}
-	printf("Stack contents:\n");
-	while (current != NULL)
-	{
-		printf("%s\n", current->value);
-		current = current->next;
-	}
-}
-
-// frees the stack
-void	ft_free(t_token **tokens)
-{
-	t_token	*temp;
-
-	if (!tokens)
-		return ;
-	while (*tokens)
-	{
-		temp = (*tokens)->next;
-		free((*tokens)->value);
-		free(*tokens);
-		*tokens = temp;
-	}
-	*tokens = NULL;
-}
-
-// duplicates string
-char	*ft_strdup_ms(char *s1)
-{
-	char	*dest;
-	size_t	i;
-
-	dest = (char *) malloc(ft_strlen_ms(s1) + 1);
-	i = 0;
-	if (!dest)
-		return (NULL);
-	while (s1[i])
-	{
-		dest[i] = s1[i];
-		i++;
-	}
-	dest[i] = 0;
-	return (dest);
-}
-
-// finds length of string
-int	ft_strlen_ms(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
 }

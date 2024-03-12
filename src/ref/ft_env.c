@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:32:57 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/08 10:37:07 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/12 16:16:46 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void ft_env(char *str)
+void	ft_env(char *str)
 {
-	char *env;
+	char	*env;
 
 	env = getenv(str);
 	printf("%s\n", env);

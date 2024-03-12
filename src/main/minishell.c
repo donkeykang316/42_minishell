@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/12 15:43:53 by kaan             ###   ########.fr       */
+/*   Created: 2024/03/12 15:40:56 by kaan              #+#    #+#             */
+/*   Updated: 2024/03/12 15:42:02 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../inc/minishell.h"
 
-# include "../lib/libft/inc/libft.h"
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdlib.h>
-# include "lexer.h"
-# include "parser.h"
-
-typedef struct s_echo
+// main
+int	main(void)
 {
-	char	*pr;
-	char	*temp1;
-	char	*temp2;
-	int		i;
-}	t_echo;
+	char	*str;
+	t_token	*tokens;
 
-typedef struct s_cd
-{
-	char	*pwd;
-	char	*dpath;
-	int		len;
-}	t_cd;
-
-#endif
+	tokens = NULL;
+	while (1)
+	{
+		str = readline("[minishell]$ ");
+		tokenize(str, &tokens);
+		assignment(&tokens);
+		print_stack(&tokens);
+		grammar();
+		ft_free(&tokens);
+		free(str);
+	}
+	return (0);
+}

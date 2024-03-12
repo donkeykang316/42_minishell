@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/10 16:10:49 by mdomnik          ###   ########.fr        #
+#    Updated: 2024/03/12 16:13:51 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,6 @@ NAME = minishell
 LIBFT = ./lib/libft/libft.a
 
 INC	= inc/
-
-SRC_DIR = src/
-
-lEX_DIR = lexer/
 
 OBJ_DIR	= obj/
 
@@ -30,8 +26,11 @@ READFLAG = -lreadline
 
 RM = rm -f
 
-SRC = 	src/lexer/Lexical_token.c\
+SRC = 	src/main/minishell.c\
+		src/lexer/Lexical_token.c\
+		src/lexer/lex_uti.c\
 		src/lexer/defining.c\
+		src/parser/grammar.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 

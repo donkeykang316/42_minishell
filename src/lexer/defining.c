@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defining.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:56 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/11 14:43:21 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/12 15:53:53 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 // this function loops through the tokenized linked list, and assigns values 
 // to the node->type parameter, which identifies what time of string it holds
-void assignment(t_token **tokens)
+void	assignment(t_token **tokens)
 {
 	t_token	*current;
+
 	current = (*tokens);
 	if (tokens == NULL)
 		printf("Stack is empty\n");
@@ -37,8 +38,8 @@ void	find_type(t_token *node)
 		node->type = T_WORD;
 }
 
-//compares the string with names of commands, if perfect comparison, then assigns
-// corresponding value
+//compares the string with names of commands, if perfect comparison,
+//then assigns corresponding value
 int	find_cmd(t_token *node)
 {
 	if (!ft_memcmp_ms(node->value, "echo"))
@@ -56,8 +57,8 @@ int	find_cmd(t_token *node)
 	else if (!ft_memcmp_ms(node->value, "exit"))
 		node->type = T_EXIT;
 	if (node->type != 0)
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
 // compares the string with operands, assigns them if identical
@@ -74,18 +75,19 @@ int	find_op(t_token *node)
 	else if (!ft_memcmp_ms(node->value, ">>"))
 		node->type = T_APPEND;
 	if (node->type != 0)
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
-//changed version of memcmp, checks the entire string, looking for the perfect match
+//changed version of memcmp, checks the entire string,
+//looking for the perfect match
 int	ft_memcmp_ms(const void *s1, const void *s2)
 {
 	char	*p1;
 	char	*p2;
 	int		i;
 	int		len;
-	
+
 	p1 = (char *)s1;
 	p2 = (char *)s2;
 	len = ft_strlen_ms(p1);
