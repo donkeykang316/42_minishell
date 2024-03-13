@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:37:45 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 15:49:14 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 16:06:05 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char *trim_whitespace(char *str)
 		temp[k] = str[i + k];
 		k++;
 	}
-	temp[k] = '\0';
 	return(temp);
 }
 
