@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:37:45 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 14:46:06 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:39:49 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,58 @@ char *trim_whitespace(char *str)
 	}
 	temp[k] = '\0';
 	return(temp);
+}
+
+//changed version of memcmp, checks the entire string,
+//looking for the perfect match
+int	ft_memcmp_ms(const void *s1, const void *s2)
+{
+	char	*p1;
+	char	*p2;
+	int		i;
+	int		len;
+
+	p1 = (char *)s1;
+	p2 = (char *)s2;
+	len = ft_strlen_ms(p1);
+	i = 0;
+	if (len != ft_strlen_ms(p2))
+		return (-1);
+	while (i < len)
+	{
+		if (p1[i] != p2[i])
+		{
+			return (p1[i] - p2[i]);
+		}
+		i++;
+	}
+	return (0);
+}
+
+// finds length of string
+int	ft_strlen_ms(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	check_token(char *str)
+{
+	if (!ft_memcmp_ms(str, "|"))
+		return(T_PIPE);
+	else if (!ft_memcmp_ms(str, ">"))
+		return(T_GREATER);
+	else if (!ft_memcmp_ms(str, "<"))
+		return(T_LESSER);
+	else if (!ft_memcmp_ms(str, "<<"))
+		return(T_HEREDOC);
+	else if (!ft_memcmp_ms(str, ">>"))
+		return(T_APPEND);
+	return (T_WORD);
 }

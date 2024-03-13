@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_uti.c                                          :+:      :+:    :+:   */
+/*   lex_uti_legacy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:57:04 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/12 16:15:59 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/13 15:39:39 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,7 @@ char	*ft_strdup_ms(char *s1)
 	return (dest);
 }
 
-// finds length of string
-int	ft_strlen_ms(char *s)
-{
-	int	i;
 
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
-}
 
 //prints the entire stack (linked list)
 void	print_stack(t_token **token)

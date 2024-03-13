@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defining.c                                         :+:      :+:    :+:   */
+/*   defining_legacy.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:54:56 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/12 15:53:53 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/13 15:27:44 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,45 +62,4 @@ int	find_cmd(t_token *node)
 }
 
 // compares the string with operands, assigns them if identical
-int	find_op(t_token *node)
-{
-	if (!ft_memcmp_ms(node->value, "|"))
-		node->type = T_PIPE;
-	else if (!ft_memcmp_ms(node->value, ">"))
-		node->type = T_GREATER;
-	else if (!ft_memcmp_ms(node->value, "<"))
-		node->type = T_LESSER;
-	else if (!ft_memcmp_ms(node->value, "<<"))
-		node->type = T_HEREDOC;
-	else if (!ft_memcmp_ms(node->value, ">>"))
-		node->type = T_APPEND;
-	if (node->type != 0)
-		return (1);
-	return (0);
-}
 
-//changed version of memcmp, checks the entire string,
-//looking for the perfect match
-int	ft_memcmp_ms(const void *s1, const void *s2)
-{
-	char	*p1;
-	char	*p2;
-	int		i;
-	int		len;
-
-	p1 = (char *)s1;
-	p2 = (char *)s2;
-	len = ft_strlen_ms(p1);
-	i = 0;
-	if (len != ft_strlen_ms(p2))
-		return (-1);
-	while (i < len)
-	{
-		if (p1[i] != p2[i])
-		{
-			return (p1[i] - p2[i]);
-		}
-		i++;
-	}
-	return (0);
-}

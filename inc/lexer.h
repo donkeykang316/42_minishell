@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:41:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 14:35:10 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:41:19 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_global t_global;
 //gives num values to operators (tokenizes)
 typedef enum s_tokens
 {
+	T_WORD = 0,
 	T_PIPE = 1,
 	T_GREATER = 2,
 	T_LESSER = 3,
@@ -42,6 +43,7 @@ typedef struct s_lexer
 
 // token_process.c
 int	prompt_lexing(t_global **global);
+int create_node(t_global **global, int	i);
 
 // utils/lexer_utils.c
 t_lexer	*lexernew_ms(char *word, int token);
@@ -51,5 +53,8 @@ t_lexer *lexerfreelist_ms(t_lexer **lst);
 // utils/lexer_utils2.c
 int is_whitespace(char c);
 char *trim_whitespace(char *str);
+int	ft_memcmp_ms(const void *s1, const void *s2);
+int	ft_strlen_ms(char *s);
+int	check_token(char *str);
 
 #endif
