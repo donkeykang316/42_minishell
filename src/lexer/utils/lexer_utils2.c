@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/13 13:16:36 by mdomnik          ###   ########.fr       */
+/*   Created: 2024/03/13 12:37:45 by mdomnik           #+#    #+#             */
+/*   Updated: 2024/03/13 12:49:11 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../../inc/minishell.h"
 
-# include "../lib/libft/inc/libft.h"
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdlib.h>
-# include "lexer.h"
-# include "parser.h"
-
-#define CL_NAME "[minishell]$ "
-
-typedef struct s_global
+//checks whether a character is a whitespace (space, tabs, carrage ret)
+int is_whitespace(char c)
 {
-	char		*prompt;
-	t_lexer		*lexer;
-} t_global;
-
-// int ms_loop(t_util *utils, t_token *tokens);
-
-#endif
+	if (c == 32 || (c >= 9 && c <= 13))
+		return(1);
+	return(0);
+}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/12 16:13:51 by kaan             ###   ########.fr        #
+#    Updated: 2024/03/13 12:49:01 by mdomnik          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ READFLAG = -lreadline
 RM = rm -f
 
 SRC = 	src/main/minishell.c\
-		src/lexer/Lexical_token.c\
-		src/lexer/lex_uti.c\
-		src/lexer/defining.c\
+		src/lexer/utils/token_process.c\
+		src/lexer/utils/lexer_utils.c\
+		src/lexer/utils/lexer_utils2.c\
 		src/parser/grammar.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
