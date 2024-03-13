@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:09:17 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 12:49:18 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:54:36 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_lexer *lexerfreelist_ms(t_lexer **lst)
 
 	temp = *lst;
 	if (!(*lst))
-		return ;
+		return (NULL);
 	while (*lst)
 	{
 		temp = (*lst)->next;
@@ -63,4 +63,5 @@ t_lexer *lexerfreelist_ms(t_lexer **lst)
 		*lst = temp;
 	}
 	*lst = NULL;
+	return (NULL);
 }

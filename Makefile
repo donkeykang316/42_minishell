@@ -6,7 +6,7 @@
 #    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/13 12:49:01 by mdomnik          ###   ########.fr        #
+#    Updated: 2024/03/13 13:45:22 by mdomnik          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ READFLAG = -lreadline
 RM = rm -f
 
 SRC = 	src/main/minishell.c\
-		src/lexer/utils/token_process.c\
+		src/lexer/token_process.c\
 		src/lexer/utils/lexer_utils.c\
 		src/lexer/utils/lexer_utils2.c\
 		src/parser/grammar.c\

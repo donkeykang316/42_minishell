@@ -6,16 +6,17 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:41:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 13:23:23 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 14:35:10 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-//struct for lexer linked list
-//stores words(delimited by whitespace), tokens (from s_token struct),
-//position in the index, adresses of previous and next nodes
+#include "minishell.h"
+
+//prototyping global struct
+typedef struct s_global t_global;
 
 //gives num values to operators (tokenizes)
 typedef enum s_tokens
@@ -27,13 +28,16 @@ typedef enum s_tokens
 	T_APPEND = 5,	
 }	t_tokens;
 
+//struct for lexer linked list
+//stores words(delimited by whitespace), tokens (from s_token struct),
+//position in the index, adresses of previous and next nodes
 typedef struct s_lexer
 {
 	char			*word;
 	t_tokens		token;
 	int				index;
-	struct t_lexer	*prev;
-	struct t_lexer	*next;
+	struct s_lexer	*prev;
+	struct s_lexer	*next;
 } t_lexer;
 
 // token_process.c
@@ -46,5 +50,6 @@ t_lexer *lexerfreelist_ms(t_lexer **lst);
 
 // utils/lexer_utils2.c
 int is_whitespace(char c);
+char *trim_whitespace(char *str);
 
 #endif

@@ -6,11 +6,12 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:48:26 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 13:24:58 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 14:47:55 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+// #include "../../inc/minishell.h"
+#include "../../inc/lexer.h"
 
 int	prompt_lexing(t_global **global)
 {
@@ -18,10 +19,16 @@ int	prompt_lexing(t_global **global)
 	int		i;
 	
 	i = 0;
-	(void **)global;
 	temp = (*global)->lexer;
-	while ((*global)->prompt[i] != EOF)
-	{
-		printf("%d\n", i);	
+	(*global)->prompt = trim_whitespace((*global)->prompt);
+	while ((*global)->prompt[i] != '\0')
+	{	
+		if (!is_whitespace((*global)->prompt[i]))
 	}
+	if ((*global)->prompt[i] == '\0')
+	{
+		printf("%d\n", i);
+		return(1);
+	}
+	return (1);
 }
