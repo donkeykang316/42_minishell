@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:09:17 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 13:54:36 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:35:04 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_lexer	*lexernew_ms(char *word, int token)
 	element = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!element)
 		return (NULL);
-	element->word = word;
+	if (word)
+		element->word = ft_strdup(word);
 	element->token = token;
 	element->index = i++;
 	element->prev = NULL;

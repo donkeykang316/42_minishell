@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:37:45 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 16:06:05 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:17:14 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 //checks whether a character is a whitespace (space, tabs, carrage ret)
 int is_whitespace(char c)
+{
+	if (c == 32 || (c >= 9 && c <= 13))
+		return(1);
+	return(0);
+}
+
+int is_whitespace_null(char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13) || c == '\0')
 		return(1);
@@ -43,6 +50,7 @@ char *trim_whitespace(char *str)
 		temp[k] = str[i + k];
 		k++;
 	}
+	temp[k] = '\0';
 	return(temp);
 }
 

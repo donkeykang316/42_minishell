@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:41:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 15:41:19 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:17:28 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_lexer *lexerfreelist_ms(t_lexer **lst);
 
 // utils/lexer_utils2.c
 int is_whitespace(char c);
+int is_whitespace_null(char c);
 char *trim_whitespace(char *str);
 int	ft_memcmp_ms(const void *s1, const void *s2);
 int	ft_strlen_ms(char *s);

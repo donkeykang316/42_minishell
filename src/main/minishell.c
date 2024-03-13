@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:40:56 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/13 16:04:25 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:35:48 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,16 @@ int	main(int argc, char **argv, char **envp)
 
 int ms_loop(t_global *global)
 {
+	global->lexer = NULL;
 	while (1)
 	{
 		global->prompt = readline(CL_NAME);
 		if (!prompt_lexing(&global))
 			printf("ERROR\n"); //change to an actual error escape
-		print_stack(&global);
+		// print_stack(&global);
+		// lexerfreelist_ms(&(global)->lexer);
+		// free(global->prompt);
+		// global->prompt = NULL;
 	}
 	return (0);
 }
@@ -50,6 +54,9 @@ void	print_stack(t_global **global)
 		printf("word: [%s] ", current->word);
 		printf("token: [%d] ", current->token);
 		printf("index: [%d]\n", current->index);
+		// printf("add: [%p]", current);
+		// printf("next: [%p]\n", current->next);
+		// printf("prev: [%p]\n", current->prev);
 		current = current->next;
 	}
 }

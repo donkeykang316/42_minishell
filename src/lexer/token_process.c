@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:48:26 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 15:50:25 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:35:33 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ int	prompt_lexing(t_global **global)
 	(*global)->prompt = trim_whitespace((*global)->prompt);
 	while ((*global)->prompt[i] != '\0')
 	{	
-		if(!is_whitespace((*global)->prompt[i]))
+		if(!is_whitespace_null((*global)->prompt[i]))
 			i += create_node(global, i);
+		if((*global)->prompt[i] == '\0')
+			break;
 		i++;
 	}
 	return (1);
@@ -44,7 +46,7 @@ int create_node(t_global **global, int	i)
 		j++;
 	temp = (char *)malloc((j + 1) * sizeof(char));
 	j = 0;
-	while(!is_whitespace((*global)->prompt[i + j]))
+	while(!is_whitespace_null((*global)->prompt[i + j]))
 	{
 		temp[j] = (*global)->prompt[i + j];
 		j++;
