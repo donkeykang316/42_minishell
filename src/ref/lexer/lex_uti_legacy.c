@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:57:04 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/13 15:39:39 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:51:07 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,4 @@ char	*ft_strdup_ms(char *s1)
 
 
 
-//prints the entire stack (linked list)
-void	print_stack(t_token **token)
-{
-	t_token	*current;
 
-	current = (*token);
-	if (token == NULL)
-	{
-		printf("Stack is empty\n");
-	}
-	printf("Stack contents:\n");
-	while (current != NULL)
-	{
-		printf("%s\n", current->value);
-		current = current->next;
-	}
-}

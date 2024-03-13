@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/13 14:17:27 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:56:22 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ typedef struct s_global
 
 // int ms_loop(t_util *utils, t_token *tokens);
 int ms_loop(t_global *global);
+void	print_stack(t_global **global);
 
 #endif

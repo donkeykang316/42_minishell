@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:37:45 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 15:39:49 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:49:14 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //checks whether a character is a whitespace (space, tabs, carrage ret)
 int is_whitespace(char c)
 {
-	if (c == 32 || (c >= 9 && c <= 13))
+	if (c == 32 || (c >= 9 && c <= 13) || c == '\0')
 		return(1);
 	return(0);
 }
@@ -86,6 +86,9 @@ int	ft_strlen_ms(char *s)
 	return (i);
 }
 
+
+//compares the string with names of tokens, if perfect comparison,
+//then assigns corresponding value
 int	check_token(char *str)
 {
 	if (!ft_memcmp_ms(str, "|"))

@@ -6,13 +6,14 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:48:26 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 15:44:38 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:50:25 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "../../inc/minishell.h"
 #include "../../inc/lexer.h"
 
+//trims whitespace and when it finds a word it creates a node from it
 int	prompt_lexing(t_global **global)
 {
 	t_lexer	*temp;
@@ -30,6 +31,8 @@ int	prompt_lexing(t_global **global)
 	return (1);
 }
 
+//scans the future node word and checks if its a token, creates node
+// accordingly
 int create_node(t_global **global, int	i)
 {
 	t_lexer	*new;
@@ -52,6 +55,7 @@ int create_node(t_global **global, int	i)
 	else
 		new = lexernew_ms(NULL, (check_token(temp)));
 	lexeraddback_ms(&(*global)->lexer, new);
+	free(temp);
 	return (j);
 }
 
