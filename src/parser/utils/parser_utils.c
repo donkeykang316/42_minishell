@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:22:44 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/14 13:45:37 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 17:00:52 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_parser	*parsernew_ms(char *cmd, char *content, int redir, int x)
 	else
 		element->cmd = NULL;
 	if (content)
-		element->content = content;
+		element->content = ft_strdup(content);
 	else
 		element->content = NULL;
 	element->redirection = redir;

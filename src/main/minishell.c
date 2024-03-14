@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:40:56 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/14 16:44:01 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 17:09:16 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int ms_loop(t_global *global)
 			error_seq(global, "lexing failed", 1);
 		if (!define_groups(&global))
 			error_seq(global, "parsing failed", 1);
-		error_seq(global, "Finished", 0);
+		print_lexer(&global);
 		print_parser(&global);
+		error_seq(global, "Finished", 0);
 	}
 	return (0);
 }

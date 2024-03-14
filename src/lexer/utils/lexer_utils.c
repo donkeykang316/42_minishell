@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:09:17 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/14 11:41:06 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 17:25:40 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,33 @@ t_lexer *lexerfreelist_ms(t_lexer **lst)
 	}
 	*lst = NULL;
 	return (NULL);
+}
+
+void delete_node_at_index(t_lexer **lexer, int index)
+{
+	t_lexer *current = *lexer;
+
+	if (*lexer == NULL)
+	{
+		printf("List is empty. Cannot delete.\n");
+		return;
+	}
+	if (index == 0)
+	{
+		*lexer = current->next;
+		if (*lexer != NULL)
+			(*lexer)->prev = NULL;
+		free(current);
+		return;
+	}
+	while (current->index != index)
+		current = current->next;
+	if (current == NULL) {
+		printf("Index out of range. Cannot delete.\n");
+		return;
+	}
+	current->prev->next = current->next;
+	if (current->next != NULL)
+		current->next->prev = current->prev;
+	free(current);
 }

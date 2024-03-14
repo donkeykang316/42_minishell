@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:41:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/14 12:01:52 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 17:22:49 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int create_quote_node(t_global **global, int	i, char	c, int x);
 t_lexer	*lexernew_ms(char *word, int token, int x);
 void	lexeraddback_ms(t_lexer **lst, t_lexer *new);
 t_lexer *lexerfreelist_ms(t_lexer **lst);
+void delete_node_at_index(t_lexer **lexer, int index);
 
 // utils/lexer_utils2.c
 int is_whitespace_null(char c);
