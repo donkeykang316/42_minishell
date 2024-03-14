@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:40:56 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/14 17:09:16 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 20:37:35 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	print_parser(t_global **global)
 	while (current != NULL)
 	{
 		printf("cmd: [%s] ", current->cmd);
-		printf("content: [%s] ", current->content);
-		printf("redir: [%d] ", current->redirection);
+		// printf("content: [%s] ", current->content);
+		// printf("redir: [%d] ", current->redirection);
 		printf("index: [%d]\n", current->index);
 		// printf("add: [%p]", current);
 		// printf("next: [%p]\n", current->next);

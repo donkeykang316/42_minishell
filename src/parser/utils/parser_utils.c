@@ -6,29 +6,34 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:22:44 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/14 17:00:52 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 20:22:50 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/minishell.h"
 
 //creates new node in the parser linked list
-t_parser	*parsernew_ms(char *cmd, char *content, int redir, int x)
+t_parser	*parsernew_ms(char *cmd, char *options, int redir, int x)
 {
 	t_parser		*element;
+	t_args			*argument;
+	t_redir			*redirection;
 
 	element = (t_parser *)malloc(sizeof(t_parser));
+	argument = (t_args *)malloc(sizeof(t_args));
+    redirection = (t_redir *)malloc(sizeof(t_redir));
 	if (!element)
 		return (NULL);
 	if (cmd)
 		element->cmd = ft_strdup(cmd);
 	else
 		element->cmd = NULL;
-	if (content)
-		element->content = ft_strdup(content);
+	if (options)
+		element->options = ft_strdup(options);
 	else
-		element->content = NULL;
-	element->redirection = redir;
+		element->options = NULL;
+	element->redir = redirection;
+	element->args = argument;
 	element->index = x;
 	element->prev = NULL;
 	element->next = NULL;
@@ -65,11 +70,15 @@ t_parser *parserfreelist_ms(t_parser **lst)
 		temp = (*lst)->next;
 		if ((*lst)->cmd)
 			free ((*lst)->cmd);
-		if ((*lst)->content)
-			free((*lst)->content);
+		if ((*lst)->options)
+			free((*lst)->options);
 		free(*lst);
 		*lst = temp;
 	}
+	argsfreelist_ms((*lst)->args);
+	redirfreelist_ms((*lst)->redir);
 	*lst = NULL;
 	return (NULL);
 }
+
+

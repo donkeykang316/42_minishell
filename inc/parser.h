@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:37:46 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/14 18:00:53 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 20:48:41 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,43 @@
 //prototyping global struct
 typedef struct s_global t_global;
 
-typedef struct s_parser //become redirection
+typedef struct s_redir //become redirection
 {
-	int		redirection;
-	char	*content;
+	int					redirection;
+	char				*content;
 	struct  s_parser	*prev;
 	struct  s_parser	*next;
-} t_parser;
+} t_redir;
 
-typedef struct s_temp //become args
+typedef struct s_args //become args
 {
-	char	*content;
-	int		index;	
-	struct  s_args	 *prev;
-	struct  s_args	 *next;
-} t_temp;
-
-typedef struct s_args
-{
-	char	*cmd;
-	char	*options;
-	struct  s_temp   *temp;
-	struct  s_parser *parser; 
+	char			*content;
+	int				 index;	
 	struct  s_args	 *prev;
 	struct  s_args	 *next;
 } t_args;
+
+typedef struct s_parser
+{
+	char			*cmd;
+	char			*options;
+	int				index;
+	
+	struct  s_args   *args;
+	struct  s_redir  *redir; 
+	struct  s_args	 *prev;
+	struct  s_args	 *next;
+} t_parser;
+
+// utils/args_utils.c
+t_args	*argsnew_ms(char *content, int x);
+void	argsaddback_ms(t_args **lst, t_args *new);
+t_args	*argsfreelist_ms(t_args **lst);
+
+// utils/redir_utils.c
+t_redir	*redirnew_ms(char *content, int redir);
+void	rediraddback_ms(t_redir **lst, t_redir *new);
+t_redir *redirfreelist_ms(t_redir **lst);
 
 // utils/parser_utils.c
 t_parser	*parsernew_ms(char *cmd, char *content, int redir, int x);
