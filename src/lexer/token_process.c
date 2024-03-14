@@ -6,12 +6,28 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:48:26 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/14 16:42:46 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 20:53:51 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "../../inc/minishell.h"
 #include "../../inc/lexer.h"
+
+//ADD SPLITTING TOMORROW INTO PIPES
+int split_commands(t_global **global)
+{
+	t_lexer	*lexer;
+
+	lexer = (*global)->lexer;
+	while(lexer->next != NULL)
+	{
+		if (lexer->token == T_PIPE)
+		{
+			
+		}
+		lexer->next
+	}
+}
 
 //trims whitespace and when it finds a word it creates a node from it
 int	prompt_lexing(t_global **global)

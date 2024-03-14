@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:16:25 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/14 20:47:51 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 20:53:14 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,6 @@
 
 //start by grouping all redirections with the following strings, if strings are (nil) error
 //join them in parser, reduce until all left is cmd and inputs
-
-
-int split_commands(t_global **global)
-{
-	t_lexer	*lexer;
-
-	lexer = (*global)->lexer;
-	while(lexer->next != NULL)
-	{
-		if (lexer->token == T_PIPE)
-		{
-			
-		}
-	}
-}
-
-
-
 
 /* int	define_groups(t_global **global)
 {
