@@ -1,40 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 12:09:17 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/14 11:41:06 by mdomnik          ###   ########.fr       */
+/*   Created: 2024/03/14 13:22:44 by mdomnik           #+#    #+#             */
+/*   Updated: 2024/03/14 13:45:37 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/minishell.h"
 
-//creates a new node in the lexer linked list
-t_lexer	*lexernew_ms(char *word, int token, int x)
+//creates new node in the parser linked list
+t_parser	*parsernew_ms(char *cmd, char *content, int redir, int x)
 {
-	t_lexer		*element;
+	t_parser		*element;
 
-	element = (t_lexer *)malloc(sizeof(t_lexer));
+	element = (t_parser *)malloc(sizeof(t_parser));
 	if (!element)
 		return (NULL);
-	if (word)
-		element->word = ft_strdup(word);
+	if (cmd)
+		element->cmd = ft_strdup(cmd);
 	else
-		element->word = NULL;
-	element->token = token;
+		element->cmd = NULL;
+	if (content)
+		element->content = content;
+	else
+		element->content = NULL;
+	element->redirection = redir;
 	element->index = x;
 	element->prev = NULL;
 	element->next = NULL;
 	return (element);
 }
 
-//adds new node to the back of the lexer linked list
-void	lexeraddback_ms(t_lexer **lst, t_lexer *new)
+//adds new node to the back of the parser linked list
+void	parseraddback_ms(t_parser **lst, t_parser *new)
 {
-	t_lexer		*temp;
+	t_parser		*temp;
 
 	temp = *lst;
 	if (*lst == NULL)
@@ -48,10 +52,10 @@ void	lexeraddback_ms(t_lexer **lst, t_lexer *new)
 	new->prev = temp;	
 }
 
-//frees the lexer linked list
-t_lexer *lexerfreelist_ms(t_lexer **lst)
+//frees the parser linked list
+t_parser *parserfreelist_ms(t_parser **lst)
 {
-	t_lexer *temp;
+	t_parser *temp;
 
 	temp = *lst;
 	if (!(*lst))
@@ -59,8 +63,10 @@ t_lexer *lexerfreelist_ms(t_lexer **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
-		if ((*lst)->word)
-			free ((*lst)->word);
+		if ((*lst)->cmd)
+			free ((*lst)->cmd);
+		if ((*lst)->content)
+			free((*lst)->content);
 		free(*lst);
 		*lst = temp;
 	}

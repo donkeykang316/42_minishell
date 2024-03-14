@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:41:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/13 18:17:28 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 12:01:52 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef enum s_tokens
 	T_GREATER = 2,
 	T_LESSER = 3,
 	T_HEREDOC = 4,
-	T_APPEND = 5,	
+	T_APPEND = 5,
+	T_REPLACE = 6,
 }	t_tokens;
 
 //struct for lexer linked list
@@ -43,19 +44,21 @@ typedef struct s_lexer
 
 // token_process.c
 int	prompt_lexing(t_global **global);
-int create_node(t_global **global, int	i);
+int create_node(t_global **global, int	i, int x);
+int create_quote_node(t_global **global, int	i, char	c, int x);
 
 // utils/lexer_utils.c
-t_lexer	*lexernew_ms(char *word, int token);
+t_lexer	*lexernew_ms(char *word, int token, int x);
 void	lexeraddback_ms(t_lexer **lst, t_lexer *new);
 t_lexer *lexerfreelist_ms(t_lexer **lst);
 
 // utils/lexer_utils2.c
-int is_whitespace(char c);
 int is_whitespace_null(char c);
+int is_quote(char c);
 char *trim_whitespace(char *str);
 int	ft_memcmp_ms(const void *s1, const void *s2);
 int	ft_strlen_ms(char *s);
 int	check_token(char *str);
+int finddollar_typecheck(char *str, char c);
 
 #endif

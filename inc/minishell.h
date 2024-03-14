@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/13 18:08:49 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 16:42:03 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,16 @@ typedef struct s_global
 {
 	char				*prompt;
 	struct s_lexer		*lexer;
+	struct s_parser		*parser;
 } 				t_global;
 
+//Error_free.c
+void error_seq(t_global *global, char *error, int xit);
+
 // int ms_loop(t_util *utils, t_token *tokens);
-int ms_loop(t_global *global);
-void	print_stack(t_global **global);
+int 	ms_loop(t_global *global);
+void	print_lexer(t_global **global);
+void	print_parser(t_global **global);
+
 
 #endif

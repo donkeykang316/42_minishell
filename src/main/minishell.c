@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:40:56 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/13 18:35:48 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/14 16:44:01 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,22 @@ int	main(int argc, char **argv, char **envp)
 int ms_loop(t_global *global)
 {
 	global->lexer = NULL;
+	global->parser = NULL;
 	while (1)
 	{
 		global->prompt = readline(CL_NAME);
 		if (!prompt_lexing(&global))
-			printf("ERROR\n"); //change to an actual error escape
-		// print_stack(&global);
-		// lexerfreelist_ms(&(global)->lexer);
-		// free(global->prompt);
-		// global->prompt = NULL;
+			error_seq(global, "lexing failed", 1);
+		if (!define_groups(&global))
+			error_seq(global, "parsing failed", 1);
+		error_seq(global, "Finished", 0);
+		print_parser(&global);
 	}
 	return (0);
 }
 
 //prints the entire stack (linked list)
-void	print_stack(t_global **global)
+void	print_lexer(t_global **global)
 {
 	t_lexer	*current;
 
@@ -53,6 +54,29 @@ void	print_stack(t_global **global)
 	{
 		printf("word: [%s] ", current->word);
 		printf("token: [%d] ", current->token);
+		printf("index: [%d]\n", current->index);
+		// printf("add: [%p]", current);
+		// printf("next: [%p]\n", current->next);
+		// printf("prev: [%p]\n", current->prev);
+		current = current->next;
+	}
+}
+
+void	print_parser(t_global **global)
+{
+	t_parser	*current;
+
+	current = (*global)->parser;
+	if ((*global)->parser == NULL)
+	{
+		printf("Stack is empty\n");
+	}
+	printf("Stack contents:\n");
+	while (current != NULL)
+	{
+		printf("cmd: [%s] ", current->cmd);
+		printf("content: [%s] ", current->content);
+		printf("redir: [%d] ", current->redirection);
 		printf("index: [%d]\n", current->index);
 		// printf("add: [%p]", current);
 		// printf("next: [%p]\n", current->next);
