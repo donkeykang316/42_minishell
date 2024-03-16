@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:37:46 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/14 20:48:41 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/16 13:40:44 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,13 @@ typedef struct s_args //become args
 
 typedef struct s_parser
 {
-	char			*cmd;
-	char			*options;
-	int				index;
-	
-	struct  s_args   *args;
-	struct  s_redir  *redir; 
-	struct  s_args	 *prev;
-	struct  s_args	 *next;
+	char				*cmd;
+	char				*options;
+	int					index;
+	struct  s_args   	*args;
+	struct  s_redir  	*redir; 
+	struct  s_args	 	*prev;
+	struct  s_args	 	*next;
 } t_parser;
 
 // utils/args_utils.c

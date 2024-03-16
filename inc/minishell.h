@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/14 16:57:32 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/16 17:00:36 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@
 
 #define CL_NAME "[minishell]$ "
 
-typedef struct s_global
+typedef struct s_prompt
 {
-	char				*prompt;
+	int					input;
+	int					output;
 	struct s_lexer		*lexer;
 	struct s_parser		*parser;
-} 				t_global;
+	struct s_prompt		*next;
+	struct s_prompt		*prev;
+} 				t_prompt;
 
 //Error_free.c
 void error_seq(t_global *global, char *error, int xit);
