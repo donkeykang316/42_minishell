@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:48:26 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/14 20:53:51 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/17 11:22:33 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 #include "../../inc/lexer.h"
 
 //ADD SPLITTING TOMORROW INTO PIPES
-int split_commands(t_global **global)
+int split_cmd(t_prompt *prompt)
 {
-	t_lexer	*lexer;
+	char	*temp;
+	int		i;
 
-	lexer = (*global)->lexer;
-	while(lexer->next != NULL)
+	i = 0;
+	while(prompt->line[i] != '\0')
 	{
-		if (lexer->token == T_PIPE)
-		{
-			
-		}
-		lexer->next
+		printf("%c\n", prompt->line[i]);
+		i++;
 	}
 }
 

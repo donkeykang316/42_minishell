@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/17 13:59:45 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/17 11:26:21 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,25 @@
 # include <stdlib.h>
 # include "lexer.h"
 # include "parser.h"
-# include "utils.h"
+
 #define CL_NAME "[minishell]$ "
-
-//ERROR DEFINES
-#define ERR_I "Error: too many arguments; launch program with ./minishell and no arguments"
-#define ERR_ENV "Error: failed to load environmental variables"
-
 
 typedef struct s_prompt
 {
 	char				*line;
-	struct s_envll      *envp;
 	struct s_lexer		*lexer;
 	struct s_parser		*parser;
 	struct s_prompt		*next;
 	struct s_prompt		*prev;
 } 				t_prompt;
 
-typedef struct s_envll
-{
-	char				**env;
-} 				t_envll;
+//Error_free.c
+void error_seq(t_global *global, char *error, int xit);
 
-//error_free.c
-void simple_err(char *err_str);
+// int ms_loop(t_util *utils, t_token *tokens);
+int 	ms_loop(t_global *global);
+void	print_lexer(t_global **global);
+void	print_parser(t_global **global);
+
 
 #endif

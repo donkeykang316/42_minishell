@@ -5,15 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 11:24:01 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 12:19:39 by mdomnik          ###   ########.fr       */
+/*   Created: 2024/03/14 13:36:02 by mdomnik           #+#    #+#             */
+/*   Updated: 2024/03/14 16:57:26 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void simple_err(char *err_str)
+void error_seq(t_global *global, char *error, int xit)
 {
-	printf("%s\n", err_str);
-	exit(0);
+		lexerfreelist_ms(&(global)->lexer);
+		parserfreelist_ms(&(global)->parser);
+		free(global->prompt);
+		global->prompt = NULL;
+		printf("%s\n", error);
+		if (xit == 1)
+			exit(1);
 }

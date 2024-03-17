@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_free.c                                       :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 11:24:01 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 12:19:39 by mdomnik          ###   ########.fr       */
+/*   Created: 2024/03/17 12:12:05 by mdomnik           #+#    #+#             */
+/*   Updated: 2024/03/17 12:35:23 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-void simple_err(char *err_str)
-{
-	printf("%s\n", err_str);
-	exit(0);
-}
+#include "minishell.h"
+
+//prototyping prompt struct
+typedef struct s_prompt t_prompt;
+
+//main_utils.c
+t_prompt *init_prompt(t_prompt *prompt);
+char	**double_dup(char **str);
+void	free_double(char **double_str);
+
+#endif

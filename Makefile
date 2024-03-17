@@ -6,7 +6,7 @@
 #    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/14 13:48:38 by mdomnik          ###   ########.fr        #
+#    Updated: 2024/03/17 12:17:18 by mdomnik          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,10 @@ READFLAG = -lreadline
 
 RM = rm -f
 
-SRC = 	src/main/error_free.c\
-		src/main/minishell.c\
-		src/lexer/token_process.c\
-		src/lexer/utils/lexer_utils.c\
-		src/lexer/utils/lexer_utils2.c\
-		src/parser/define_join.c\
-		src/parser/utils/parser_utils.c\
+SRC = 	src/main/main.c\
+		src/main/error_free.c\
+		src/lexer/lexer.c\
+		src/utils/main_utils.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 
