@@ -6,7 +6,7 @@
 #    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/17 12:17:18 by mdomnik          ###   ########.fr        #
+#    Updated: 2024/03/17 14:27:38 by mdomnik          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ RM = rm -f
 SRC = 	src/main/main.c\
 		src/main/error_free.c\
 		src/lexer/lexer.c\
+		src/utils/lexer_struct.c\
+		src/utils/lexer_utils.c\
 		src/utils/main_utils.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))

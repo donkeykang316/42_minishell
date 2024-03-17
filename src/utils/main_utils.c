@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:40:19 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 12:35:44 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/17 14:07:30 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_prompt *init_prompt(t_prompt *prompt)
 	prompt = malloc(sizeof(t_prompt));
 	prompt->envp = malloc(sizeof(t_envll)); 
 	prompt->lexer = malloc(sizeof(t_lexer));
-	prompt->parser = malloc(sizeof(t_parser)); 
 	return (prompt);
 }
 

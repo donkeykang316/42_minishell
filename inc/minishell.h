@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/17 13:59:45 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/17 14:22:01 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,13 @@
 //ERROR DEFINES
 #define ERR_I "Error: too many arguments; launch program with ./minishell and no arguments"
 #define ERR_ENV "Error: failed to load environmental variables"
-
+#define ERR_MALLOC "Error: failed to allocate memory"
 
 typedef struct s_prompt
 {
 	char				*line;
 	struct s_envll      *envp;
 	struct s_lexer		*lexer;
-	struct s_parser		*parser;
-	struct s_prompt		*next;
-	struct s_prompt		*prev;
 } 				t_prompt;
 
 typedef struct s_envll
@@ -45,5 +42,9 @@ typedef struct s_envll
 
 //error_free.c
 void simple_err(char *err_str);
+
+
+//main.c
+void ms_loop(t_prompt *prompt);
 
 #endif

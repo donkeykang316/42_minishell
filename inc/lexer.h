@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:41:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 12:35:31 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/17 17:13:46 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,17 @@ typedef enum s_tokens
 //position in the index, adresses of previous and next nodes
 typedef struct s_lexer
 {
-	char			*prompt;
 	char			*word;
 	t_tokens		token;
+	int				sub;
 	int				index;
 	struct s_lexer	*prev;
 	struct s_lexer	*next;
 } t_lexer;
 
+//lexer.c
+void split_tokens(t_prompt *prompt);
+int	node_process(t_prompt *prompt, int	i);
+char *quote_process(t_prompt *prompt, char *str, int i, int qtype)
 
 #endif
