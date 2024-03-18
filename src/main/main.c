@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:23:31 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 14:17:57 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/18 16:14:24 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void ms_loop(t_prompt *prompt)
 	prompt->line = readline(CL_NAME);
 	split_tokens(prompt);
 	
+	add_history(prompt->line);
 	if (prompt->line != NULL)
 		ms_loop(prompt);
 }

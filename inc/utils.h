@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:12:05 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 14:25:48 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/18 15:08:15 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void delete_node_at_index(t_lexer **lexer, int index);
 char *trim_whitespace(char *str);
 int is_whitespace_null(char c);
 int is_quote(char c);
+char	*append_char(char *str, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:41:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 17:13:46 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/18 16:44:52 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_lexer
 
 //lexer.c
 void split_tokens(t_prompt *prompt);
-int	node_process(t_prompt *prompt, int	i);
-char *quote_process(t_prompt *prompt, char *str, int i, int qtype)
+int	node_process(t_prompt *prompt, int	i, char *temp);
+char *quote_process(t_prompt *prompt, char *str, int i, int qtype);
 
 #endif

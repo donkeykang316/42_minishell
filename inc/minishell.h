@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/17 14:22:01 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/18 15:52:39 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #define ERR_I "Error: too many arguments; launch program with ./minishell and no arguments"
 #define ERR_ENV "Error: failed to load environmental variables"
 #define ERR_MALLOC "Error: failed to allocate memory"
+#define ERR_QUOTE "Error: quote not terminated by another quote"
 
 typedef struct s_prompt
 {

@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 14:10:15 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 16:54:19 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/18 15:49:15 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,28 @@ int is_quote(char c)
 		return(0);
 }
 
+char	*append_char(char *str, char c)
+{
+	int		i;
+	char	*ret;
+
+	if(str == NULL)
+	{
+		str = (char *)malloc(1 * sizeof(char));
+		*str = '\0';
+	}
+	i = 0;
+	while(str[i] != '\0')
+		i++;
+	ret = (char *)malloc((i + 2) * sizeof(char));
+	i = 0;
+	while(str[i] != '\0')
+	{
+		ret[i] = str[i];
+		i++;
+	}
+	ret[i] = c;
+	ret[i + 1] = '\0';
+	free(str);
+	return(ret);
+}
