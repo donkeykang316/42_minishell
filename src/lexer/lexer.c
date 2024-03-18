@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:24:24 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/18 16:45:22 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/18 17:17:23 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,23 @@ void split_tokens(t_prompt *prompt)
 int	node_process(t_prompt *prompt, int	i, char *temp)
 {
 	int		q;
+	int		valid_env;
 
 	while (!is_whitespace_null(prompt->line[i]))
-	{ 
+	{
+		q = 0;
 		if (is_quote(prompt->line[i]))
 		{
 			q = is_quote(prompt->line[i++]);
 			while(prompt->line[i] != q && prompt->line[i] != '\0')
-				temp = append_char(temp, prompt->line[i++]);
+				temp = append_char_env(temp, prompt->line[i++], q);
 			if(prompt->line[i] == '\0')
 				simple_err(ERR_QUOTE);
 			i++;
 		}
 		else 
 			while(!is_quote(prompt->line[i]) && !is_whitespace_null(prompt->line[i]))
-				temp = append_char(temp, prompt->line[i++]);
+				temp = append_char_env(temp, prompt->line[i++], q);
 	}
 	printf("%s\n", temp);
 	return(i);
