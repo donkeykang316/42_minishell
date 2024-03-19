@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 14:10:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/19 13:48:29 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:56:07 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_lexer	*lexernew_ms(char *word)
 	if (!element)
 		return (NULL);
 	element->word = ft_strdup(word);
-	element->index = i;
+	element->index = i++;
 	element->prev = NULL;
 	element->next = NULL;
 	return (element);
