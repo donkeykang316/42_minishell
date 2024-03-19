@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:41:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/18 16:44:52 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:48:43 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ typedef enum s_tokens
 typedef struct s_lexer
 {
 	char			*word;
-	t_tokens		token;
-	int				sub;
 	int				index;
 	struct s_lexer	*prev;
 	struct s_lexer	*next;

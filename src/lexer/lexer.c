@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:24:24 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/18 17:17:23 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:51:38 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ void split_tokens(t_prompt *prompt)
 		if(prompt->line[i] != '\0')
 				i++;
 	}
+	print_lexer(prompt);
 }
 
 int	node_process(t_prompt *prompt, int	i, char *temp)
 {
 	int		q;
-	int		valid_env;
+	t_lexer *new;
 
 	while (!is_whitespace_null(prompt->line[i]))
 	{
@@ -55,7 +56,8 @@ int	node_process(t_prompt *prompt, int	i, char *temp)
 			while(!is_quote(prompt->line[i]) && !is_whitespace_null(prompt->line[i]))
 				temp = append_char_env(temp, prompt->line[i++], q);
 	}
-	printf("%s\n", temp);
+	new = lexernew_ms(temp);
+	lexeraddback_ms(&prompt->lexer, new);
 	return(i);
 }
 

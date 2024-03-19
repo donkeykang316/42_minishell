@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:12:05 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/18 15:08:15 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:51:01 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ typedef struct s_prompt t_prompt;
 t_prompt *init_prompt(t_prompt *prompt);
 char	**double_dup(char **str);
 void	free_double(char **double_str);
+void	print_lexer(t_prompt *prompt);
 
 //lexer_struct.c
-t_lexer	*lexernew_ms(char *word, int token, int x);
+t_lexer	*lexernew_ms(char *word);
 void	lexeraddback_ms(t_lexer **lst, t_lexer *new);
 t_lexer *lexerfreelist_ms(t_lexer **lst);
 void delete_node_at_index(t_lexer **lexer, int index);
@@ -33,6 +34,6 @@ void delete_node_at_index(t_lexer **lexer, int index);
 char *trim_whitespace(char *str);
 int is_whitespace_null(char c);
 int is_quote(char c);
-char	*append_char(char *str, char c);
+char	*append_char_env(char *str, char c, int q);
 
 #endif

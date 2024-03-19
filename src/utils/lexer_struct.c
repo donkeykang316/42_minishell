@@ -6,26 +6,22 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 14:10:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 14:11:29 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:48:29 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 //creates a new node in the lexer linked list
-t_lexer	*lexernew_ms(char *word, int token, int x)
+t_lexer	*lexernew_ms(char *word)
 {
 	t_lexer		*element;
-
+	static	int	i = 0;
 	element = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!element)
 		return (NULL);
-	if (word)
-		element->word = ft_strdup(word);
-	else
-		element->word = NULL;
-	element->token = token;
-	element->index = x;
+	element->word = ft_strdup(word);
+	element->index = i;
 	element->prev = NULL;
 	element->next = NULL;
 	return (element);

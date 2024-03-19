@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:40:19 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/17 14:07:30 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:50:51 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,23 @@ void	free_double(char **double_str)
 		i++;
 	}
 	free(double_str);
+}
+
+//prints the entire stack (linked list)
+void	print_lexer(t_prompt *prompt)
+{
+	t_lexer	*current;
+
+	current = prompt->lexer;
+	if (prompt->lexer == NULL)
+	{
+		printf("Stack is empty\n");
+	}
+	printf("Stack contents:\n");
+	while (current != NULL)
+	{
+		printf("word: [%s] ", current->word);
+		printf("index: [%d]\n", current->index);
+		current = current->next;
+	}
 }
