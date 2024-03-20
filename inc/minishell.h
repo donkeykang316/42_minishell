@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/07 16:22:56 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/18 15:52:39 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,34 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
+# include "lexer.h"
+# include "parser.h"
+# include "utils.h"
+#define CL_NAME "[minishell]$ "
 
-typedef struct s_echo
+//ERROR DEFINES
+#define ERR_I "Error: too many arguments; launch program with ./minishell and no arguments"
+#define ERR_ENV "Error: failed to load environmental variables"
+#define ERR_MALLOC "Error: failed to allocate memory"
+#define ERR_QUOTE "Error: quote not terminated by another quote"
+
+typedef struct s_prompt
 {
-	char	*pr;
-	char	*temp1;
-	char	*temp2;
-	int		i;
-}	t_echo;
+	char				*line;
+	struct s_envll      *envp;
+	struct s_lexer		*lexer;
+} 				t_prompt;
 
-typedef struct s_cd
+typedef struct s_envll
 {
-	char	*pwd;
-	char	*dpath;
-	int		len;
-	int		i;
-}	t_cd;
+	char				**env;
+} 				t_envll;
 
-void	ft_echo(char *str);
-void	echo_init(t_echo *var);
-void	free_echo(t_echo *var);
+//error_free.c
+void simple_err(char *err_str);
 
-void	ft_pwd(char *str);
 
-void	ft_cd(char *str);
-void	cd_init(t_cd *var);
-void	ft_chdir(char *str, char *pwd);
-void	ab_path(char *str, int c, t_cd *var);
-void	re_path(char *str, int c, t_cd *var);
-void	cd_back(char *str, int c, t_cd *var);
+//main.c
+void ms_loop(t_prompt *prompt);
 
 #endif
