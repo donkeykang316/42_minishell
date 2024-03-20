@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/17 14:27:38 by mdomnik          ###   ########.fr        #
+#    Updated: 2024/03/20 12:52:27 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,9 @@ READFLAG = -lreadline
 
 RM = rm -f
 
-SRC = 	src/echo/ft_echo.c\
-
+SRC = 	src/exe/minishell_exe.c\
+		src/exe/exe_utils.c\
+		src/echo/ft_echo.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 
