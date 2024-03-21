@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/20 12:52:27 by kaan             ###   ########.fr        #
+#    Updated: 2024/03/21 13:22:17 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ READFLAG = -lreadline
 RM = rm -f
 
 SRC = 	src/exe/minishell_exe.c\
+		src/temp_pars/tmp_pars.c\
 		src/exe/exe_utils.c\
 		src/echo/ft_echo.c\
 
