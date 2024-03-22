@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:01:19 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/21 20:12:54 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/22 15:17:32 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,37 @@
 void	handle_ctrlc(int sig)
 {
 	(void)sig;
+	printf("\n");
+	printf(CL_NAME);
 }
 
-int	main(int ac, char **av, char **env)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
-	int		pid;
-	int		status;
+	t_prompt	*prompt;
 
-	(void)ac;
-	(void)av;
-	(void)env;
-	if (ac != 1)
+	(void)argc;
+	(void)argv;
+	(void)envp;
+	if (argc != 1)
 		ft_exit("Excute the program without argument\n");
+	prompt = NULL;
+	prompt = init_prompt(prompt);
+	prompt->envp->env = double_dup(envp);
+	if (!prompt->envp->env)
+		simple_err(ERR_ENV);
 	while (1)
 	{
-		str = readline(CL_NAME);
-		pid = fork();
-		if (pid == -1)
-			ft_exit("Fork error\n");
-		if (!pid)
-		{
-			printf("child:%s\n", str);
-			signal(SIGINT, handle_ctrlc);
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
-			printf("Parent:%s\n", str);
-		}
+		//disable "ctrl-\"
+		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+			ft_exit("quit\n");
+		//enable "ctrl-c"
+		signal(SIGINT, handle_ctrlc);
+		prompt->line = readline(CL_NAME);
+		//enable "ctrl-d"
+		if (!prompt->line)
+			ft_exit("Good Bye!");
+		split_tokens(prompt);
+		add_history(prompt->line);
+		printf("Parent:%s\n", prompt->line);
 	}
 }

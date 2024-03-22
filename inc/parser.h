@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:37:46 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/21 13:06:11 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/22 14:57:37 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,22 @@
 //prototyping prompt struct
 typedef struct s_prompt t_prompt;
 
-
-typedef struct s_redir //become redirection
+typedef struct s_exec
 {
-	int					redirection;
-	char				*content;
-	struct  s_parser	*prev;
-	struct  s_parser	*next;
-} t_redir;
+    char                *cmd; //command to search for teh executable
+    char                **args; //list of arguments for the command
 
-typedef struct s_args //become args
-{
-	char			*content;
-	int				 index;	
-	struct  s_args	 *prev;
-	struct  s_args	 *next;
-} t_args;
+    int                 input; //input type
+    char                *i_str; //inpur file
 
-typedef struct s_parser
-{
-	char				*cmd;
-	char				*options;
-	int					index;
-	struct  s_args   	*args;
-	struct  s_redir  	*redir; 
-	struct  s_args	 	*prev;
-	struct  s_args	 	*next;
-} t_parser;
+    int                 output; //output type
+    char                *o_str; //output file
 
+    char                **files; //when multiple I/O check for names and create empties
+    int                 index; //which command in the sequence
 
-void ms_loop(t_prompt *prompt);
+    struct  s_exec      *prev; //address of previous node
+    struct  s_exec      *next; //address of next node
+} t_exec;
 
 #endif
