@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:01:19 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/22 18:35:16 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/23 12:08:06 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,32 @@ int	shell_reset(int nbr)
 void	handle_ctrlc(int sig)
 {
 	(void)sig;
-	printf("\n");
-	printf(CL_NAME);
+	//ft_putstr_fd(CL_NAME, 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	ft_putstr_fd("\n", 1);
+	rl_redisplay();
 }
 
 void	handle_ctrld(int sig)
 {
 	(void)sig;
-	printf("exit");
+	ft_putstr_fd("exit", 1);
 	exit(0);
 }
 
 void	shell_loop(t_prompt *prompt)
 {
-	int	nbr;
+	/*int	nbr;
 
-	nbr = 0;
+	nbr = 0;*/
 	while (1)
 	{
-		//disable "ctrl-\"
 		/* if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 			ft_exit("quit\n"); */
 		signal(SIGQUIT, handle_ctrld);
-		//enable "ctrl-c"
 		signal(SIGINT, handle_ctrlc);
 		prompt->line = readline(CL_NAME);
-		//enable "ctrl-d"
 		if (!prompt->line)
 			ft_exit("quit minishell");
 		split_tokens(prompt);
