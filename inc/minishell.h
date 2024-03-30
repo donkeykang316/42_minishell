@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/22 16:29:09 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/29 14:12:49 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 typedef struct s_prompt
 {
 	int					printable;
+	char				*word;
 	char				*line;
 	struct s_envll      *envp;
 	struct s_parser		*parser;

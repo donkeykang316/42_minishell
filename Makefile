@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/22 16:37:23 by mdomnik          ###   ########.fr        #
+#    Updated: 2024/03/29 14:10:35 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ READFLAG = -lreadline
 RM = rm -f
 
 SRC = 	src/main/minishell_exe.c\
-	src/main/exe_utils.c\
+		src/main/exe_utils.c\
 		src/main/error_free.c\
 		src/lexer/lexer.c\
 		src/utils/lexer_utils/lexer_struct.c\
@@ -35,6 +35,8 @@ SRC = 	src/main/minishell_exe.c\
 		src/utils/lexer_utils/lexer_utils_2.c\
 		src/utils/lexer_utils/lexer_utils_3.c\
 		src/parser/parser.c\
+		src/utils/parser_utils/parser_struct.c\
+		src/utils/parser_utils/parser_utils.c\
 		src/utils/main_utils.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))

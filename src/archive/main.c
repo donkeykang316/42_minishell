@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:23:31 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/22 15:18:00 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/29 14:14:38 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void ms_loop(t_prompt *prompt)
 {
 	prompt->line = readline(CL_NAME);
 	split_tokens(prompt);
-	
 	add_history(prompt->line);
 	if (prompt->line != NULL)
 		ms_loop(prompt);

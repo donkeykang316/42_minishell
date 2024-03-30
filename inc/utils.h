@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:12:05 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/22 16:04:19 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/24 19:01:44 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_prompt *init_prompt(t_prompt *prompt);
 char	**double_dup(char **str);
 void	free_double(char **double_str);
 void	print_lexer(t_prompt *prompt);
+void	print_parser(t_prompt *prompt);
 
 //lexer_struct.c
 t_lexer	*lexernew_ms(char *word, t_tokens token);
@@ -45,8 +46,18 @@ int	ft_strlen_ms(char *s);
 void add_node(t_prompt *prompt, char *word, t_tokens token);
 
 //lexer_utils_3.c
-char *search_redir(t_prompt *prompt, char *str, char *word);
+char *search_redir(t_prompt *prompt, char *str);
 int	check_redir(char c1, char c2);
 int	cmpchar(char c1, char c2);
+char *makes_nodes_env(t_prompt *prompt, char *str);
+
+//parser_struct.c
+t_parser *parsernew_ms(char **args, char **io, char **files);
+int	reset_increment_j(int x);
+void	parseraddback_ms(t_parser **lst, t_parser *new);
+
+//parser_utils.c
+char **remove_first(char **args);
+void parser_check_out(t_prompt *prompt);
 
 #endif

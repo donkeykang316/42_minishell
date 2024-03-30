@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:40:19 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/22 16:29:30 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/03/29 16:46:23 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ t_prompt *init_prompt(t_prompt *prompt)
 {
 	prompt = malloc(sizeof(t_prompt));
 	prompt->envp = malloc(sizeof(t_envll)); 
-	prompt->lexer = NULL;
 	prompt->parser = malloc(sizeof(t_parser));
+	prompt->lexer = NULL;
 	prompt->printable = 0;
+	prompt->word = NULL;
 	return (prompt);
 }
 
@@ -41,20 +42,20 @@ char	**double_dup(char **str)
 		if (ret[i] == NULL)
 		{
 			free_double(ret);
-			return (ret);
+			return (NULL);
 		}
 		i++;
 	}
 	return (ret);
 }
 
-//free double pointer if error occurs
-void	free_double(char **double_str)
+void free_double(char **double_str)
 {
-	int	i;
+	if (double_str == NULL)
+		return;
 
-	i = 0;
-	while (double_str[i])
+	int i = 0;
+	while (double_str[i] != NULL)
 	{
 		free(double_str[i]);
 		i++;
@@ -78,6 +79,45 @@ void	print_lexer(t_prompt *prompt)
 		printf("word: [%s] ", current->word);
 		printf("token: [%d] ", current->token);
 		printf("index: [%d]\n", current->index);
+		current = current->next;
+	}
+}
+
+void	print_parser(t_prompt *prompt)
+{
+	t_parser	*current;
+	int			i;
+
+	i = 0;
+	current = prompt->parser;
+	if (prompt->parser == NULL)
+		printf("Stack is empty\n");
+	printf("parser contents:\n");
+	while (current != NULL)
+	{
+		printf("cmd: [%s] ", current->cmd);
+		printf("args: ");
+		if (current->args != NULL && current->args[0] != NULL) {
+			while (current->args[i] != NULL)
+			{
+				printf("[%s] ", current->args[i]);
+				i++;
+			}
+		}
+		printf("\n");
+		printf("input: [%d] [%s]\n", current->input, current->i_str);
+		printf("output: [%d] [%s]\n", current->output, current->o_str);
+		i = 0;
+		/*printf("files: ");
+		if (current->files != NULL && current->files[0] != NULL) {
+			while (current->files[i] != NULL)
+			{
+				printf("[%s] ", current->files[i]);
+				i++;
+			}
+		}
+		printf("\n");
+		printf("index: %d\n", current->index);*/
 		current = current->next;
 	}
 }

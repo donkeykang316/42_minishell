@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:24:24 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/23 11:42:47 by kaan             ###   ########.fr       */
+/*   Updated: 2024/03/29 17:13:08 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,19 @@
 void split_tokens(t_prompt *prompt)
 {
 	int		i;
-	char	*word;
 
 	i = 0;
+	if (!prompt->line[0])
+		return ;
 	prompt->line = trim_whitespace(prompt->line);
 	while(prompt->line[i] != '\0')
 	{
 		if(!is_whitespace_null(prompt->line[i]))
 		{
-			word = ft_strdup("");
-			if (word == NULL)
+			prompt->word = ft_strdup("");
+			if (prompt->word == NULL)
 				simple_err(ERR_MALLOC);
-			i = node_process(prompt, i, word);
+			i = node_process(prompt, i);
 		}
 		else
 				i++;
@@ -36,16 +37,14 @@ void split_tokens(t_prompt *prompt)
 	restructure_prompt(prompt);
 }
 
-int	node_process(t_prompt *prompt, int	i, char *word)
+int	node_process(t_prompt *prompt, int	i)
 {
 	int		q;
 	char	*temp;
-	//t_tokens	token;
 
 	while (!is_whitespace_null(prompt->line[i]))
 	{
 		temp = ft_strdup("");
-		//token = T_WORD;
 		q = 0;
 		if (is_quote(prompt->line[i]))
 		{
@@ -59,31 +58,32 @@ int	node_process(t_prompt *prompt, int	i, char *word)
 		else 
 			while(!is_quote(prompt->line[i]) && !is_whitespace_null(prompt->line[i]))
 				temp = append_char_env(temp, prompt->line[i++]);
-		if (q != 39)
-			temp = search_replace_env(temp);
 		if (q == 0)
 		{
-			temp = search_redir(prompt, temp, word);
+			temp = search_redir(prompt, temp);
 			if (prompt->printable == 1)
 			{
-				free(word);
-				word = NULL;
+				free(prompt->word);
+				prompt->word = NULL;
 				prompt->printable = 0;
 			}
 		}
-		word = ft_strjoin(word, temp);
+		if (q != 39)
+			temp = search_replace_env(prompt, temp);
+		prompt->word = ft_strjoin(prompt->word, temp);
 		free(temp);
 	}
-	if (word[0] != '\0')
-		add_node(prompt, word, T_WORD);
+	if (prompt->word[0] != '\0')
+		add_node(prompt, prompt->word, T_WORD);
 	return(i);
 }
 
-char	*search_replace_env(char *str)
+char	*search_replace_env(t_prompt *prompt, char *str)
 {
 	int		i;
 	int		j;
 	char	*env_name;
+	char	*env_value;
 	char	*new;
 
 	i = 0;
@@ -100,7 +100,7 @@ char	*search_replace_env(char *str)
 			j++;
 		}
 		env_name[j] = '\0';
-		char *env_value = getenv(env_name);
+		env_value = getenv(env_name);
 		free(env_name);
 		if (env_value == NULL)
 		{
@@ -112,6 +112,9 @@ char	*search_replace_env(char *str)
 		{
 			env_value = ft_strdup(env_value);
 			str = updated_env_str(str, env_value);
+			str = makes_nodes_env(prompt, str);
+			free(prompt->word);
+			prompt->word = NULL;
 			free(env_value);
 		}
 	}
@@ -139,7 +142,7 @@ char	*replace_env(char	*env_name, char	*env_str)
 	return(replace);
 }
 
-char 	*updated_env_str(char *str, char	*env_str)
+char 	*updated_env_str(char *str, char *env_str)
 {
 	int		i;
 	char	*cat;
@@ -154,6 +157,7 @@ char 	*updated_env_str(char *str, char	*env_str)
 		cat[i] = str[i];
 		i++;
 	}
+	cat[i] = '\0';
 	str = ft_strjoin(cat, env_str);
 	return (str);
 }
