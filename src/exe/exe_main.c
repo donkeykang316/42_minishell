@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe.h                                              :+:      :+:    :+:   */
+/*   exe_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 13:01:29 by kaan              #+#    #+#             */
-/*   Updated: 2024/04/10 10:54:51 by kaan             ###   ########.fr       */
+/*   Created: 2024/04/10 10:52:02 by kaan              #+#    #+#             */
+/*   Updated: 2024/04/10 10:54:16 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXE_H
-# define EXE_H
+#include "../../inc/exe.h"
 
-# include "minishell.h"
-
-void	exe_main(t_prompt *prompt);
-void    ft_echo(t_prompt *prompt);
-void	ft_exit(char *error);
-
-#endif
+void	exe_main(t_prompt *prompt)
+{
+	ft_echo(prompt);
+}

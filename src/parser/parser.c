@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:51:26 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/29 16:39:31 by kaan             ###   ########.fr       */
+/*   Updated: 2024/04/10 10:00:06 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void group_redir(t_prompt *prompt)
 		io[4] = NULL;
 		temp = temp->next;
 	}
-	
 	group_files(prompt, prompt->lexer, create, io);
 }
 

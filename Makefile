@@ -6,7 +6,7 @@
 #    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/29 14:10:35 by kaan             ###   ########.fr        #
+#    Updated: 2024/04/10 10:55:26 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ RM = rm -f
 
 SRC = 	src/main/minishell_exe.c\
 		src/main/exe_utils.c\
+		src/exe/exe_main.c\
+		src/exe/echo.c\
 		src/main/error_free.c\
 		src/lexer/lexer.c\
 		src/utils/lexer_utils/lexer_struct.c\

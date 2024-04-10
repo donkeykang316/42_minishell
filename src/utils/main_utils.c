@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:40:19 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/29 16:46:23 by kaan             ###   ########.fr       */
+/*   Updated: 2024/04/08 06:53:29 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ void	print_lexer(t_prompt *prompt)
 
 	current = prompt->lexer;
 	if (prompt->lexer == NULL)
-	{
 		printf("Stack is empty\n");
-	}
 	printf("Stack contents:\n");
 	while (current != NULL)
 	{

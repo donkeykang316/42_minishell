@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:24:24 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/03/29 17:13:08 by kaan             ###   ########.fr       */
+/*   Updated: 2024/04/10 08:30:18 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	node_process(t_prompt *prompt, int	i)
 	}
 	if (prompt->word[0] != '\0')
 		add_node(prompt, prompt->word, T_WORD);
-	return(i);
+	return (i);
 }
 
 char	*search_replace_env(t_prompt *prompt, char *str)
@@ -126,7 +126,6 @@ char	*replace_env(char	*env_name, char	*env_str)
 	int		i;
 	int		j;
 	char	*replace;
-
 
 	i = 0;
 	j = 0;

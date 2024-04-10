@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:01:19 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/30 21:57:25 by kaan             ###   ########.fr       */
+/*   Updated: 2024/04/10 10:55:12 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	shell_loop(t_prompt *prompt)
 			ft_exit("quit minishell");
 		split_tokens(prompt);
 		add_history(prompt->line);
-		print_parser(prompt);
+		exe_main(prompt);
+		//print_parser(prompt);
 		//print_lexer(prompt);
 	}
 }
