@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 10:52:02 by kaan              #+#    #+#             */
-/*   Updated: 2024/04/10 10:54:16 by kaan             ###   ########.fr       */
+/*   Updated: 2024/04/12 13:08:37 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,6 @@
 void	exe_main(t_prompt *prompt)
 {
 	ft_echo(prompt);
+	ft_pwd(prompt);
+	ft_cd(prompt);
 }
