@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:48:45 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/20 13:24:36 by kaan             ###   ########.fr       */
+/*   Updated: 2024/04/16 09:41:20 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,13 @@ void	ft_exit(char *error)
 {
 	perror(error);
 	exit(0);
+}
+
+void	free_double_ptr(char **ptr)
+{
+	while (*ptr)
+	{
+		free(*ptr);
+		ptr++;
+	}
 }

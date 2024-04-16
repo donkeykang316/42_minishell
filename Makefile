@@ -6,7 +6,7 @@
 #    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/04/16 06:57:08 by kaan             ###   ########.fr        #
+#    Updated: 2024/04/16 09:17:57 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC = 	src/main/minishell_exe.c\
 		src/exe/echo.c\
 		src/exe/cd_pwd.c\
 		src/exe/env.c\
+		src/exe/export.c\
 		src/exe/exit.c\
 		src/main/error_free.c\
 		src/lexer/lexer.c\

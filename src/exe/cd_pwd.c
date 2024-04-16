@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:00:45 by kaan              #+#    #+#             */
-/*   Updated: 2024/04/14 06:00:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/04/16 09:25:48 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ char    *get_home(t_prompt *prompt)
     t_tmp   tmp;
 
     tmp.i = 0;
-	tmp.all_path = ft_split(get_env(prompt->envp->env, "HOME"), 61);
+	tmp.d_char = ft_split(get_env(prompt->envp->env, "HOME"), 61);
     while (prompt->envp->env[tmp.i])
     {
-        tmp.path = ft_strdup(tmp.all_path[tmp.i]);
-		if (access(tmp.path, R_OK | X_OK) != -1)
+        tmp.s_char = ft_strdup(tmp.d_char[tmp.i]);
+		if (access(tmp.s_char, R_OK | X_OK) != -1)
 		{
-			ft_free(tmp.all_path);
-        	return (tmp.path);
+			ft_free(tmp.d_char);
+        	return (tmp.s_char);
 		}
-    	free(tmp.path);
+    	free(tmp.s_char);
     	tmp.i++;
     }
-	ft_free(tmp.all_path);
+	ft_free(tmp.d_char);
 	return (NULL);
 }
 
