@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe.h                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 13:01:29 by kaan              #+#    #+#             */
-/*   Updated: 2024/04/16 06:56:26 by kaan             ###   ########.fr       */
+/*   Created: 2024/04/16 06:42:08 by kaan              #+#    #+#             */
+/*   Updated: 2024/04/16 06:47:50 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXE_H
-# define EXE_H
+#include "../../inc/exe.h"
 
-# include "minishell.h"
-
-typedef struct	s_tmp
+void	ft_env(t_prompt *prompt)
 {
-	char	*temp;
-	char	*path;
-	char	**all_path;
 	int	i;
-}		t_tmp;
 
-void	exe_main(t_prompt *prompt);
-void    ft_echo(t_prompt *prompt);
-void	ft_pwd(t_prompt *prompt);
-void	ft_cd(t_prompt *prompt);
-void	ft_env(t_prompt *prompt);
-void	cmd_exit(t_prompt *prompt);
-void	ft_exit(char *error);
-
-#endif
+	if (!ft_memcmp_ms(prompt->parser->cmd, "env"))
+	{
+		i = 0;
+        while (prompt->envp->env[i])
+        {
+            printf("%s\n", prompt->envp->env[i]);
+            i++;
+        }
+        
+    }
+}
