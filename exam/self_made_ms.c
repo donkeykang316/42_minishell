@@ -4,10 +4,9 @@
 
 void    execute(char **av, int i, char **env)
 {
-    //av[i] = NULL;
+    av[i] = NULL;
     execve(av[0], av, env);
 }
-
 
 int	main(int ac, char **av, char **env)
 {
@@ -15,12 +14,12 @@ int	main(int ac, char **av, char **env)
     int n = 0;
 
     i = 0;
-    while (av[i])
+    while (av[i] && av[i + 1])
     {
         av = &av[i + 1];
-        printf("test:%s\n", av[i]);
-        //if (strcmp(av[i], ";") == 0)
+        while (av[i] && strcmp(av[i], ";"))
+			    i++;
+        if (fork())
             execute(av, i, env);
-        i++;
     }
 }

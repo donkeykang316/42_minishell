@@ -1,1 +1,1 @@
-cc self_made_ms.c && ./a.out /bin/echo microshell ";" /bin/echo I love shell
+cc self_made_ms.c && ./a.out /bin/ls ";" /bin/echo i love my microshell ";" /bin/echo who is shell
