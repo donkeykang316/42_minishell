@@ -1,0 +1,1 @@
+cc self_made_ms.c && ./a.out /bin/ls "|" /bin/cat "|" /bin/cat "|" /usr/bin/grep self ";" /bin/echo i love my microshell ";" /bin/echo who is shell

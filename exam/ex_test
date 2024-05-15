@@ -1,1 +1,0 @@
-cc self_made_ms.c && ./a.out /bin/ls "|" /usr/bin/grep self ";" /bin/echo i love my microshell
