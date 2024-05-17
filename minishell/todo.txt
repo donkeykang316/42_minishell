@@ -1,0 +1,9 @@
+if a lot of dollar, change dollar to number and join
+
+make sure libft changes update on make
+
+clean greater redirs if not active
+
+lower shlvl on exit
+
+testing
