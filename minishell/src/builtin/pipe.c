@@ -1,58 +1,54 @@
 #include "../../inc/minishell.h"
 
-int	err(char *error)
+void    tmp_echo(t_shell *shell)
 {
-	while (*error)
-		write(2, error++, 1);
-	return (1);
-}
+    int i = 0;
 
-void	pip_exe(t_shell *shell)
-{
-	int	fd[2];
-	int status;
-    int pid;
-    int pip_op;
-
-    pip_op = shell->parser->output;
-    if (pip_op && pipe(fd) == -1)
+    while (shell->parser->args[i])
     {
-        err("pipe error1\n");
-        return ;
+        printf("%s", shell->parser->args[i]);
+        i++;
     }
-    pid = fork();
-    if (!pid)
-    {
-        if (pip_op &&
-            (dup2(fd[1], 1) == -1
-            || close(fd[0]) == -1
-            || close(fd[1]) == -1))
-            {
-                err("pipe error2\n");
-                return ;
-            }
-            find_path(shell);
-    }
-    waitpid(pid, &status, 0);
-    if (pip_op &&
-        (dup2(fd[0], 0) == -1
-        || close(fd[0]) == -1
-        || close(fd[1]) == -1))
-        {
-            err("pipe error3\n");
-            return ;
-        }
 }
 
 void	pipex(t_shell *shell)
 {
+    int	fd[2];
+
+    if (pipe(fd) == -1)
+    {
+        perror("pipe error1\n");
+        return ;
+    }
     while (shell->parser)
     {
         if (shell->parser->output == 1)
-            pip_exe(shell);
+        {
+            if (dup2(fd[0], 0) == -1
+                || close(fd[0]) == -1
+               || close(fd[1]) == -1)
+                {
+                    perror("pipe error2\n");
+                    return ;
+                }
+                //execute(shell);
+                //perror(shell->parser->args[0]);
+                tmp_echo(shell);
+                //reset_loop(shell, NULL);
+        }
         else
-            execute(shell);
+        {
+            if (dup2(fd[1], 1) == -1
+                || close(fd[0]) == -1
+                || close(fd[1]) == -1)
+                {
+                   perror("pipe error3\n");
+                    return ;
+                }
+                perror("why");
+                tmp_echo(shell);
+                reset_loop(shell, NULL);
+        }
         shell->parser = shell->parser->next;
     }
-	reset_loop(shell, NULL);
 }

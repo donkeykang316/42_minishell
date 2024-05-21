@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/16 12:06:16 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/21 13:43:38 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	great(t_shell *shell)
 void	execute(t_shell *shell)
 {
 	//print_parser(shell);
-	if (shell->parser->cmd != NULL && shell->parser->output == 20)
+	if (shell->parser->cmd != NULL && shell->parser->output != 1)
 		find_builtin(shell);
-	else if (shell->parser->output)
+	else if (shell->parser->output == 2 || shell->parser->output == 1)
 		operator_exe(shell);
 	else
 		reset_loop(shell, NULL);

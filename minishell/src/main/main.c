@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:27:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/10 21:23:28 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/05/17 12:41:15 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	shell_loop(t_shell *shell)
  */
 void	reset_loop(t_shell *shell, char *msg)
 {
+	//print_parser(shell);
 	if (msg)
 		printf("%s\n", msg);
 	if (shell->line)
