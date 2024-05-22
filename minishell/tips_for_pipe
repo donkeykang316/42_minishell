@@ -1,0 +1,17 @@
+cmd 1 | cmd 2  | cmd 3
+ / \       / \     /\
+ IN 4       4  6    6 8 -> OUT -> terminal 
+
+
+ cmd 1 | cmd 2
+ / \       / \
+ IN 4     4  OUT
+
+close 5
+dup2 (4, 5)
+
+*/
+
+// int fd[2];
+
+// dup2(cmd->prev->fd[STDOUT], cmd->fd[STDIN]);
