@@ -1,11 +1,15 @@
-cmd 1 | cmd 2  | cmd 3
- / \       / \     /\
- IN 4       4  6    6 8 -> OUT -> terminal 
+    cmd 1 | cmd 2  | cmd 3  | cmd 4
+     / \       / \     /\        /\
+ 3->IN 4       4  6    6 8       8 10  -> OUT -> terminal 
+
+    cmd 1 | cmd 2  | cmd 3
+     / \       / \     /\
+ 3->IN 4       4  6    6 8 -> OUT -> terminal 
 
 
- cmd 1 | cmd 2
- / \       / \
- IN 4     4  OUT
+    cmd 1 | cmd 2
+     / \       / \
+ 3->IN 4       4  6 -> OUT
 
 close 5
 dup2 (4, 5)
