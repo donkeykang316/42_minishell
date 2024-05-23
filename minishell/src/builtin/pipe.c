@@ -23,6 +23,7 @@ void cmd_count(t_shell *shell)
         pipe(shell->fd + n * 2);
         n++;
     }
+    shell->cmd_count = &i;
 }
 
 void    tmp_echo(t_shell *shell)
@@ -36,72 +37,67 @@ void    tmp_echo(t_shell *shell)
     }
 }
 
-void    pip_exe(t_shell *shell)
+void    fd_close(t_shell *shell)
+{
+    int i;
+
+    i = 0;
+    while (i != *(shell->cmd_count) * 2)
+    {
+        if (close(shell->fd[i]) == -1)
+            perror("close error");
+        i++;
+    }
+}
+
+void    pip_exe(t_shell *shell, int i)
 {
     int pid;
 
     pid = fork();
-    printf("pid: %d\n", pid);
-    if (!pid)
+    if (pid == 0)
     {
-        if (cmp_str(shell->parser->i_str, "PIPE") == 0)
+        printf("i:%d\n", i);
+        if (i != 1)
         {
-            if (dup2(shell->fd[1], 1) == -1)
-            {
-                perror("pipe error1\n");
-                return ;
-            }
-            //execute(shell);
-            //perror(shell->parser->args[0]);
-            tmp_echo(shell);
-            if (close(shell->fd[0]) == -1)
-                perror("pipe error2\n");
-            if (close(shell->fd[1]) == -1)
-                perror("pipe error3\n");
-            if (close(shell->fd[2]) == -1)
-                perror("pipe error4\n");
-            if (close(shell->fd[3]) == -1)
-                perror("pipe error5\n");
-            //reset_loop(shell, NULL);
+            if (dup2(shell->fd[i], 0) == -1)
+                perror("error2");
         }
-    }
-    if (cmp_str(shell->parser->o_str, "PIPE") == 0)
-    {
-        if (dup2(shell->fd[0], 0) == -1)
+        if (i != *(shell->cmd_count) * 2 - 1 && i != 1)
         {
-            perror("pipe error4\n");
-            return ;
+            if (dup2(shell->fd[i + 3], 1) == -1)
+                perror("error2");
         }
-        if (close(shell->fd[0]) == -1)
-            perror("pipe error6\n");
-        if (close(shell->fd[1]) == -1)
-            perror("pipe error7\n");
-        if (close(shell->fd[2]) == -1)
-            perror("pipe error8\n");
-        if (close(shell->fd[3]) == -1)
-            perror("pipe error9\n");
-        perror("why");
+        else
+        {
+            if (dup2(shell->fd[i], 1) == -1)
+                perror("error2");
+        }
+        fd_close(shell);
+        find_path(shell);
     }
-    //reset_loop(shell, NULL);
 }
 
 void	pipex(t_shell *shell)
 {
-    /*int i = 0;
-    print_parser(parser);
+    int i;
+
     cmd_count(shell);
-    while (i != 11)
-    {
-        printf("%d\n", shell->fd[i]);
-        i++;
-    }
-    if (shell->fd)
-        free(shell->fd);
-    reset_loop(shell, NULL);*/
-    cmd_count(shell);
+    i = 0;
     while (shell->parser)
     {
-        pip_exe(shell);
+        if (cmp_str(shell->parser->i_str, "STDIN") == 0
+            && cmp_str(shell->parser->o_str, "PIPE") == 0)
+            pip_exe(shell, 1);
+        else if (cmp_str(shell->parser->i_str, "PIPE") == 0
+            && cmp_str(shell->parser->o_str, "STDOUT") == 0)
+            pip_exe(shell, *(shell->cmd_count) * 2 - 1);
+        else
+        {
+            i += 2;
+            pip_exe(shell, i);
+        }
+        fd_close(shell);
         shell->parser = shell->parser->next;
     }
 }
