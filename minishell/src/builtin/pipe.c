@@ -52,9 +52,7 @@ void    fd_close(t_shell *shell)
 
 void    pip_exe(t_shell *shell, int i)
 {
-    int pid;
-
-    pid = fork();
+    /*pid = fork();
     if (pid == 0)
     {
         printf("i:%d\n", i);
@@ -75,29 +73,43 @@ void    pip_exe(t_shell *shell, int i)
         }
         fd_close(shell);
         find_path(shell);
+    }*/
+    if (i == 0)
+    {
+        if (dup2(shell->fd[i], 0) == -1)
+            perror("error2");
     }
+    if (i == 1)
+    {
+        if (dup2(shell->fd[i], 1) == -1)
+            perror("error2");
+    }
+    fd_close(shell);
+    find_path(shell);
+    reset_loop(shell, NULL);
 }
 
 void	pipex(t_shell *shell)
 {
+    int pid;
     int i;
 
     cmd_count(shell);
     i = 0;
     while (shell->parser)
     {
-        if (cmp_str(shell->parser->i_str, "STDIN") == 0
-            && cmp_str(shell->parser->o_str, "PIPE") == 0)
-            pip_exe(shell, 1);
-        else if (cmp_str(shell->parser->i_str, "PIPE") == 0
-            && cmp_str(shell->parser->o_str, "STDOUT") == 0)
-            pip_exe(shell, *(shell->cmd_count) * 2 - 1);
-        else
+        pid = fork();
+        if (pid == 0)
         {
-            i += 2;
-            pip_exe(shell, i);
+            if (cmp_str(shell->parser->i_str, "STDIN") == 0
+                && cmp_str(shell->parser->o_str, "PIPE") == 0)
+                pip_exe(shell, 1);
+            else if (cmp_str(shell->parser->i_str, "PIPE") == 0
+                    && cmp_str(shell->parser->o_str, "STDOUT") == 0)
+                    pip_exe(shell, 0);
         }
-        fd_close(shell);
         shell->parser = shell->parser->next;
     }
+    fd_close(shell);
+    reset_loop(shell, NULL);
 }

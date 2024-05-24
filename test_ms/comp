@@ -1,1 +1,1 @@
-cc *.c && ./a.out
+cc 2pipe.c && ./a.out
