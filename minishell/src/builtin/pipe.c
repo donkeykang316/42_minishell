@@ -27,17 +27,6 @@ void cmd_count(t_shell *shell)
     *(shell->cmd_count) = i;
 }
 
-void    tmp_echo(t_shell *shell)
-{
-    int i = 0;
-
-    while (shell->parser->args[i])
-    {
-        printf("%s", shell->parser->args[i]);
-        i++;
-    }
-}
-
 void    fd_close(t_shell *shell)
 {
     int i;
@@ -83,10 +72,11 @@ void    pip_exe(t_shell *shell, int i, int j)
         if (dup2(shell->fd[i], i) == -1)
             perror("error2");
     }
-    else if (/*i !=0 && i != 1 && */j == -1)
+    else if (j == -1)
     {
         if (dup2(shell->fd[i], 0) == -1)
             perror("error2");
+        i += 2;
     }
     else
     {
@@ -102,13 +92,11 @@ void    pip_exe(t_shell *shell, int i, int j)
 
 void	pipex(t_shell *shell)
 {
-    int i;
     int status;
     int pid;
 
     cmd_count(shell);
 
-    i = 0;
     //print_parser(shell);
     while (shell->parser)
     {
@@ -118,30 +106,16 @@ void	pipex(t_shell *shell)
             if (cmp_str(shell->parser->i_str, "STDIN") == 0
                     && cmp_str(shell->parser->o_str, "PIPE") == 0)
                     pip_exe(shell, 1, -1);
-            if (*(shell->cmd_count) == 2)
-            {
-                if (cmp_str(shell->parser->i_str, "PIPE") == 0
-                        && cmp_str(shell->parser->o_str, "STDOUT") == 0)
-                        {
-                            pip_exe(shell, 0, -1);
-                        }
-            }
+            if (cmp_str(shell->parser->i_str, "PIPE") == 0
+                && cmp_str(shell->parser->o_str, "STDOUT") == 0)
+                pip_exe(shell, (shell->parser->index - 1) * 2, -1);
             else
-            {
-                if (cmp_str(shell->parser->i_str, "PIPE") == 0
-                        && cmp_str(shell->parser->o_str, "STDOUT") == 0)
-                        pip_exe(shell, *(shell->cmd_count) + 1, -1);
-                else
-                {
-                    pip_exe(shell, i, 0);
-                    i += 2;
-                }
-            }
+                pip_exe(shell, (shell->parser->index - 1) * 2, 0);
         }
         shell->parser = shell->parser->next;
     }
     //wait_processes(shell);
-    waitpid(shell->pid, &status, 0);
+    waitpid(pid, &status, 0);
     fd_close(shell);
     reset_loop(shell, NULL);
 }
