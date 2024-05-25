@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:57 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/15 12:56:25 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/25 15:45:27 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int		find_path(t_shell *shell);
 void	exec_external(t_shell *shell, char *path);
 
 //pipe.c
-void	pipex(t_shell *shell);
+void 	pipex(t_shell *shell);
 void	operator_exe(t_shell *shell);
-int 	err(char *error);
 
 #endif

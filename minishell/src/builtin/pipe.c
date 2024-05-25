@@ -87,21 +87,28 @@ void    pip_exe(t_shell *shell, int i, int j)
     }
     fd_close(shell);
     find_path(shell);
+    //builtin_echo(shell);
     reset_loop(shell, NULL);
 }
 
-void	pipex(t_shell *shell)
+void pipex(t_shell *shell)
 {
-    int status;
-    int pid;
-
-    cmd_count(shell);
+    pid_t   pid;
+    int     status;
+    int     i;
 
     //print_parser(shell);
+    cmd_count(shell);
     while (shell->parser)
     {
         pid = fork();
-        if (pid == 0)
+        if (pid != 0)
+        {
+            //printf("pid_start:%d\n", pid);
+            //printf("index:%d\n", shell->parser->index);
+            shell->parser->pid = pid;
+        }
+        else
         {
             if (cmp_str(shell->parser->i_str, "STDIN") == 0
                     && cmp_str(shell->parser->o_str, "PIPE") == 0)
@@ -114,8 +121,15 @@ void	pipex(t_shell *shell)
         }
         shell->parser = shell->parser->next;
     }
-    //wait_processes(shell);
-    waitpid(pid, &status, 0);
+    i = 0;
+    printf("shell_cmd_count:%d\n", *(shell->cmd_count));
+    //create proper while loop to waitpid, pid add to parser node
+    while (i != *(shell->cmd_count))
+    {
+        //printf("shell_pid:%d\n", shell->pid[i]);
+        waitpid(pid, &status, 0);
+        i++;
+    }
     fd_close(shell);
     reset_loop(shell, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/21 13:43:38 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/25 17:16:04 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	great(t_shell *shell)
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 	{
-        err("Open Error\n");
+        perror("Open Error");
 		return ;
 	}
 	close(fd);
@@ -36,9 +36,11 @@ void	great(t_shell *shell)
 void	execute(t_shell *shell)
 {
 	//print_parser(shell);
-	if (shell->parser->cmd != NULL && shell->parser->output != 1)
+	if (cmp_str(shell->parser->o_str, "PIPE") == 0)
+        pipex(shell);
+	else if (shell->parser->cmd != NULL && shell->parser->output != 1)
 		find_builtin(shell);
-	else if (shell->parser->output == 2 || shell->parser->output == 1)
+	else if (shell->parser->output == 2)
 		operator_exe(shell);
 	else
 		reset_loop(shell, NULL);
@@ -48,8 +50,6 @@ void	operator_exe(t_shell *shell)
 {
 	if (shell->parser->output == 2)
 		great(shell);
-	else if (shell->parser->output == 1)
-		pipex(shell);
 	else
 		reset_loop(shell, NULL);
 }

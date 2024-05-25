@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:37:46 by kaan              #+#    #+#             */
-/*   Updated: 2024/04/21 16:42:47 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/05/25 18:11:39 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_parser
 	char			*o_str;
 	char			**files;
 	int				index;
+	pid_t			pid;
 	struct s_parser	*prev;
 	struct s_parser	*next;
 }	t_parser;

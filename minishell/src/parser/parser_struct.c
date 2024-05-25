@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_struct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:37:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/10 16:54:20 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/05/25 18:36:33 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_parser	*parsernew_ms(char **args, char **io, char **files)
 	if (!element)
 		return (NULL);
 	element->index = (reset_increment_k(1) - 1);
+	element->pid = 0;
 	if (args[0] != NULL)
 		element->cmd = ft_strdup(args[0]);
 	else
