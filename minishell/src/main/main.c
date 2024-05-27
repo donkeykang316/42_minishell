@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:27:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/27 13:43:38 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/27 14:42:43 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ t_shell	*init_shell(t_shell *shell)
 	shell->env = NULL;
 	shell->declare = NULL;
 	shell->last_dir = NULL;
+	shell->pid = -1;
 	return (shell);
 }
 

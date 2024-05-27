@@ -64,8 +64,6 @@ void    pip_exe(t_shell *shell, int i, int j, int pid)
     }
     fd_close(shell);
     find_builtin(shell);
-    //find_path(shell);
-    //reset_loop(shell, NULL);
 }
 
 void pipex(t_shell *shell)
