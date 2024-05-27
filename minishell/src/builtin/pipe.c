@@ -32,7 +32,7 @@ void    fd_close(t_shell *shell)
     int i;
 
     i = 0;
-    while (i != *(shell->cmd_count) * 2)
+    while (i != (*(shell->cmd_count) - 1) * 2)
     {
         if (close(shell->fd[i]) == -1)
             perror("close error");
@@ -40,32 +40,9 @@ void    fd_close(t_shell *shell)
     }
 }
 
-/*static int	wait_processes(t_shell *shell)
+void    pip_exe(t_shell *shell, int i, int j, int pid)
 {
-	pid_t	wpid;
-	int		status;
-	int		save_status;
-
-	save_status = 0;
-	wpid = 0;
-	while (wpid != -1)
-	{
-		wpid = waitpid(-1, &status, 0);
-		if (wpid == shell->pid)
-			save_status = status;
-		continue ;
-	}
-	if (WIFSIGNALED(save_status))
-		status = 128 + WTERMSIG(save_status);
-	else if (WIFEXITED(save_status))
-		status = WEXITSTATUS(save_status);
-	else
-		status = save_status;
-	return (status);
-}*/
-
-void    pip_exe(t_shell *shell, int i, int j)
-{
+    shell->pid = pid;
     if ((i == 1 && j == -1) 
         || (i == 0 && j == -1))
     {
@@ -86,50 +63,50 @@ void    pip_exe(t_shell *shell, int i, int j)
             perror("error2");
     }
     fd_close(shell);
-    find_path(shell);
-    //builtin_echo(shell);
-    reset_loop(shell, NULL);
+    find_builtin(shell);
+    //find_path(shell);
+    //reset_loop(shell, NULL);
 }
 
 void pipex(t_shell *shell)
 {
+    pid_t   *pid_array;
     pid_t   pid;
     int     status;
     int     i;
 
     //print_parser(shell);
+    i = 0;
+    shell->pid = -1;
     cmd_count(shell);
+    pid_array = malloc(sizeof(pid_t) * *(shell->cmd_count) + 2);
     while (shell->parser)
     {
         pid = fork();
-        if (pid != 0)
+        if (pid == -1)
+            perror("fork error");
+        else if (pid > 0)
         {
-            //printf("pid_start:%d\n", pid);
-            //printf("index:%d\n", shell->parser->index);
-            shell->parser->pid = pid;
+            pid_array[i] = pid;
+            i++;
+            if (i == *(shell->cmd_count))
+                pid_array[i] = -1;
         }
-        else
+        else if (pid == 0)
         {
             if (cmp_str(shell->parser->i_str, "STDIN") == 0
                     && cmp_str(shell->parser->o_str, "PIPE") == 0)
-                    pip_exe(shell, 1, -1);
-            if (cmp_str(shell->parser->i_str, "PIPE") == 0
+                    pip_exe(shell, 1, -1, pid);
+            else if (cmp_str(shell->parser->i_str, "PIPE") == 0
                 && cmp_str(shell->parser->o_str, "STDOUT") == 0)
-                pip_exe(shell, (shell->parser->index - 1) * 2, -1);
+                pip_exe(shell, (shell->parser->index - 1) * 2, -1, pid);
             else
-                pip_exe(shell, (shell->parser->index - 1) * 2, 0);
+                pip_exe(shell, (shell->parser->index - 1) * 2, 0, pid);
         }
         shell->parser = shell->parser->next;
     }
-    i = 0;
-    printf("shell_cmd_count:%d\n", *(shell->cmd_count));
-    //create proper while loop to waitpid, pid add to parser node
-    while (i != *(shell->cmd_count))
-    {
-        //printf("shell_pid:%d\n", shell->pid[i]);
-        waitpid(pid, &status, 0);
-        i++;
-    }
+    //ft_waitpid(pid_array);
+    waitpid(-1, &status, 0);
     fd_close(shell);
     reset_loop(shell, NULL);
 }

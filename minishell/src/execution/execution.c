@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/25 17:16:04 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/27 13:49:59 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	execute(t_shell *shell)
         pipex(shell);
 	else if (shell->parser->cmd != NULL && shell->parser->output != 1)
 		find_builtin(shell);
-	else if (shell->parser->output == 2)
-		operator_exe(shell);
 	else
 		reset_loop(shell, NULL);
 }
@@ -83,11 +81,12 @@ void	find_builtin(t_shell *shell)
 		builtin_pwd(shell);
 	else if (cmp_str(cmd, "unset") == 0)
 		builtin_unset(shell);
+	else if (shell->parser->output == 2)
+		operator_exe(shell);
 	else
 	{
 		if (find_path(shell) != 0)
 			printf("%s%s\n", shell->parser->cmd, ERR_NCMD);
-		if (shell->parser->output != 1)
-			reset_loop(shell, NULL);
+		reset_loop(shell, NULL);
 	}
 }

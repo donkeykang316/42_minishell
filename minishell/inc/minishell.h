@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/05/25 18:11:22 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/27 13:34:08 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_shell
 	struct s_parser		*parser;
 	int					*fd;
 	int					*cmd_count;
+	int					pid;
 }			t_shell;
 
 //error_seq.c

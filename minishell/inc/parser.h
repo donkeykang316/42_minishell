@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:37:46 by kaan              #+#    #+#             */
-/*   Updated: 2024/05/25 18:11:39 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/26 11:55:08 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_parser
 	char			*o_str;
 	char			**files;
 	int				index;
-	pid_t			pid;
 	struct s_parser	*prev;
 	struct s_parser	*next;
 }	t_parser;

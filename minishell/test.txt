@@ -3,6 +3,7 @@ hello world"test"<tgest'apple'test>> --leak
 hello$SHLVL$USER
 hello$SHLVL$USER"$USER" '$USER'USER"PATH""$USER"
 cmd1 >out1 "arg1$PATH" arg2 >>out2 <in1 <<in2 >>
+ls | wc
 echo 12345 | cat
 cat | cat | ls
 ls -l | cat -e
@@ -13,3 +14,4 @@ echo 1234 wol | echo 56789 yui
 echo 1234 | grep in infile
 grep 1 infile | cat
 grep in infile | > outfile cat
+echo $?
