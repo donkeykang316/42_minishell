@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:57 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/25 15:45:27 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/29 14:14:06 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ int		find_path(t_shell *shell);
 void	exec_external(t_shell *shell, char *path);
 
 //pipe.c
+void    fd_close(t_shell *shell);
 void 	pipex(t_shell *shell);
 void	operator_exe(t_shell *shell);
+
+//redir.c
+void	great(t_shell *shell);
 
 #endif

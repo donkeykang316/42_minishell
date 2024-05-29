@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:40:24 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/10 16:39:15 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/05/28 17:36:02 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,15 @@ void	test_parser_pointers(char **args, char **io, char **files)
 	printf("io[2]: %s\n", io[2]);
 	printf("io[3]: %s\n", io[3]);
 	printf("----------------\n");
+}
+
+void	err_print(int content)
+{
+	char * pid = ft_itoa(content);
+    while (*pid)
+    {
+        write(2, pid, 1);
+        pid++;
+    }
+    write(2, "\n", 1);
 }

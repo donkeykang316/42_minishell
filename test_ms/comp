@@ -1,1 +1,1 @@
-cc 2pipe.c && ./a.out
+cc redir_test.c && ./a.out

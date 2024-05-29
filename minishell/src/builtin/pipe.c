@@ -12,8 +12,7 @@ void cmd_count(t_shell *shell)
 		printf("Stack is empty\n");
 	while (current != NULL)
 	{
-        if (current->cmd)
-            i++;	
+        i++;
 		current = current->next;
 	}
     shell->fd = malloc(sizeof(int) * i * 2);
@@ -68,42 +67,32 @@ void    pip_exe(t_shell *shell, int i, int j, int pid)
 
 void pipex(t_shell *shell)
 {
-    pid_t   *pid_array;
     pid_t   pid;
     int     status;
     int     i;
 
-    //print_parser(shell);
     i = 0;
     shell->pid = -1;
     cmd_count(shell);
-    pid_array = malloc(sizeof(pid_t) * *(shell->cmd_count) + 2);
     while (shell->parser)
     {
         pid = fork();
         if (pid == -1)
             perror("fork error");
-        else if (pid > 0)
-        {
-            pid_array[i] = pid;
-            i++;
-            if (i == *(shell->cmd_count))
-                pid_array[i] = -1;
-        }
         else if (pid == 0)
         {
             if (cmp_str(shell->parser->i_str, "STDIN") == 0
-                    && cmp_str(shell->parser->o_str, "PIPE") == 0)
+                && cmp_str(shell->parser->o_str, "PIPE") == 0)
                     pip_exe(shell, 1, -1, pid);
             else if (cmp_str(shell->parser->i_str, "PIPE") == 0
                 && cmp_str(shell->parser->o_str, "STDOUT") == 0)
                 pip_exe(shell, (shell->parser->index - 1) * 2, -1, pid);
-            else
+            else if (cmp_str(shell->parser->i_str, "PIPE") == 0
+                && cmp_str(shell->parser->o_str, "PIPE") == 0)
                 pip_exe(shell, (shell->parser->index - 1) * 2, 0, pid);
         }
         shell->parser = shell->parser->next;
     }
-    //ft_waitpid(pid_array);
     waitpid(-1, &status, 0);
     fd_close(shell);
     reset_loop(shell, NULL);
