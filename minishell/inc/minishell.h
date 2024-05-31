@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/05/29 14:00:31 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/31 14:54:21 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 # define ERR_PATH "Error: failed to find path"
 # define ERR_EXP1 "minishell: export: "
 # define ERR_EXP2 ": not a valid identifier"
+# define ERR_DOLLAR "minishell: $$: not valid in this context"
 
 /*outermost struct of the shell
   contains all other structs and
@@ -71,7 +72,9 @@ typedef struct s_shell
 	struct s_expand		*expand;
 	struct s_lexer		*lexer;
 	struct s_parser		*parser;
+	int					*exit_status;
 	int					*fd;
+	int					*red_fd;
 	int					*cmd_count;
 	int					pid;
 }			t_shell;
@@ -97,6 +100,10 @@ void	print_lexer(t_shell *shell);
 void	print_expand(t_shell *shell);
 void	print_parser(t_shell *shell);
 void	test_parser_pointers(char **args, char **io, char **files);
-void	err_print(int content);
+
+//redirection
+void    fd_close(t_shell *shell);
+void	pipex(t_shell *shell);
+void	great(t_shell *shell, int i);
 
 #endif

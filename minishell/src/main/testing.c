@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:40:24 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/28 17:36:02 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/29 14:13:11 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,14 @@ void	print_parser(t_shell *shell)
 			i++;
 		}
 		printf("\n");
+		i = 0;
+		printf("file_types: ");
+		while (current->file_types[i] != 0)
+		{
+			printf("[%d] ", current->file_types[i]);
+			i++;
+		}
+		printf("\n");
 		printf("index: %d\n", current->index);
 		current = current->next;
 	}
@@ -136,15 +144,4 @@ void	test_parser_pointers(char **args, char **io, char **files)
 	printf("io[2]: %s\n", io[2]);
 	printf("io[3]: %s\n", io[3]);
 	printf("----------------\n");
-}
-
-void	err_print(int content)
-{
-	char * pid = ft_itoa(content);
-    while (*pid)
-    {
-        write(2, pid, 1);
-        pid++;
-    }
-    write(2, "\n", 1);
 }
