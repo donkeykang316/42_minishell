@@ -22,3 +22,8 @@ ls -l | >file2 grep a
 ls | > file1 >> file2
 ls | > file1 > file2
 ls | cat | cat > file
+
+< comp cat
+< comp cat | cat
+< comp | cat
+< comp cat | < cat

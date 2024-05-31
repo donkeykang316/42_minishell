@@ -48,6 +48,18 @@ void cmd_count(t_shell *shell)
 	            }
             }
         }
+        if (current->input == T_LESSER
+            || current->input == T_HEREDOC)
+        {
+            *(shell->red_fd) = open(current->i_str, O_RDONLY);
+            if (*(shell->red_fd) == -1)
+            {
+                perror("open");
+                exit(EXIT_FAILURE);
+            }
+            /*else if (current->input == T_HEREDOC) {
+            handle_here_document(current->i_str, &input_fd);*/
+        }
 		current = current->next;
 	}
     shell->fd = malloc(sizeof(int) * i * 2);
@@ -66,7 +78,7 @@ void    fd_close(t_shell *shell)
     int i;
 
     i = 0;
-    if (shell->fd)
+    if (*(shell->fd) != -2)
     {
         while (i != (*(shell->cmd_count) - 1) * 2)
         {
@@ -145,10 +157,12 @@ void pipex(t_shell *shell)
                     else if (shell->parser->index == 0 || shell->parser->index == 1)
                         great(shell, 0);
                     else
-                    {
-                        perror("why");
                         great(shell, (shell->parser->index - 1) * 2);
-                    }
+                }
+            else if (shell->parser->input == T_LESSER
+                || shell->parser->input == T_HEREDOC)
+                {
+                    less(shell, 1);
                 }
             i++;
         }

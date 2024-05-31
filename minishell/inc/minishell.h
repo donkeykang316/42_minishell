@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/05/31 14:54:21 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/31 19:04:43 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,5 @@ void	print_lexer(t_shell *shell);
 void	print_expand(t_shell *shell);
 void	print_parser(t_shell *shell);
 void	test_parser_pointers(char **args, char **io, char **files);
-
-//redirection
-void    fd_close(t_shell *shell);
-void	pipex(t_shell *shell);
-void	great(t_shell *shell, int i);
 
 #endif

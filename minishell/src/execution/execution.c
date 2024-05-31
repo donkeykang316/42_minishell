@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/31 17:40:46 by kaan             ###   ########.fr       */
+/*   Updated: 2024/05/31 19:13:33 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 
 void	execute(t_shell *shell)
 {
-	//print_parser(shell);
+	print_parser(shell);
 	if (shell->parser->output == T_PIPE
         || shell->parser->output == T_GREATER
-        || shell->parser->output == T_APPEND)
+        || shell->parser->output == T_APPEND
+        || shell->parser->input == T_LESSER
+        || shell->parser->input == T_HEREDOC)
         pipex(shell);
 	else if (shell->parser->cmd != NULL && shell->parser->output != 1)
 		find_builtin(shell);
