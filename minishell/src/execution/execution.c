@@ -6,11 +6,58 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 13:07:48 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 16:03:11 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+// Fork and execute command
+void	single_cmd_exe(t_shell *shell)
+{
+	pid_t		pid;
+	t_parser	*current;
+	int			input_fd;
+	int			output_fd;
+	int			status;
+
+    input_fd = STDIN_FILENO;
+	output_fd = STDOUT_FILENO;
+	current = shell->parser;
+	pid = fork();
+    if (pid == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
+    }
+    if (pid == 0) { // Child process
+        if (input_fd != STDIN_FILENO) {
+            if (dup2(input_fd, STDIN_FILENO) == -1) {
+                perror("dup2 input_fd");
+                exit(EXIT_FAILURE);
+            }
+            close(input_fd);
+        }
+        if (output_fd != STDOUT_FILENO) {
+            if (dup2(output_fd, STDOUT_FILENO) == -1) {
+                perror("dup2 output_fd");
+                exit(EXIT_FAILURE);
+            }
+            close(output_fd);
+        }
+        // Execute the command
+        if (find_builtin(shell) == 1)
+            exit(EXIT_SUCCESS); 
+		reset_loop(shell, NULL);
+    }
+	waitpid(pid, &status, 0);
+	if (input_fd != STDIN_FILENO)
+        close(input_fd);
+    if (output_fd != STDOUT_FILENO)
+	{
+        close(output_fd);
+	}
+	reset_loop(shell, NULL);
+}
 
 /**
  * Take output from parser and executes it. The final part of the shell.
@@ -28,118 +75,10 @@ void	execute(t_shell *shell)
         || shell->parser->input == T_HEREDOC)
         pipex(shell);
 	else if (shell->parser->cmd != NULL && shell->parser->output != 1)
-		find_builtin(shell);
+		single_cmd_exe(shell);
 	else
 		reset_loop(shell, NULL);
 }
-
-/*void execute(t_shell *shell) {
-    t_parser *current;
-    pid_t pid;
-    int input_fd = STDIN_FILENO;
-    int pipefd[2];
-    int status;
-    int is_pipe = 0;
-
-    print_parser(shell);
-    current = shell->parser;
-
-    while (current != NULL) {
-        int output_fd = STDOUT_FILENO;
-
-        // Check if the next command needs a pipe
-        if (current->output == T_PIPE) {
-            if (pipe(pipefd) == -1) {
-                perror("pipe");
-                exit(EXIT_FAILURE);
-            }
-            output_fd = pipefd[1];
-            is_pipe = 1;
-        } else if (current->output == T_GREATER || current->output == T_APPEND) {
-            if (current->output == T_APPEND) {
-                output_fd = open(current->o_str, O_WRONLY | O_CREAT | O_APPEND, 0644);
-            } else {
-                output_fd = open(current->o_str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-            }
-            if (output_fd == -1) {
-                perror("open");
-                exit(EXIT_FAILURE);
-            }
-        }
-
-        // Set up input redirection
-        if (current->input == T_PIPE) {
-            input_fd = pipefd[0];
-        } else if (current->input == T_LESSER) {
-            input_fd = open(current->i_str, O_RDONLY);
-            if (input_fd == -1) {
-                perror("open");
-                exit(EXIT_FAILURE);
-            }
-        } else if (current->input == T_HEREDOC) {
-            handle_here_document(current->i_str, &input_fd);
-        }
-
-        // Fork and execute command
-        pid = fork();
-        if (pid == -1) {
-            perror("fork");
-            exit(EXIT_FAILURE);
-        }
-        if (pid == 0) { // Child process
-            if (input_fd != STDIN_FILENO) {
-                if (dup2(input_fd, STDIN_FILENO) == -1) {
-                    perror("dup2 input_fd");
-                    exit(EXIT_FAILURE);
-                }
-                close(input_fd);
-            }
-            if (output_fd != STDOUT_FILENO) {
-                if (dup2(output_fd, STDOUT_FILENO) == -1) {
-                    perror("dup2 output_fd");
-                    exit(EXIT_FAILURE);
-                }
-                close(output_fd);
-            }
-            // Execute the command
-            if (find_builtin(shell) == 1) { // If it's a built-in command
-                exit(EXIT_SUCCESS); // Exit child process
-            } else {
-                execvp(current->cmd, current->args);
-                perror("execvp failed");
-                exit(EXIT_FAILURE);
-            }
-        }
-
-        // Parent process
-        if (input_fd != STDIN_FILENO && current->input == T_LESSER) {
-            close(input_fd);
-        }
-        if (output_fd != STDOUT_FILENO && current->output != T_PIPE) {
-            close(output_fd);
-        }
-
-        if (is_pipe) {
-            close(pipefd[1]);     // Close the write end of the pipe in the parent
-            input_fd = pipefd[0]; // Set up the input for the next command
-            is_pipe = 0;
-        } else {
-            input_fd = STDIN_FILENO;
-        }
-
-        current = current->next;
-    }
-
-    // Wait for all child processes to complete
-    while ((pid = wait(&status)) > 0);
-
-    // Explicitly restore standard input/output in the parent process
-    dup2(STDIN_FILENO, 0);
-    dup2(STDOUT_FILENO, 1);
-    dup2(STDERR_FILENO, 2);
-
-    reset_loop(shell, NULL); // Reset the shell state if needed
-}*/
 
  /* Finds and executes the appropriate built-in
  * command based on the given command.

@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:00:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/01 13:14:35 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 16:32:08 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void    less(t_shell *shell, int i)
     if (dup2(*(shell->red_fd), 0) == -1)
         perror("great error2");
     fd_close(shell);
-    find_path(shell);
-    reset_loop(shell, NULL);
+    single_cmd_exe(shell);
+    /*find_path(shell);
+    reset_loop(shell, NULL);*/
 }
 
 void	great(t_shell *shell, int i)
@@ -33,8 +34,9 @@ void	great(t_shell *shell, int i)
     if (dup2(*(shell->red_fd), 1) == -1)
         perror("great error2");
     fd_close(shell);
-    find_path(shell);
-    reset_loop(shell, NULL);
+    single_cmd_exe(shell);
+    /*find_path(shell);
+    reset_loop(shell, NULL);*/
 }
 
 void handle_here_document(t_shell *shell)

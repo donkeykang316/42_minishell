@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:57 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/31 19:04:18 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 16:17:11 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ typedef struct s_shell	t_shell;
 
 //execution.c
 void	execute(t_shell *shell);
-int find_builtin(t_shell *shell);
+void	single_cmd_exe(t_shell *shell);
+int     find_builtin(t_shell *shell);
 
 //pathexec.c
 char	**prep_path(t_shell *shell);
