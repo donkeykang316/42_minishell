@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:17:43 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 16:32:48 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 17:04:33 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	builtin_cd(t_shell *shell)
 
 void	cd_home(t_shell *shell)
 {
-	char *home;
+	char	*home;
 
 	home = ft_getenv("HOME", shell->env);
 	if (!home)
@@ -55,7 +55,7 @@ void	cd_home(t_shell *shell)
 		reset_loop(shell, ERR_CDHOME);
 		return ;
 	}
-	if(chdir(home) == -1)
+	if (chdir(home) == -1)
 	{
 		free(home);
 		reset_loop(shell, ERR_CD);
@@ -71,9 +71,10 @@ void	set_last_dir(t_shell *shell)
 		free(shell->last_dir);
 	shell->last_dir = getcwd(NULL, 0);
 }
+
 void	change_last_dir(t_shell *shell)
 {
-	char *temp;
+	char	*temp;
 
 	printf("%s\n", shell->last_dir);
 	temp = getcwd(NULL, 0);

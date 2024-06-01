@@ -28,3 +28,6 @@ PRIOTITY FOR REDIRECTION:
 3. IF NO REDIRECTIONS OR PIPES, STDOUT
 
 CHANGE EXIT CODES
+
+cd not workking
+double free error after executing multiple pipes and "clear"
