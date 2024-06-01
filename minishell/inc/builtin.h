@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:00:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/31 19:04:49 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 13:00:13 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void    fd_close(t_shell *shell);
 void	pipex(t_shell *shell);
 void	great(t_shell *shell, int i);
 void    less(t_shell *shell, int i);
+void    handle_here_document(t_shell *shell);
 
 #endif

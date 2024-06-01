@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/31 19:13:33 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 13:07:48 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 void	execute(t_shell *shell)
 {
-	print_parser(shell);
+	//print_parser(shell);
 	if (shell->parser->output == T_PIPE
         || shell->parser->output == T_GREATER
         || shell->parser->output == T_APPEND

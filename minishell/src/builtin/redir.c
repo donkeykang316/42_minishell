@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:00:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/05/31 19:30:14 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 13:14:35 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,37 @@ void	great(t_shell *shell, int i)
     fd_close(shell);
     find_path(shell);
     reset_loop(shell, NULL);
+}
+
+void handle_here_document(t_shell *shell)
+{
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    line = NULL;
+    len = 0;
+    *(shell->red_fd) = open("/tmp/heredoc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+    if (*(shell->red_fd) == -1)
+    {
+        perror("open");
+        exit(EXIT_FAILURE);
+    }
+    printf("heredoc> ");
+    while ((read = getline(&line, &len, stdin)) != -1)
+    {
+        if (strncmp(line, shell->parser->i_str, strlen(shell->parser->i_str)) == 0
+            && line[strlen(shell->parser->i_str)] == '\n') {
+            break;
+        }
+        write(*(shell->red_fd), line, read);
+        printf("heredoc> ");
+    }
+    free(line);
+    close(*(shell->red_fd));
+    *(shell->red_fd) = open("/tmp/heredoc_tmp", O_RDONLY);
+    if (*(shell->red_fd) == -1) {
+        perror("open temp file for read");
+        exit(EXIT_FAILURE);
+    }
 }
