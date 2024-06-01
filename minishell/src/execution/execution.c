@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 17:45:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 18:02:57 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,40 +21,45 @@ void	single_cmd_exe(t_shell *shell)
 	int			output_fd;
 	int			status;
 
-    input_fd = STDIN_FILENO;
+	input_fd = STDIN_FILENO;
 	output_fd = STDOUT_FILENO;
 	current = shell->parser;
 	pid = fork();
-    if (pid == -1) {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    }
-    if (pid == 0) { // Child process
-        if (input_fd != STDIN_FILENO) {
-            if (dup2(input_fd, STDIN_FILENO) == -1) {
-                perror("dup2 input_fd");
-                exit(EXIT_FAILURE);
-            }
-            close(input_fd);
-        }
-        if (output_fd != STDOUT_FILENO) {
-            if (dup2(output_fd, STDOUT_FILENO) == -1) {
-                perror("dup2 output_fd");
-                exit(EXIT_FAILURE);
-            }
-            close(output_fd);
-        }
-        // Execute the command
-        if (find_builtin(shell) == 1)
-            exit(EXIT_SUCCESS); 
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{
+		if (input_fd != STDIN_FILENO)
+		{
+			if (dup2(input_fd, STDIN_FILENO) == -1)
+			{
+				perror("dup2 input_fd");
+				exit(EXIT_FAILURE);
+			}
+			close(input_fd);
+		}
+		if (output_fd != STDOUT_FILENO)
+		{
+			if (dup2(output_fd, STDOUT_FILENO) == -1)
+			{
+				perror("dup2 output_fd");
+				exit(EXIT_FAILURE);
+			}
+			close(output_fd);
+		}
+		if (find_builtin(shell) == 1)
+			exit(EXIT_SUCCESS);
 		reset_loop(shell, NULL);
-    }
+	}
 	waitpid(pid, &status, 0);
 	if (input_fd != STDIN_FILENO)
-        close(input_fd);
-    if (output_fd != STDOUT_FILENO)
+		close(input_fd);
+	if (output_fd != STDOUT_FILENO)
 	{
-        close(output_fd);
+		close(output_fd);
 	}
 	reset_loop(shell, NULL);
 }
@@ -67,20 +72,21 @@ void	single_cmd_exe(t_shell *shell)
 
 void	execute(t_shell *shell)
 {
-	//print_parser(shell);
-	if (shell->parser->output == T_PIPE
-        || shell->parser->output == T_GREATER
-        || shell->parser->output == T_APPEND
-        || shell->parser->input == T_LESSER
-        || shell->parser->input == T_HEREDOC)
-        pipex(shell);
+	if (cmp_str(shell->parser->cmd, "cd") == 0)
+		builtin_cd(shell);
+	else if (shell->parser->output == T_PIPE
+		|| shell->parser->output == T_GREATER
+		|| shell->parser->output == T_APPEND
+		|| shell->parser->input == T_LESSER
+		|| shell->parser->input == T_HEREDOC)
+		pipex(shell);
 	else if (shell->parser->cmd != NULL && shell->parser->output != 1)
 		single_cmd_exe(shell);
 	else
 		reset_loop(shell, NULL);
 }
 
- /* Finds and executes the appropriate built-in
+/* Finds and executes the appropriate built-in
  * command based on the given command.
  * If the command is not a built-in command, 
  * it attempts to find the command in the system's PATH.
@@ -94,9 +100,7 @@ int	find_builtin(t_shell *shell)
 	char	*cmd;
 
 	cmd = shell->parser->cmd;
-	if (cmp_str(cmd, "cd") == 0)
-		builtin_cd(shell);
-	else if (cmp_str(cmd, "echo") == 0)
+	if (cmp_str(cmd, "echo") == 0)
 		builtin_echo(shell);
 	else if (cmp_str(cmd, "env") == 0)
 		builtin_env(shell);

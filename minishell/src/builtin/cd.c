@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:17:43 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 17:04:33 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 18:03:51 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	builtin_cd(t_shell *shell)
 		reset_loop(shell, ERR_CD);
 		return ;
 	}
-	// reset_loop(shell, NULL);
+	reset_loop(shell, NULL);
 }
 
 void	cd_home(t_shell *shell)

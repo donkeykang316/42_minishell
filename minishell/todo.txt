@@ -30,4 +30,3 @@ PRIOTITY FOR REDIRECTION:
 CHANGE EXIT CODES
 
 cd not workking
-double free error after executing multiple pipes and "clear"
