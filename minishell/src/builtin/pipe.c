@@ -161,6 +161,8 @@ void pipex(t_shell *shell)
             else if (shell->parser->input == T_LESSER
                 || shell->parser->input == T_HEREDOC)
                 less(shell, 1);
+            else
+                reset_loop(shell, NULL);
             i++;
         }
         shell->parser = shell->parser->next;
