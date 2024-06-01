@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 16:03:11 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 17:45:15 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	find_builtin(t_shell *shell)
 	{
 		if (find_path(shell) != 0)
 			printf("%s%s\n", shell->parser->cmd, ERR_NCMD);
-		return(0);
+		return (0);
 		reset_loop(shell, NULL);
 	}
 	return (1);

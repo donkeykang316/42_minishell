@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:27:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/31 17:16:20 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/01 17:48:54 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	reset_loop(t_shell *shell, char *msg)
 	shell->expand = NULL;
 	shell->lexer = NULL;
 	shell->parser = NULL;
+	shell->cmd_count = NULL;
 	reset_increment_k(0);
 	if (shell->pid == 0)
 		exit(1);
