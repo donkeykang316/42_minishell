@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:00:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 16:43:12 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/02 16:25:17 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,16 @@ void	unset_declare(t_shell *shell, char *str);
 void	unset_env(t_shell *shell, char *str);
 
 //redirection
-void	fd_close(t_shell *shell);
 void	pipex(t_shell *shell);
+void	pip_exe(t_shell *shell, int i, int j);
 void	great(t_shell *shell, int i);
 void	less(t_shell *shell, int i);
 void	handle_here_document(t_shell *shell);
+
+//redirection utils
+void	err_fd(void);
+void	fd_close(t_shell *shell);
+void	cmd_count(t_shell *shell);
+void	proc_termination(t_shell *shell);
 
 #endif

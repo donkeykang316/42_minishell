@@ -6,11 +6,36 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:00:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/01 17:15:12 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/02 16:30:25 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	pip_exe(t_shell *shell, int i, int j)
+{
+	if ((i == 1 && j == -1) 
+		|| (i == 0 && j == -1))
+	{
+		if (dup2(shell->fd[i], i) == -1)
+			perror("error2");
+	}
+	else if (j == -1)
+	{
+		if (dup2(shell->fd[i], 0) == -1)
+			perror("error2");
+		i += 2;
+	}
+	else
+	{
+		if (dup2(shell->fd[i], 0) == -1)
+			perror("error2");
+		if (dup2(shell->fd[i + 3], 1) == -1)
+			perror("error2");
+	}
+	fd_close(shell);
+	find_builtin(shell);
+}
 
 void	less(t_shell *shell, int i)
 {
@@ -22,17 +47,23 @@ void	less(t_shell *shell, int i)
 	if (dup2(*(shell->red_fd), 0) == -1)
 		perror("great error2");
 	fd_close(shell);
-	single_cmd_exe(shell);
+	find_builtin(shell);
 }
 
 void	great(t_shell *shell, int i)
 {
+	if (cmp_str(shell->parser->i_str, "PIPE") == 0
+		&& shell->parser->cmd == NULL)
+	{
+		fd_close(shell);
+		reset_loop(shell, NULL);
+	}
 	if (dup2(shell->fd[i], 0) == -1)
 		perror("great error1");
 	if (dup2(*(shell->red_fd), 1) == -1)
 		perror("great error2");
 	fd_close(shell);
-	single_cmd_exe(shell);
+	find_builtin(shell);
 }
 
 void	handle_here_document(t_shell *shell)

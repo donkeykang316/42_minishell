@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 18:02:57 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/02 16:54:02 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ void	single_cmd_exe(t_shell *shell)
 			}
 			close(output_fd);
 		}
-		if (find_builtin(shell) == 1)
+		if (find_path(shell) == 1)
 			exit(EXIT_SUCCESS);
+		else
+			ft_perror(current->cmd, ":command not found\n");
 		reset_loop(shell, NULL);
 	}
 	waitpid(pid, &status, 0);
@@ -72,7 +74,7 @@ void	single_cmd_exe(t_shell *shell)
 
 void	execute(t_shell *shell)
 {
-	if (cmp_str(shell->parser->cmd, "cd") == 0)
+	if (shell->parser->cmd != NULL && cmp_str(shell->parser->cmd, "cd") == 0)
 		builtin_cd(shell);
 	else if (shell->parser->output == T_PIPE
 		|| shell->parser->output == T_GREATER
@@ -112,10 +114,11 @@ int	find_builtin(t_shell *shell)
 		builtin_pwd(shell);
 	else if (cmp_str(cmd, "unset") == 0)
 		builtin_unset(shell);
+	if (cmp_str(shell->parser->cmd, "cd") == 0)
+		builtin_cd(shell);
 	else
 	{
-		if (find_path(shell) != 0)
-			printf("%s%s\n", shell->parser->cmd, ERR_NCMD);
+		single_cmd_exe(shell);
 		return (0);
 		reset_loop(shell, NULL);
 	}

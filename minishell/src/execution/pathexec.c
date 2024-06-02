@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 14:39:10 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 15:39:26 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/02 14:22:14 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ char	**prep_path(t_shell *shell)
 	return (path);
 }
 
+int	ft_exec_external(t_shell *shell, char *cmd, char **path)
+{
+	exec_external(shell, cmd);
+	free_double(path);
+	return (0);
+}
+
 int	find_path(t_shell *shell)
 {
 	char	**path;
@@ -42,25 +49,18 @@ int	find_path(t_shell *shell)
 	if (cmp_str(shell->parser->cmd, "./minishell") == 0)
 		raise_shlvl(shell);
 	if (access(shell->parser->cmd, F_OK | X_OK) == 0)
-	{
-		exec_external(shell, shell->parser->cmd);
-		free_double(path);
-		return (0);
-	}
+		return (ft_exec_external(shell, shell->parser->cmd, path));
 	i = 0;
 	while (path[i])
 	{
 		path[i] = ft_strjoin(path[i], "/");
 		path[i] = ft_strjoin(path[i], shell->parser->cmd);
 		if (access(path[i], F_OK | X_OK) == 0)
-		{
-			exec_external(shell, path[i]);
-			free_double(path);
-			return (0);
-		}
+			return (ft_exec_external(shell, path[i], path));
 		i++;
 	}
 	free_double(path);
+	reset_loop(shell, NULL);
 	return (1);
 }
 

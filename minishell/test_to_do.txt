@@ -27,3 +27,10 @@ ls | cat | cat > file
 < comp cat | cat
 < comp | cat
 < comp cat | < cat
+
+echo 123 | echo 123 | cat
+
+ls | cat
+
+< comp | cat
+< comp cat | cat

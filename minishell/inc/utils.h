@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:12:05 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 16:46:29 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/02 16:51:59 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	adjust_lexer_redir(t_shell *shell);
 void	check_final_lexer(t_shell *shell);
 void	raise_shlvl(t_shell *shell);
 void	lower_shlvl(t_shell *shell);
+void	ft_perror(char *msg1, char *msg2);
 
 //gen_utils_split.c
 char	**ft_split_ms(const char *s, char c);

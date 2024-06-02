@@ -29,4 +29,5 @@ PRIOTITY FOR REDIRECTION:
 
 CHANGE EXIT CODES
 
-cd not workking
+ps disfunctional
+exit generate new minishell with each execution
