@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:59:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 14:30:07 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 14:41:38 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	builtin_pwd(t_shell *shell)
 	printf("%s\n", pwd);
 	update_pwd_env_declare(shell, pwd);
 	free(pwd);
-	//reset_loop(shell, NULL);
 }
 
 void	update_pwd_env_declare(t_shell *shell, char *str)

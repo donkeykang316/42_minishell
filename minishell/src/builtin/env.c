@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:38:32 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/02 16:31:44 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 14:41:20 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,4 @@ void	builtin_env(t_shell *shell)
 		printf("%s\n", shell->env[i]);
 		i++;
 	}
-	// reset_loop(shell, NULL);
 }
