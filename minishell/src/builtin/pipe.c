@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:35:00 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/03 14:34:13 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 14:56:08 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,5 @@ void	pipex(t_shell *shell)
 	}
 	waitpid(-1, &status, 0);
 	fd_close(shell);
-	if (shell->pid != -2)
-		
 	reset_loop(shell, NULL);
 }

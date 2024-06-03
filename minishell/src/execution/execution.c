@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 14:34:51 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 14:56:24 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ void	single_cmd_exe(t_shell *shell)
 void	execute(t_shell *shell)
 {
 	shell->pid = -2;
-	if (shell->parser->cmd != NULL && cmp_str(shell->parser->cmd, "cd") == 0)
-		builtin_cd(shell);
-	else if (shell->parser->output == T_PIPE
+	if (shell->parser->output == T_PIPE
 		|| shell->parser->output == T_GREATER
 		|| shell->parser->output == T_APPEND
 		|| shell->parser->input == T_LESSER
