@@ -34,3 +34,5 @@ ls | cat
 
 < comp | cat
 < comp cat | cat
+cat << op
+cat file | grep bla | more

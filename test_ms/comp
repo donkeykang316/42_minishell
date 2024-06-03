@@ -1,1 +1,1 @@
-cc redir_test.c && ./a.out
+cc signal_test.c && ./a.out

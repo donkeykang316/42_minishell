@@ -3,26 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 19:13:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/04/24 22:45:35 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:38:02 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	handle_sigint(int sig)
+void	sigint_handler_parent(int num)
 {
-	printf("\n");
+	(void)num;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	sigint_handler_child(int num)
+{
+	(void)num;
+	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	(void) sig;
 }
 
-void	set_signals(void)
+void	sigquit_handler(int num)
 {
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
+	(void)num;
+}
+
+void	set_signals_parent(void)
+{
+	signal(SIGINT, sigint_handler_parent);
+	signal(SIGQUIT, sigquit_handler);
+}
+
+void	set_signals_child(void)
+{
+	signal(SIGQUIT, sigint_handler_child);
+	/*signal(SIGINT, sigint_handler_child);
+	signal(SIGQUIT, sigquit_handler);*/
 }

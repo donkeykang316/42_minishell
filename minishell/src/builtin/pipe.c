@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:35:00 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/03 14:56:08 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 20:12:54 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	child_proc(t_shell *shell)
 		|| shell->parser->input == T_HEREDOC)
 		less(shell, 1);
 	else
-		reset_loop(shell, NULL);
+		proc_termination(shell);
 }
 
 void	pipex(t_shell *shell)

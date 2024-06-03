@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:27:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 17:48:54 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 19:01:27 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 
 void	shell_loop(t_shell *shell)
 {
-	set_signals();
+	set_signals_parent();
 	shell->line = readline(CL_NAME);
 	if (!shell->line) 
 	{

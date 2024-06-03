@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 14:56:24 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 20:00:56 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	single_cmd_exe(t_shell *shell)
 	}
 	if (pid == 0)
 	{
+		set_signals_child();
 		if (input_fd != STDIN_FILENO)
 		{
 			if (dup2(input_fd, STDIN_FILENO) == -1)
@@ -52,7 +53,7 @@ void	single_cmd_exe(t_shell *shell)
 		}
 		if (find_path(shell) == 1)
 			exit(EXIT_SUCCESS);
-		reset_loop(shell, NULL);
+		proc_termination(shell);
 	}
 	waitpid(pid, &status, 0);
 	if (input_fd != STDIN_FILENO)
@@ -72,6 +73,7 @@ void	single_cmd_exe(t_shell *shell)
 
 void	execute(t_shell *shell)
 {
+	//print_parser(shell);
 	shell->pid = -2;
 	if (shell->parser->output == T_PIPE
 		|| shell->parser->output == T_GREATER
@@ -98,6 +100,7 @@ int	find_builtin(t_shell *shell)
 {
 	char	*cmd;
 
+	//printf("pid_error:%d\n", shell->pid);
 	cmd = shell->parser->cmd;
 	if (cmp_str(cmd, "echo") == 0)
 		builtin_echo(shell);
@@ -111,12 +114,15 @@ int	find_builtin(t_shell *shell)
 		builtin_pwd(shell);
 	else if (cmp_str(cmd, "unset") == 0)
 		builtin_unset(shell);
-	if (cmp_str(cmd, "cd") == 0)
+	else if (cmp_str(cmd, "cd") == 0)
 		builtin_cd(shell);
 	else
 		single_cmd_exe(shell);
 	if (shell->pid != -2)
+	{
+		perror("error!");
 		proc_termination(shell);
+	}
 	reset_loop(shell, NULL);
 	return (1);
 }

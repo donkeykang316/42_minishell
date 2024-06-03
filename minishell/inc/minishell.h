@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/05/31 19:04:43 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 19:04:35 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,9 @@ void	reset_loop(t_shell *shell, char *msg);
 void	starting_dir(t_shell *shell);
 
 //signals.c
-void	handle_sigint(int sig);
-void	set_signals(void);
+void	set_signals_parent(void);
+void	set_signals_child(void);
+void	sigquit_handler(int num);
 
 //testing.c
 void	print_lexer(t_shell *shell);

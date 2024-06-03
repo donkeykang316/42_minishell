@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:00:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/03 14:40:54 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 19:18:55 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	pip_exe(t_shell *shell, int i, int j)
 	}
 	else if (j == -1)
 	{
-		if (dup2(shell->fd[i], 0) == -1)
+		if (dup2(shell->fd[i], STDIN_FILENO) == -1)
 			perror("error2");
 		i += 2;
 	}
 	else
 	{
-		if (dup2(shell->fd[i], 0) == -1)
+		if (dup2(shell->fd[i], STDIN_FILENO) == -1)
 			perror("error2");
-		if (dup2(shell->fd[i + 3], 1) == -1)
+		if (dup2(shell->fd[i + 3], STDOUT_FILENO) == -1)
 			perror("error2");
 	}
 	fd_close(shell);
@@ -41,10 +41,10 @@ void	less(t_shell *shell, int i)
 {
 	if (shell->parser->index != 0)
 	{
-		if (dup2(shell->fd[i], 1) == -1)
+		if (dup2(shell->fd[i], STDOUT_FILENO) == -1)
 			perror("great error1");
 	}
-	if (dup2(*(shell->red_fd), 0) == -1)
+	if (dup2(*(shell->red_fd), STDIN_FILENO) == -1)
 		perror("great error2");
 	fd_close(shell);
 	find_builtin(shell);
@@ -58,9 +58,9 @@ void	great(t_shell *shell, int i)
 		fd_close(shell);
 		reset_loop(shell, NULL);
 	}
-	if (dup2(shell->fd[i], 0) == -1)
+	if (dup2(shell->fd[i], STDIN_FILENO) == -1)
 		perror("great error1");
-	if (dup2(*(shell->red_fd), 1) == -1)
+	if (dup2(*(shell->red_fd), STDOUT_FILENO) == -1)
 		perror("great error2");
 	fd_close(shell);
 	find_builtin(shell);
@@ -74,6 +74,7 @@ void	handle_here_document(t_shell *shell)
 
 	line = NULL;
 	len = 0;
+	set_signals_child();
 	*(shell->red_fd) = open("/tmp/heredoc_tmp",
 			O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (*(shell->red_fd) == -1)
@@ -82,8 +83,11 @@ void	handle_here_document(t_shell *shell)
 		exit(EXIT_FAILURE);
 	}
 	printf("heredoc> ");
-	while ((read = getline(&line, &len, stdin)) != -1)
+	while (1)
 	{
+		read = getline(&line, &len, stdin);
+		if (read == -1)
+			break ;
 		if (strncmp(line, shell->parser->i_str,
 				strlen(shell->parser->i_str)) == 0
 			&& line[strlen(shell->parser->i_str)] == '\n')
