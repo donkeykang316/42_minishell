@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:00:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/02 16:30:25 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 14:36:27 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ void	handle_here_document(t_shell *shell)
 		perror("open temp file for read");
 		exit(EXIT_FAILURE);
 	}
+	proc_termination(shell);
 }

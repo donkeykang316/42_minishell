@@ -6,11 +6,31 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:35:00 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/02 16:32:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 14:34:13 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	proc_termination(t_shell *shell)
+{
+	if (shell->line)
+		free(shell->line);
+	if (shell->lexer)
+		lexerfreelist_ms(&shell->lexer);
+	if (shell->expand)
+		expandfreelist_ms(&shell->expand);
+	if (shell->parser)
+		parserfreelist_ms(&shell->parser);
+	if (shell->cmd_count)
+		free(shell->cmd_count);
+	shell->expand = NULL;
+	shell->lexer = NULL;
+	shell->parser = NULL;
+	shell->cmd_count = NULL;
+	reset_increment_k(0);
+	exit(EXIT_SUCCESS);
+}
 
 void	child_proc(t_shell *shell)
 {
@@ -50,7 +70,6 @@ void	pipex(t_shell *shell)
 	int	i;
 
 	i = 0;
-	shell->pid = -2;
 	cmd_count(shell);
 	while (shell->parser)
 	{
@@ -66,5 +85,7 @@ void	pipex(t_shell *shell)
 	}
 	waitpid(-1, &status, 0);
 	fd_close(shell);
+	if (shell->pid != -2)
+		
 	reset_loop(shell, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 13:50:21 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 14:34:51 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	single_cmd_exe(t_shell *shell)
 
 void	execute(t_shell *shell)
 {
+	shell->pid = -2;
 	if (shell->parser->cmd != NULL && cmp_str(shell->parser->cmd, "cd") == 0)
 		builtin_cd(shell);
 	else if (shell->parser->output == T_PIPE
@@ -115,9 +116,9 @@ int	find_builtin(t_shell *shell)
 	if (cmp_str(cmd, "cd") == 0)
 		builtin_cd(shell);
 	else
-	{
 		single_cmd_exe(shell);
-		reset_loop(shell, NULL);
-	}
+	if (shell->pid != -2)
+		proc_termination(shell);
+	reset_loop(shell, NULL);
 	return (1);
 }
