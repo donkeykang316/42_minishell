@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:21:56 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/02 16:53:16 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 13:35:36 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,5 @@ void	ft_perror(char *msg1, char *msg2)
 			msg2++;
 		}
 	}
-	exit(EXIT_FAILURE);
+	//exit(EXIT_FAILURE);
 }

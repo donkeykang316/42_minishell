@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 14:39:10 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/02 14:22:14 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 14:24:06 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,10 @@ int	ft_exec_external(t_shell *shell, char *cmd, char **path)
 	return (0);
 }
 
-int	find_path(t_shell *shell)
+int	path_validation(t_shell *shell, char **path)
 {
-	char	**path;
 	int		i;
 
-	path = prep_path(shell);
-	if (cmp_str(shell->parser->cmd, "./minishell") == 0)
-		raise_shlvl(shell);
-	if (access(shell->parser->cmd, F_OK | X_OK) == 0)
-		return (ft_exec_external(shell, shell->parser->cmd, path));
 	i = 0;
 	while (path[i])
 	{
@@ -59,8 +53,23 @@ int	find_path(t_shell *shell)
 			return (ft_exec_external(shell, path[i], path));
 		i++;
 	}
-	free_double(path);
-	reset_loop(shell, NULL);
+	return (-1);
+}
+
+int	find_path(t_shell *shell)
+{
+	char	**path;
+
+	path = prep_path(shell);
+	if (cmp_str(shell->parser->cmd, "./minishell") == 0)
+		raise_shlvl(shell);
+	if (access(shell->parser->cmd, F_OK | X_OK) == 0)
+		return (ft_exec_external(shell, shell->parser->cmd, path));
+	if (path_validation(shell, path) == -1)
+	{
+		ft_perror(shell->parser->cmd, ":command not found\n");
+		free_double(path);
+	}
 	return (1);
 }
 

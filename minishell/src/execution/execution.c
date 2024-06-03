@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/02 16:54:02 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/03 13:50:21 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	single_cmd_exe(t_shell *shell)
 		}
 		if (find_path(shell) == 1)
 			exit(EXIT_SUCCESS);
-		else
-			ft_perror(current->cmd, ":command not found\n");
 		reset_loop(shell, NULL);
 	}
 	waitpid(pid, &status, 0);
@@ -83,7 +81,7 @@ void	execute(t_shell *shell)
 		|| shell->parser->input == T_HEREDOC)
 		pipex(shell);
 	else if (shell->parser->cmd != NULL && shell->parser->output != 1)
-		single_cmd_exe(shell);
+		find_builtin(shell);
 	else
 		reset_loop(shell, NULL);
 }
@@ -114,12 +112,11 @@ int	find_builtin(t_shell *shell)
 		builtin_pwd(shell);
 	else if (cmp_str(cmd, "unset") == 0)
 		builtin_unset(shell);
-	if (cmp_str(shell->parser->cmd, "cd") == 0)
+	if (cmp_str(cmd, "cd") == 0)
 		builtin_cd(shell);
 	else
 	{
 		single_cmd_exe(shell);
-		return (0);
 		reset_loop(shell, NULL);
 	}
 	return (1);
