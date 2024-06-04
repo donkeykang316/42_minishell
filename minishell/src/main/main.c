@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:27:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 19:01:27 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/04 15:43:07 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	shell_loop(t_shell *shell)
 {
 	set_signals_parent();
 	shell->line = readline(CL_NAME);
+	//set_signals_child();
 	if (!shell->line) 
 	{
 		if (shell->declare)
@@ -93,12 +94,9 @@ void	reset_loop(t_shell *shell, char *msg)
 		expandfreelist_ms(&shell->expand);
 	if (shell->parser)
 		parserfreelist_ms(&shell->parser);
-	if (shell->cmd_count)
-		free(shell->cmd_count);
 	shell->expand = NULL;
 	shell->lexer = NULL;
 	shell->parser = NULL;
-	shell->cmd_count = NULL;
 	reset_increment_k(0);
 	if (shell->pid == 0)
 		exit(1);
@@ -125,6 +123,8 @@ t_shell	*init_shell(t_shell *shell)
 	shell->exit_status = malloc(sizeof(int));
 	*(shell->exit_status) = 0;
 	shell->pid = -1;
+	shell->cmd_count = malloc(sizeof(int));
+	*(shell->cmd_count) = -1;
 	return (shell);
 }
 

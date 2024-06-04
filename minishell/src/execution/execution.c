@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 20:00:56 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:59:51 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	single_cmd_exe(t_shell *shell)
 	t_parser	*current;
 	int			input_fd;
 	int			output_fd;
-	int			status;
+	//int			status;
 
 	input_fd = STDIN_FILENO;
 	output_fd = STDOUT_FILENO;
@@ -55,7 +55,8 @@ void	single_cmd_exe(t_shell *shell)
 			exit(EXIT_SUCCESS);
 		proc_termination(shell);
 	}
-	waitpid(pid, &status, 0);
+	//waitpid(-1, &status, 0);
+	wait_processes(shell);
 	if (input_fd != STDIN_FILENO)
 		close(input_fd);
 	if (output_fd != STDOUT_FILENO)

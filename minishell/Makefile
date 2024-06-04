@@ -6,21 +6,26 @@
 #    By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/06/02 15:57:10 by kaan             ###   ########.fr        #
+#    Updated: 2024/06/04 14:33:28 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
+DEBUG_NAME = minishell_debug
 
 LIBFT = ./lib/libft/libft.a
 
-INC	= inc/
+INC	=  -I inc/
 
 OBJ_DIR	= obj/
+DEBUG_OBJ_DIR = debug_obj/
+
 
 CC = cc
 
-FLAGS = -g -Wall -Wextra -Werror -I
+FLAGS = -g -Wall -Wextra -Werror
+SANITIZE_FLAGS = -fsanitize=address,undefined
+
 
 READFLAG = -lreadline
 
@@ -63,6 +68,8 @@ SRC =	src/builtin/cd.c\
 		src/builtin/pipex_util_2.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
+DEBUG_OBJ = $(patsubst %.c,$(DEBUG_OBJ_DIR)%.o,$(SRC))
+
 
 start:
 	@make all
@@ -75,16 +82,25 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(FLAGS) $(INC) $(OBJ) $(LIBFT) $(READFLAG) -o $(NAME)
 
+debug: $(DEBUG_NAME)
+
+$(DEBUG_NAME): $(DEBUG_OBJ) $(LIBFT)
+	@$(CC) $(FLAGS) $(SANITIZE_FLAGS) $(INC) $(DEBUG_OBJ) $(LIBFT) $(READFLAG) -o $(DEBUG_NAME)
+
 $(OBJ_DIR)%.o:		%.c
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) $(INC) -c $< -o $@
 
+$(DEBUG_OBJ_DIR)%.o:	%.c
+	@mkdir -p $(@D)
+	@$(CC) $(FLAGS) $(SANITIZE_FLAGS) $(INC) -c $< -o $@
+
 clean:
-	@$(RM) -r $(OBJ_DIR)
+	@$(RM) -r $(OBJ_DIR)  $(DEBUG_OBJ_DIR)
 	@make clean -C ./lib/libft
 
 fclean: clean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(DEBUG_NAME)
 	@$(RM) $(LIBFT)
 
 re: fclean all
