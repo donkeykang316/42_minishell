@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/04 16:59:51 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/04 17:37:11 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	single_cmd_exe(t_shell *shell)
 	{
 		close(output_fd);
 	}
-	reset_loop(shell, NULL);
+	reset_loop(shell, NULL, shell->parser->cmd, 0);
 }
 
 /**
@@ -85,7 +85,7 @@ void	execute(t_shell *shell)
 	else if (shell->parser->cmd != NULL && shell->parser->output != 1)
 		find_builtin(shell);
 	else
-		reset_loop(shell, NULL);
+		reset_loop(shell, ERR_NUM, shell->parser->cmd, 0);
 }
 
 /* Finds and executes the appropriate built-in
@@ -124,6 +124,6 @@ int	find_builtin(t_shell *shell)
 		perror("error!");
 		proc_termination(shell);
 	}
-	reset_loop(shell, NULL);
+	reset_loop(shell, NULL, shell->parser->cmd, 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 15:54:22 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/04 17:13:55 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/04 18:14:55 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	c_c_great(t_shell *shell, t_parser *current)
 
 void	c_c_less(t_shell *shell, t_parser *current)
 {
-	/*if (current->cmd == NULL)
-		reset_loop(shell, "command not found");*/
 	*(shell->red_fd) = open(current->i_str, O_RDONLY);
 	if (*(shell->red_fd) == -1)
 		err_fd();

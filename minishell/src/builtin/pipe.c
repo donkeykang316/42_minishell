@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:35:00 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/04 17:17:19 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/04 18:09:41 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	wait_processes(t_shell *shell)
 			remaining_children--;
 		}
 		else
-			reset_loop(shell, NULL);
+			reset_loop(shell, NULL, shell->parser->cmd, 0);
 	}
 }
 
@@ -75,7 +75,7 @@ void	child_proc(t_shell *shell)
 			&& shell->parser->cmd == NULL)
 		{
 			fd_close(shell);
-			reset_loop(shell, "command not found here");
+			reset_loop(shell, ERR_NCMD, shell->parser->cmd, 1);
 		}
 		else if (shell->parser->index == 0 || shell->parser->index == 1)
 			great(shell, 0);
@@ -85,7 +85,7 @@ void	child_proc(t_shell *shell)
 	else if (shell->parser->input == T_LESSER)
 		less(shell, 1);
 	else if (shell->parser->input == T_HEREDOC)
-		heredoc(shell);
+		heredoc(shell, 1);
 	else
 		proc_termination(shell);
 }
@@ -110,7 +110,6 @@ void	pipex(t_shell *shell)
 		shell->parser = shell->parser->next;
 	}
 	waitpid(-1, &status, 0);
-	//wait_processes(shell);
 	fd_close(shell);
-	reset_loop(shell, NULL);
+	reset_loop(shell, NULL, NULL, 0);
 }

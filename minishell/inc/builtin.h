@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:00:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/04 17:17:08 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/04 18:03:14 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	builtin_env(t_shell *shell);
 
 //exit.c
 void	builtin_exit(t_shell *shell);
+int 	ft_isnum(char *str);
+int get_exit(int exit_code);
 
 //export.c
 void	builtin_export(t_shell *shell);
@@ -57,7 +59,7 @@ void	pip_exe(t_shell *shell, int i, int j);
 void	great(t_shell *shell, int i);
 void	less(t_shell *shell, int i);
 void	handle_here_document(t_shell *shell);
-void    heredoc(t_shell *shell);
+void    heredoc(t_shell *shell, int i);
 
 //redirection utils
 void	err_fd(void);
