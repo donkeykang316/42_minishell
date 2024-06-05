@@ -6,16 +6,27 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 15:54:29 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/04 20:11:02 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 20:16:31 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	err_fd(void)
+void	err_fd(t_shell *shell)
 {
-	perror("Open Error");
+	perror("Open error");
+	*(shell->exit_status) = 1;
 	exit(EXIT_FAILURE);
+}
+
+void	err_fd_2(t_shell *shell)
+{
+	perror("");
+	*(shell->exit_status) = 1;
+	if (!shell->parser->next)
+		reset_loop(shell, NULL, NULL);
+	else
+		*(shell->red_fd) = -2;
 }
 
 void	fd_close(t_shell *shell)

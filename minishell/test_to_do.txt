@@ -36,4 +36,4 @@ ls | cat
 < comp cat | cat
 cat | grep | more
 
-cat minishell.h | grep ");"$ 
+cat < file | echo hi 

@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 19:13:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/04 18:26:06 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 20:34:09 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	sigint_handler_parent(int num)
 {
 	(void)num;
 	write(1, "\n", 1);
-	rl_replace_line("", 0);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 

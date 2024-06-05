@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:00:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/05 18:41:04 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 20:19:01 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,18 @@ void	pip_exe(t_shell *shell, int i, int j)
 	find_builtin_pipe(shell);
 }
 
-void	less(t_shell *shell, int i)
+void	less(t_shell *shell, int i, int j)
 {
-	if (shell->parser->index != 0)
+	if (j == 0)
 	{
-		if (dup2(shell->fd[i], STDOUT_FILENO) == -1)
+		if (dup2(shell->fd[i + 3], STDOUT_FILENO) == -1)
 			perror("great error1");
 	}
-	if (dup2(*(shell->red_fd), STDIN_FILENO) == -1)
-		perror("great error2");
+	if (*(shell->red_fd) != -2)
+	{
+		if (dup2(*(shell->red_fd), STDIN_FILENO) == -1)
+			perror("great error2");
+	}
 	fd_close(shell);
 	find_builtin_pipe(shell);
 }
@@ -86,7 +89,7 @@ void	heredoc(t_shell *shell, int i)
 	shell->red_fd = malloc(sizeof(int));
 	*(shell->red_fd) = open("/tmp/heredoc_tmp", O_RDONLY);
 	if (*(shell->red_fd) == -1)
-		err_fd();
+		err_fd(shell);
 	if (shell->parser->index != 0)
 	{
 		if (dup2(shell->fd[i], STDOUT_FILENO) == -1)
@@ -103,5 +106,5 @@ void	handle_here_document(t_shell *shell)
 	*(shell->red_fd) = open("/tmp/heredoc_tmp",
 			O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (*(shell->red_fd) == -1)
-		err_fd();
+		err_fd(shell);
 }

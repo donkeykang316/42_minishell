@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 15:54:22 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/04 18:14:55 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 20:10:06 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	c_c_great(t_shell *shell, t_parser *current)
 	{
 		fd = open(current->files[r], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (fd == -1)
-			err_fd();
+			err_fd(shell);
 		close(fd);
 		r++;
 	}
@@ -35,7 +35,7 @@ void	c_c_great(t_shell *shell, t_parser *current)
 			*(shell->red_fd) = open(current->files[r],
 					O_WRONLY | O_CREAT | O_APPEND, 0777);
 		if (*(shell->red_fd) == -1)
-			err_fd();
+			err_fd(shell);
 	}
 }
 
@@ -43,7 +43,7 @@ void	c_c_less(t_shell *shell, t_parser *current)
 {
 	*(shell->red_fd) = open(current->i_str, O_RDONLY);
 	if (*(shell->red_fd) == -1)
-		err_fd();
+		err_fd_2(shell);
 }
 
 void	c_c_cmd_count_value_store(t_shell *shell, int i)
