@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:59:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 20:04:40 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:38:33 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	builtin_pwd(t_shell *shell)
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		reset_loop(shell, ERR_PWD, shell->parser->cmd, 1);
+		reset_loop(shell, ERR_PWD, shell->parser->cmd);
 	printf("%s\n", pwd);
 	update_pwd_env_declare(shell, pwd);
 	free(pwd);

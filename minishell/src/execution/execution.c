@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 15:36:11 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:39:08 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	single_cmd_exe(t_shell *shell)
 		}
 		if (find_path(shell) == 1)
 			exit(EXIT_SUCCESS);
-		proc_termination(shell, NULL, shell->parser->cmd, 1);
+		proc_termination(shell, NULL, shell->parser->cmd);
 	}
 	wait_processes(shell);
 	if (input_fd != STDIN_FILENO)
@@ -116,9 +116,9 @@ int	find_builtin(t_shell *shell)
 		single_cmd_exe(shell);
 	if (shell->pid != -2)
 	{
-		proc_termination(shell, NULL, shell->parser->cmd, 1);
+		proc_termination(shell, NULL, shell->parser->cmd);
 	}
-	reset_loop(shell, NULL, shell->parser->cmd, 0);
+	reset_loop(shell, NULL, shell->parser->cmd);
 	return (1);
 }
 
@@ -145,8 +145,8 @@ int	find_builtin_pipe(t_shell *shell)
 		find_path(shell);
 	if (shell->pid != -2)
 	{
-		proc_termination(shell, NULL, shell->parser->cmd, 1);
+		proc_termination(shell, NULL, shell->parser->cmd);
 	}
-	reset_loop(shell, NULL, shell->parser->cmd, 0);
+	reset_loop(shell, NULL, shell->parser->cmd);
 	return (1);
 }

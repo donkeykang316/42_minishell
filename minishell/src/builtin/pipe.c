@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:35:00 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/05 16:52:35 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:35:56 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,42 @@
 void	wait_processes(t_shell *shell)
 {
 	int		status;
+	int		save_stat;
 	pid_t	pid;
 	int		i;
 
 	i = *(shell->cmd_count);
+	save_stat = 0;
 	while (i != 0)
 	{
 		pid = waitpid(-1, &status, 0);
 		if (pid > 0)
 		{
 			if (WIFEXITED(status))
-				status = WEXITSTATUS(status);
+				save_stat = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
-				status = WTERMSIG(status);
+				save_stat = WTERMSIG(status);
 		}
 		else if (pid == -1)
 		{
 			perror("error1");
-			proc_termination(shell, NULL, shell->parser->cmd, 0);
+			proc_termination(shell, NULL, shell->parser->cmd);
 		}
 		else
 		{
 			printf("PID_eror2:%d\n", pid);
-			reset_loop(shell, NULL, shell->parser->cmd, 0);
+			reset_loop(shell, NULL, shell->parser->cmd);
 		}
 		i--;
 	}
+	*(shell->exit_status) = save_stat;
 }
 
 void	proc_termination(t_shell *shell, char *msg,
-			char *cmd, unsigned int err)
+			char *cmd)
 {
 	if (msg)
-		ft_perror(msg, cmd, err, shell);
+		ft_perror(msg, cmd);
 	if (shell->line)
 		free(shell->line);
 	if (shell->lexer)
@@ -84,7 +87,7 @@ void	child_proc(t_shell *shell)
 			&& shell->parser->cmd == NULL)
 		{
 			fd_close(shell);
-			reset_loop(shell, ERR_NCMD, shell->parser->cmd, 1);
+			reset_loop(shell, ERR_NCMD, shell->parser->cmd);
 		}
 		else if (shell->parser->index == 0 || shell->parser->index == 1)
 			great(shell, 0);
@@ -96,7 +99,7 @@ void	child_proc(t_shell *shell)
 	else if (shell->parser->input == T_HEREDOC)
 		heredoc(shell, 1);
 	else
-		proc_termination(shell, NULL, shell->parser->cmd, 1);
+		proc_termination(shell, NULL, shell->parser->cmd);
 }
 
 void	pipex(t_shell *shell)
@@ -119,5 +122,5 @@ void	pipex(t_shell *shell)
 	}
 	fd_close(shell);
 	wait_processes(shell);
-	reset_loop(shell, NULL, NULL, 0);
+	reset_loop(shell, NULL, NULL);
 }

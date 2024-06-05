@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 14:58:23 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 20:06:19 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:39:47 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	expander(t_shell *shell)
 	string = NULL;
 	lexer = shell->lexer;
 	if (lexer->next == NULL && lexer->token == T_PIPE)
-		reset_loop(shell, ERR_SYNTAX, shell->parser->cmd, 1);
+		reset_loop(shell, ERR_SYNTAX, shell->parser->cmd);
 	env_expander(lexer, 0, shell);
 	process_lexer(shell, lexer, string, boolean);
 	lexerfreelist_ms(&shell->lexer);

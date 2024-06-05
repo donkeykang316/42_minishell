@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:27:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 16:27:37 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:33:15 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ void	shell_loop(t_shell *shell)
  *
  * @param shell A pointer to the t_shell struct representing the shell.
  */
-void	reset_loop(t_shell *shell, char *msg, char *cmd, unsigned int err)
+void	reset_loop(t_shell *shell, char *msg, char *cmd)
 {
 	if (msg)
-		ft_perror(msg, cmd, err, shell);
+		ft_perror(msg, cmd);
 	if (shell->line)
 		free(shell->line);
 	if (shell->lexer)

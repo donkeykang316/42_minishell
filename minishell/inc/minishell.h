@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:53:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/04 17:35:08 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:35:41 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_shell
 
 //error_seq.c
 void	simple_err(char *err_str);
-void	ft_perror(const char *msg, char *cmd, unsigned int err, t_shell *shell);
+void	ft_perror(const char *msg, char *cmd);
 void	free_err(char *err_str, t_shell *shell);
 void	free_shell(t_shell *shell);
 
@@ -89,7 +89,7 @@ void	free_shell(t_shell *shell);
 t_shell	*init_shell(t_shell *shell);
 void	shell_loop(t_shell *shell);
 t_shell	*init_shell(t_shell *shell);
-void	reset_loop(t_shell *shell, char *msg, char *cmd, unsigned int err);
+void	reset_loop(t_shell *shell, char *msg, char *cmd);
 void	starting_dir(t_shell *shell);
 
 //signals.c

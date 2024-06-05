@@ -35,3 +35,5 @@ ls | cat
 < comp | cat
 < comp cat | cat
 cat | grep | more
+
+cat minishell.h | grep ");"$ 

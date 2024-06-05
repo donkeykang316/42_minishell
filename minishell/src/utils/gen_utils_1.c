@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gen_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:41:28 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 20:07:24 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:40:39 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char	**add_delim_split(char *str, t_shell *shell)
 	if (ret[0] == NULL)
 	{
 		free_double(ret);
-		reset_loop(shell, ERR_CMD, shell->parser->cmd, 1);
+		reset_loop(shell, ERR_CMD, shell->parser->cmd);
 	}
 	while (ret[i] != NULL)
 	{

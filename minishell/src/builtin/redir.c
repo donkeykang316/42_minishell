@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:00:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/05 15:19:44 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:41:04 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	great(t_shell *shell, int i)
 		&& shell->parser->cmd == NULL)
 	{
 		fd_close(shell);
-		reset_loop(shell, NULL, shell->parser->cmd, 0);
+		reset_loop(shell, NULL, shell->parser->cmd);
 	}
 	if (dup2(shell->fd[i], STDIN_FILENO) == -1)
 		perror("great error1");

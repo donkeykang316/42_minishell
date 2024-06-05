@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 01:08:04 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 20:02:52 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:38:23 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	builtin_export(t_shell *shell)
 			printf("%s\n", shell->declare[i]);
 			i++;
 		}
-		reset_loop(shell, NULL, shell->parser->cmd, 1);
+		reset_loop(shell, NULL, shell->parser->cmd);
 		return ;
 	}
 	else
@@ -55,7 +55,7 @@ void	update_env_declare(t_shell *shell)
 	{
 		if (valid_format(shell->parser->args[i]) == -1)
 		{
-			reset_loop(shell, ERR_EXP2, shell->parser->cmd, 1);
+			reset_loop(shell, ERR_EXP2, shell->parser->cmd);
 		}
 		else if (valid_format(shell->parser->args[i]) == 1)
 		{

@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:00:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/04 19:02:24 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:34:38 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	builtin_env(t_shell *shell);
 //exit.c
 void	builtin_exit(t_shell *shell);
 int 	ft_isnum(char *str);
-int get_exit(int exit_code);
+int		get_exit(int exit_code);
 
 //export.c
 void	builtin_export(t_shell *shell);
@@ -66,7 +66,7 @@ void	err_fd(void);
 void	fd_close(t_shell *shell);
 void	cmd_count(t_shell *shell);
 void	proc_termination(t_shell *shell, char *msg,
-			char *cmd, unsigned int err);
+			char *cmd);
 void	wait_processes(t_shell *shell);
 
 #endif

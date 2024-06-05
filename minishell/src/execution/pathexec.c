@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 14:39:10 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 15:31:09 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:39:37 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**prep_path(t_shell *shell)
 	{
 		free(env);
 		free_double(path);
-		reset_loop(shell, ERR_PATH, shell->parser->cmd, 1);
+		reset_loop(shell, ERR_PATH, shell->parser->cmd);
 	}
 	free(env);
 	return (path);
@@ -67,7 +67,7 @@ int	find_path(t_shell *shell)
 		return (ft_exec_external(shell, shell->parser->cmd, path));
 	if (path_validation(shell, path) == -1)
 	{
-		proc_termination(shell, ERR_NCMD, shell->parser->cmd, 0);
+		proc_termination(shell, ERR_NCMD, shell->parser->cmd);
 		free_double(path);
 	}
 	return (1);

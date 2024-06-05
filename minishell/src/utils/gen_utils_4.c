@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:21:56 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 15:11:26 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:40:53 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void check_final_lexer(t_shell *shell)
 	while (lexer->next != NULL)
 	{
 		if (find_redir(lexer->word) != 0 && lexer->next->token == T_PIPE)
-			reset_loop(shell, ERR_SYNTAX, shell->parser->cmd, 1);
+			reset_loop(shell, ERR_SYNTAX, shell->parser->cmd);
 		lexer = lexer->next;
 	}
 	if (find_redir(lexer->word) != 0)
-		reset_loop(shell, ERR_SYNTAX, NULL, 1);
+		reset_loop(shell, ERR_SYNTAX, NULL);
 }
 
 void	raise_shlvl(t_shell *shell)

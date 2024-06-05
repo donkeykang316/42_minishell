@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:19:13 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 16:06:21 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:32:25 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	free_err(char *err_str, t_shell *shell)
 	exit(1);
 }
 
-void	ft_perror(const char *msg, char *cmd, unsigned int err, t_shell *shell)
+void	ft_perror(const char *msg, char *cmd)
 {
 	if (cmd != NULL && msg != NULL)
 	{
@@ -51,7 +51,6 @@ void	ft_perror(const char *msg, char *cmd, unsigned int err, t_shell *shell)
 		write(2, msg, ft_strlen(msg));
 		write(2, "\n", 1);
 	}
-	*(shell->exit_status) = err;
 	return ;
 }
 

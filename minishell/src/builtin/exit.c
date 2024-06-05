@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:16:07 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/04 17:21:33 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:37:59 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	builtin_exit(t_shell *shell)
 	exit_code = 0;
 	if (count_args(shell->parser->args) > 1)
 	{
-		reset_loop(shell, ERR_ARG, shell->parser->cmd, 1);
+		reset_loop(shell, ERR_ARG, shell->parser->cmd);
 		return ;
 	}
 	else if (count_args(shell->parser->args) == 1)
 	{
 		if (ft_isnum(shell->parser->args[0]) == 0)
 		{
-			reset_loop(shell, ERR_NUM, shell->parser->cmd, 2);
+			reset_loop(shell, ERR_NUM, shell->parser->cmd);
 			return ;
 		}
 		exit_code = get_exit(ft_atoi(shell->parser->args[0]));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 20:28:57 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 20:07:10 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:40:28 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	group_redir(t_shell *shell)
 				&& (cur->next->token != T_WORD || !cur->next))
 		{
 			free_double(io);
-			reset_loop(shell, ERR_SYNTAX, shell->parser->cmd, 1);
+			reset_loop(shell, ERR_SYNTAX, shell->parser->cmd);
 		}
 		if (cur->token == T_PIPE)
 			break ;
@@ -62,7 +62,7 @@ void	group_redir(t_shell *shell)
 	if (cur->token != T_WORD && cur->token != T_PIPE)
 	{
 		free_double(io);
-		reset_loop(shell, ERR_SYNTAX, shell->parser->cmd, 1);
+		reset_loop(shell, ERR_SYNTAX, shell->parser->cmd);
 	}
 	group_files(shell, io, file_num);
 }
