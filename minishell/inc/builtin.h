@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:00:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/04 18:03:14 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/04 19:02:24 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,14 @@ void	pip_exe(t_shell *shell, int i, int j);
 void	great(t_shell *shell, int i);
 void	less(t_shell *shell, int i);
 void	handle_here_document(t_shell *shell);
-void    heredoc(t_shell *shell, int i);
+void	heredoc(t_shell *shell, int i);
 
 //redirection utils
 void	err_fd(void);
 void	fd_close(t_shell *shell);
 void	cmd_count(t_shell *shell);
-void	proc_termination(t_shell *shell);
+void	proc_termination(t_shell *shell, char *msg,
+			char *cmd, unsigned int err);
 void	wait_processes(t_shell *shell);
 
 #endif

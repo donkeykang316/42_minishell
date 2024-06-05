@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_seq.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:19:13 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 20:09:32 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:06:21 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,19 @@ void	free_err(char *err_str, t_shell *shell)
 	free_shell(shell);
 	exit(1);
 }
-void ft_perror(const char *msg, char *cmd, unsigned int err, t_shell *shell)
+
+void	ft_perror(const char *msg, char *cmd, unsigned int err, t_shell *shell)
 {
-	if (msg != NULL)
-		write(2, msg, ft_strlen(msg));
-	else if (cmd != NULL)
+	if (cmd != NULL && msg != NULL)
 	{
-		write(2, ": ", 2);
 		write(2, cmd, ft_strlen(cmd));
+		write(2, ": ", 2);
+		write(2, msg, ft_strlen(msg));
+		write(2, "\n", 1);
+	}
+	else if (msg != NULL)
+	{
+		write(2, msg, ft_strlen(msg));
 		write(2, "\n", 1);
 	}
 	*(shell->exit_status) = err;

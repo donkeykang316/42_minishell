@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gen_utils_4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:21:56 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 20:08:45 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 15:11:26 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void check_final_lexer(t_shell *shell)
 		lexer = lexer->next;
 	}
 	if (find_redir(lexer->word) != 0)
-		reset_loop(shell, ERR_SYNTAX, shell->parser->cmd, 1);
+		reset_loop(shell, ERR_SYNTAX, NULL, 1);
 }
 
 void	raise_shlvl(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 17:35:00 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/04 18:09:41 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 16:52:35 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ void	wait_processes(t_shell *shell)
 {
 	int		status;
 	pid_t	pid;
-	int		remaining_children;
+	int		i;
 
-	remaining_children = 1;
-	if (*(shell->cmd_count) != -1)
-		remaining_children = *(shell->cmd_count);
-	while (remaining_children > 0)
+	i = *(shell->cmd_count);
+	while (i != 0)
 	{
 		pid = waitpid(-1, &status, 0);
 		if (pid > 0)
@@ -30,15 +28,26 @@ void	wait_processes(t_shell *shell)
 				status = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
 				status = WTERMSIG(status);
-			remaining_children--;
+		}
+		else if (pid == -1)
+		{
+			perror("error1");
+			proc_termination(shell, NULL, shell->parser->cmd, 0);
 		}
 		else
+		{
+			printf("PID_eror2:%d\n", pid);
 			reset_loop(shell, NULL, shell->parser->cmd, 0);
+		}
+		i--;
 	}
 }
 
-void	proc_termination(t_shell *shell)
+void	proc_termination(t_shell *shell, char *msg,
+			char *cmd, unsigned int err)
 {
+	if (msg)
+		ft_perror(msg, cmd, err, shell);
 	if (shell->line)
 		free(shell->line);
 	if (shell->lexer)
@@ -87,12 +96,11 @@ void	child_proc(t_shell *shell)
 	else if (shell->parser->input == T_HEREDOC)
 		heredoc(shell, 1);
 	else
-		proc_termination(shell);
+		proc_termination(shell, NULL, shell->parser->cmd, 1);
 }
 
 void	pipex(t_shell *shell)
 {
-	int	status;
 	int	i;
 
 	i = 0;
@@ -109,7 +117,7 @@ void	pipex(t_shell *shell)
 		}
 		shell->parser = shell->parser->next;
 	}
-	waitpid(-1, &status, 0);
 	fd_close(shell);
+	wait_processes(shell);
 	reset_loop(shell, NULL, NULL, 0);
 }

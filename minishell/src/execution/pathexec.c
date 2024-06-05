@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathexec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 14:39:10 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/04 17:38:25 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 15:31:09 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	find_path(t_shell *shell)
 		return (ft_exec_external(shell, shell->parser->cmd, path));
 	if (path_validation(shell, path) == -1)
 	{
-		reset_loop(shell, ERR_CMD, shell->parser->cmd, 1);
+		proc_termination(shell, ERR_NCMD, shell->parser->cmd, 0);
 		free_double(path);
 	}
 	return (1);

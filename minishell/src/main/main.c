@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:27:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/04 17:46:39 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:27:37 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	reset_loop(t_shell *shell, char *msg, char *cmd, unsigned int err)
 		expandfreelist_ms(&shell->expand);
 	if (shell->parser)
 		parserfreelist_ms(&shell->parser);
+	*(shell->cmd_count) = 1;
 	shell->expand = NULL;
 	shell->lexer = NULL;
 	shell->parser = NULL;
@@ -123,7 +124,7 @@ t_shell	*init_shell(t_shell *shell)
 	*(shell->exit_status) = 0;
 	shell->pid = -1;
 	shell->cmd_count = malloc(sizeof(int));
-	*(shell->cmd_count) = -1;
+	*(shell->cmd_count) = 1;
 	return (shell);
 }
 

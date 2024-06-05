@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/04 17:37:11 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/05 15:36:11 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	single_cmd_exe(t_shell *shell)
 	t_parser	*current;
 	int			input_fd;
 	int			output_fd;
-	//int			status;
 
 	input_fd = STDIN_FILENO;
 	output_fd = STDOUT_FILENO;
@@ -53,9 +52,8 @@ void	single_cmd_exe(t_shell *shell)
 		}
 		if (find_path(shell) == 1)
 			exit(EXIT_SUCCESS);
-		proc_termination(shell);
+		proc_termination(shell, NULL, shell->parser->cmd, 1);
 	}
-	//waitpid(-1, &status, 0);
 	wait_processes(shell);
 	if (input_fd != STDIN_FILENO)
 		close(input_fd);
@@ -63,7 +61,7 @@ void	single_cmd_exe(t_shell *shell)
 	{
 		close(output_fd);
 	}
-	reset_loop(shell, NULL, shell->parser->cmd, 0);
+	//reset_loop(shell, NULL, shell->parser->cmd, 0);
 }
 
 /**
@@ -84,8 +82,6 @@ void	execute(t_shell *shell)
 		pipex(shell);
 	else if (shell->parser->cmd != NULL && shell->parser->output != 1)
 		find_builtin(shell);
-	else
-		reset_loop(shell, ERR_NUM, shell->parser->cmd, 0);
 }
 
 /* Finds and executes the appropriate built-in
@@ -101,7 +97,6 @@ int	find_builtin(t_shell *shell)
 {
 	char	*cmd;
 
-	//printf("pid_error:%d\n", shell->pid);
 	cmd = shell->parser->cmd;
 	if (cmp_str(cmd, "echo") == 0)
 		builtin_echo(shell);
@@ -121,8 +116,36 @@ int	find_builtin(t_shell *shell)
 		single_cmd_exe(shell);
 	if (shell->pid != -2)
 	{
-		perror("error!");
-		proc_termination(shell);
+		proc_termination(shell, NULL, shell->parser->cmd, 1);
+	}
+	reset_loop(shell, NULL, shell->parser->cmd, 0);
+	return (1);
+}
+
+int	find_builtin_pipe(t_shell *shell)
+{
+	char	*cmd;
+
+	cmd = shell->parser->cmd;
+	if (cmp_str(cmd, "echo") == 0)
+		builtin_echo(shell);
+	else if (cmp_str(cmd, "env") == 0)
+		builtin_env(shell);
+	else if (cmp_str(cmd, "exit") == 0)
+		builtin_exit(shell);
+	else if (cmp_str(cmd, "export") == 0)
+		builtin_export(shell);
+	else if (cmp_str(cmd, "pwd") == 0)
+		builtin_pwd(shell);
+	else if (cmp_str(cmd, "unset") == 0)
+		builtin_unset(shell);
+	else if (cmp_str(cmd, "cd") == 0)
+		builtin_cd(shell);
+	else
+		find_path(shell);
+	if (shell->pid != -2)
+	{
+		proc_termination(shell, NULL, shell->parser->cmd, 1);
 	}
 	reset_loop(shell, NULL, shell->parser->cmd, 0);
 	return (1);
