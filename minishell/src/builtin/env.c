@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:38:32 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 18:37:39 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:51:44 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	builtin_env(t_shell *shell)
 	i = 0;
 	if (shell->parser->args[0])
 	{
+		*(shell->exit_status) = 1;
 		reset_loop(shell, ERR_CD, shell->parser->cmd);
 		return ;
 	}

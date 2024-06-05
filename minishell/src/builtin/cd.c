@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:17:43 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 18:37:23 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:56:23 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	builtin_cd(t_shell *shell)
 {
 	if (count_args(shell->parser->args) > 1)
 	{
+		*(shell->exit_status) = 1;
 		reset_loop(shell, ERR_CDARG, shell->parser->cmd);
 		return ;
 	}
@@ -39,6 +40,7 @@ void	builtin_cd(t_shell *shell)
 	if (chdir(shell->parser->args[0]) == -1)
 	{
 		printf("minishell: cd: %s:", shell->parser->args[0]);
+		*(shell->exit_status) = 1;
 		reset_loop(shell, ERR_CD, shell->parser->cmd);
 		return ;
 	}

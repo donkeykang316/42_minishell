@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:35:04 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/01 18:04:47 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:54:02 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	builtin_unset(t_shell *shell)
 		i++;
 	}
 	sort_declare(shell);
-	// reset_loop(shell, NULL);
 }
 
 void	unset_declare(t_shell *shell, char *str)

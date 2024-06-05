@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 01:08:04 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 18:38:23 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/05 18:53:01 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	update_env_declare(t_shell *shell)
 	{
 		if (valid_format(shell->parser->args[i]) == -1)
 		{
+			*(shell->exit_status) = 1;
 			reset_loop(shell, ERR_EXP2, shell->parser->cmd);
 		}
 		else if (valid_format(shell->parser->args[i]) == 1)
