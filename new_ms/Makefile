@@ -6,7 +6,7 @@
 #    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/06/12 19:40:37 by kaan             ###   ########.fr        #
+#    Updated: 2024/06/12 21:12:10 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,14 +34,17 @@ SRC =	src/main/testing.c\
 		src/utils/util_1.c\
 		src/utils/util_2.c\
 		src/utils/util_3.c\
+		src/utils/util_4.c\
 		src/parser/pre_process.c\
 		src/parser/syntax.c\
 		src/parser/syntax_util.c\
 		src/parser/expander.c\
 		src/parser/expander_util.c\
 		src/parser/parser.c\
+		src/parser/parser_util.c\
 		src/parser/tokenizer.c\
 		src/execution/execution.c\
+		src/execution/exit.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 

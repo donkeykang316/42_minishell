@@ -6,17 +6,17 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:50:38 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/11 15:51:05 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 20:59:33 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool	get_exported_state(char *var_name, t_vlst **head)
+bool	get_exported_state(char *var_name, t_envp **envp)
 {
-	t_vlst	*temp;
+	t_envp	*temp;
 
-	temp = *head;
+	temp = *envp;
 	while (temp != NULL)
 	{
 		if (strcmp_ms(var_name, temp->var_name))
@@ -40,25 +40,25 @@ char	**split_envp(char *envp)
 	return (splitted);
 }
 
-int	save_user_vars(char *statement, t_vlst **head, bool to_export)
+int	save_user_vars(char *statement, t_envp **envp, bool to_export)
 {
 	char	**line;
 
 	line = split_envp(statement);
-	if (get_exported_state(line[0], head) && !to_export)
+	if (get_exported_state(line[0], envp) && !to_export)
 		to_export = true;
-	unset_var(line[0], head);
-	v_lstadd_back(head, v_new_node(line[0], line[1], to_export));
+	unset_var(line[0], envp);
+	envp_add_back(envp, envp_new_node(line[0], line[1], to_export));
 	free(line);
 	return (EXIT_SUCCESS);
 }
 
-void	init_oldpwd(t_vlst **head)
+void	init_oldpwd(t_envp **envp)
 {
 	char	*temp;
 
-	unset_var("OLDPWD", head);
+	unset_var("OLDPWD", envp);
 	temp = ft_strjoin("OLDPWD=", getenv("HOME"));
-	save_user_vars(temp, head, true);
+	save_user_vars(temp, envp, true);
 	free(temp);
 }

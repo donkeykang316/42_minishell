@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 19:33:36 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 21:11:54 by kaan             ###   ########.fr       */
+/*   Created: 2024/06/12 20:08:45 by kaan              #+#    #+#             */
+/*   Updated: 2024/06/12 21:06:46 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	exit_status;
-
-bool	builtin(t_shell *shell)
+t_parser	*p_new_node(int token_count)
 {
-	if (strcmp_ms(shell->parser->token[0], "exit"))
-		cmd_exit(shell);
-	else
-		return (false);
-	return (true);
-}
+	t_parser	*new;
 
-void	execution(t_shell *shell)
-{
-	//int		temp_status;
-
-	if (parser_size(shell->parser) == 1)
-	{
-		if (!builtin(shell) && fork() == 0)
-		{
-			signal(SIGINT, child_signals);
-			//exec_executables(parser, shell);
-		}
-	}
+	new = malloc(sizeof(t_parser));
+	new->token_count = token_count;
+	new->token = malloc((token_count + 1) * sizeof(char *));
+	new->operator = NONE;
+	new->next = NULL;
+	return (new);
 }

@@ -6,28 +6,28 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:04:26 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/11 20:36:02 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 21:01:43 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_vlst	*init_envp_lst(char **envp)
+t_envp	*init_envp_lst(char **envp)
 {
-	t_vlst	*head;
-	t_vlst	*temp;
+	t_envp	*head;
+	t_envp	*temp;
 	char	**line;
 	size_t	i;
 
 	line = split_envp(envp[0]);
-	head = v_new_node(line[0], line[1], true);
+	head = envp_new_node(line[0], line[1], true);
 	free(line);
 	i = 1;
 	temp = head;
 	while (envp[i])
 	{
 		line = split_envp(envp[i]);
-		temp->next = v_new_node(line[0], line[1], true);
+		temp->next = envp_new_node(line[0], line[1], true);
 		free(line);
 		temp = temp->next;
 		i += 1;
@@ -36,11 +36,10 @@ t_vlst	*init_envp_lst(char **envp)
 	return (head);
 }
 
-void	shell_init(char **envp, t_shell *shell, t_parser **parser)
+void	shell_init(char **envp, t_shell *shell)
 {
 	shell->envp = envp;
 	shell->envp_lst = init_envp_lst(envp);
 	shell->parser = NULL;
-	*parser = NULL;
 	config_signals();
 }

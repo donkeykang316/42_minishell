@@ -6,13 +6,13 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:14:49 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/11 18:38:05 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 19:58:15 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	g_exit_status;
+extern long long	exit_status;
 
 int	unclosed_quotes(char *str)
 {
@@ -63,7 +63,7 @@ bool	valid_input(char *input, t_shell *shell)
 	if (!valid)
 	{
 		free(input);
-		g_exit_status = 2;
+		exit_status = 2;
 	}
 	return (valid);
 }

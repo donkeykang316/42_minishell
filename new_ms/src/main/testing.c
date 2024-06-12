@@ -1,10 +1,10 @@
 #include "../../inc/minishell.h"
 
-void    print_vlist(t_vlst **list)
+void    print_envp(t_envp **envp)
 {
-    t_vlst *head;
+    t_envp *head;
 
-    head = *list;
+    head = *envp;
     printf("vlist:\n");
     while(head)
     {

@@ -6,11 +6,28 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:46:55 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 15:54:13 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 20:54:44 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	free_d_lst(char **list)
+{
+	size_t	i;
+
+	i = 0;
+	if (!list)
+		return ;
+	while (list[i])
+	{
+		free(list[i]);
+		list[i] = NULL;
+		i += 1;
+	}
+	free(list);
+	list = NULL;
+}
 
 void	invalid_identifer(char *var_name)
 {
@@ -19,12 +36,12 @@ void	invalid_identifer(char *var_name)
 	ft_putendl_fd("\': not a valid identifier", STDERR_FILENO);
 }
 
-int	unset_var(char *var_name, t_vlst **head)
+int	unset_var(char *var_name, t_envp **envp)
 {
-	t_vlst	*temp;
-	t_vlst	*next_node;
+	t_envp	*temp;
+	t_envp	*next_node;
 
-	temp = *head;
+	temp = *envp;
 	if (ft_strchr(var_name, '='))
 	{
 		invalid_identifer(var_name);

@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:24:44 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 16:11:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 21:09:06 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef struct s_shell	t_shell;
 typedef struct s_parser	t_parser;
+typedef enum e_operator	t_operator;
 
 //pre_process
 bool	valid_input(char *input, t_shell *shell);
@@ -43,5 +44,6 @@ char	**tokenizer(char *input);
 
 //parser
 t_parser	*parsing(char *input);
+t_parser	*p_new_node(int token_count);
 
 #endif

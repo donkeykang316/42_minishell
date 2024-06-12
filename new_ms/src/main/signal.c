@@ -6,20 +6,20 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:11:27 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/11 14:18:02 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 19:55:38 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	g_exit_status;
+extern long long	exit_status;
 
 void	child_signals(int signum)
 {
 	if (signum == SIGINT)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
-		g_exit_status = 130;
+		exit_status = 130;
 		exit(130);
 	}
 }
@@ -32,7 +32,7 @@ void	dismiss_signal(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_exit_status = 130;
+		exit_status = 130;
 	}
 }
 

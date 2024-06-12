@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:52:13 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 19:36:49 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 21:07:31 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,18 @@ typedef struct s_parser
 	struct s_parser		*next;
 }				t_parser;
 
-typedef struct s_vlst
+typedef struct s_envp
 {
 	char			*var_name;
 	char			*var_value;
 	bool			is_exported;
-	struct s_vlst	*next;
-}				t_vlst;
+	struct s_envp	*next;
+}				t_envp;
 
 typedef struct s_shell
 {
 	char		**envp;
-	t_vlst		*envp_lst;
+	t_envp		*envp_lst;
 	t_parser	*parser;
 }				t_shell;
 
@@ -108,12 +108,12 @@ static inline bool	single_dollar(char *input_at_i)
 }
 
 //testing
-void	print_vlist(t_vlst **list);
+void	print_envp(t_envp **envp);
 void    print_parser(t_parser *parser);
 
 //init
-void	shell_init(char **envp, t_shell *shell, t_parser **s_parser);
-void	init_oldpwd(t_vlst **head);
+void	shell_init(char **envp, t_shell *shell);
+void	init_oldpwd(t_envp **head);
 char	**split_envp(char *envp);
 
 //signal
@@ -122,13 +122,16 @@ void	child_signals(int signum);
 
 //utils
 void	exit_shell(t_shell *shell, char *msg, int exit_status);
+void	destroy(t_shell *shell);
+void	free_d_lst(char **list);
 bool	strcmp_ms(char *s1, char *s2);
 bool	unexpected_token(char token);
-int		unset_var(char *var_name, t_vlst **head);
-t_vlst	*v_new_node(char *var_name, char *var_value, bool is_exported);
-t_vlst	*v_lstlast(t_vlst *node);
-void	v_lstadd_back(t_vlst **head, t_vlst *new);
-char	*get_fromvlst(char *var_name, t_vlst **head);
-char	*get_varvalue_fromvlst(char *var_name, t_shell *shell);
+int		unset_var(char *var_name, t_envp **envp);
+t_envp	*envp_new_node(char *var_name, char *var_value, bool is_exported);
+t_envp	*envp_last(t_envp *node);
+void	envp_add_back(t_envp **envp, t_envp *new);
+char	*get_envp(char *var_name, t_envp **envp);
+char	*get_varvalue_envp(char *var_name, t_shell *shell);
+size_t	parser_size(t_parser *parser);
 
 #endif

@@ -6,17 +6,17 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:26:32 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 15:24:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 20:50:52 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_vlst	*v_new_node(char *var_name, char *var_value, bool is_exported)
+t_envp	*envp_new_node(char *var_name, char *var_value, bool is_exported)
 {
-	t_vlst	*new_node;
+	t_envp	*new_node;
 
-	new_node = malloc(sizeof(t_vlst));
+	new_node = malloc(sizeof(t_envp));
 	new_node->var_name = var_name;
 	new_node->var_value = var_value;
 	new_node->is_exported = is_exported;
@@ -24,7 +24,7 @@ t_vlst	*v_new_node(char *var_name, char *var_value, bool is_exported)
 	return (new_node);
 }
 
-t_vlst	*v_lstlast(t_vlst *node)
+t_envp	*envp_last(t_envp *node)
 {
 	while (node)
 	{
@@ -35,36 +35,36 @@ t_vlst	*v_lstlast(t_vlst *node)
 	return (node);
 }
 
-void	v_lstadd_back(t_vlst **head, t_vlst *new)
+void	envp_add_back(t_envp **envp, t_envp *new)
 {
-	t_vlst	*temp;
+	t_envp	*temp;
 
-	if (head)
+	if (envp)
 	{
-		if (!*head)
-			*head = new;
+		if (!*envp)
+			*envp = new;
 		else
 		{
-			temp = v_lstlast(*(head));
+			temp = envp_last(*(envp));
 			temp->next = new;
 		}
 	}
 }
 
-char	*get_varvalue_fromvlst(char *var_name, t_shell *shell)
+char	*get_varvalue_envp(char *var_name, t_shell *shell)
 {
 	char	*var_value;
 
-	var_value = get_fromvlst(var_name, &shell->envp_lst);
+	var_value = get_envp(var_name, &shell->envp_lst);
 	free(var_name);
 	return (var_value);
 }
 
-char	*get_fromvlst(char *var_name, t_vlst **head)
+char	*get_envp(char *var_name, t_envp **envp)
 {
-	t_vlst	*temp;
+	t_envp	*temp;
 
-	temp = *head;
+	temp = *envp;
 	while (temp != NULL)
 	{
 		if (strcmp_ms(var_name, temp->var_name))

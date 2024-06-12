@@ -6,22 +6,22 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 21:09:22 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 15:35:08 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 19:57:32 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	g_exit_status;
+extern long long	exit_status;
 
 size_t	exit_status_size(void)
 {
-	char	*exit_status;
+	char	*exit_status_x;
 	size_t	size;
 
-	exit_status = ft_itoa(g_exit_status);
-	size = ft_strlen(exit_status);
-	free(exit_status);
+	exit_status_x = ft_itoa(exit_status);
+	size = ft_strlen(exit_status_x);
+	free(exit_status_x);
 	return (size);
 }
 

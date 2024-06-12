@@ -6,13 +6,13 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:26:15 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 15:38:06 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 21:02:18 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	g_exit_status;
+extern long long	exit_status;
 
 size_t	exp_size(char *input_at_i, size_t *i, t_shell *shell)
 {
@@ -32,7 +32,7 @@ size_t	exp_size(char *input_at_i, size_t *i, t_shell *shell)
 	if (var_size == 0)
 		return (0);
 	var_name = ft_substr(input_at_i, 1, var_size);
-	var_value = get_fromvlst(var_name, &shell->envp_lst);
+	var_value = get_envp(var_name, &shell->envp_lst);
 	free(var_name);
 	*i += var_size;
 	if (!var_value)
@@ -70,18 +70,18 @@ int	expander_size(char *input, t_shell *shell)
 
 size_t	expand_exit_status(char *expanded_input_at_i, size_t *i)
 {
-	char	*exit_status;
+	char	*exit_status_x;
 	size_t	j;
 
 	*i += 2;
-	exit_status = ft_itoa(g_exit_status);
+	exit_status_x = ft_itoa(exit_status);
 	j = 0;
-	while (exit_status[j])
+	while (exit_status_x[j])
 	{
-		expanded_input_at_i[j] = exit_status[j];
+		expanded_input_at_i[j] = exit_status_x[j];
 		j += 1;
 	}
-	free(exit_status);
+	free(exit_status_x);
 	return (j);
 }
 
@@ -106,7 +106,7 @@ size_t	expand_variable(char *expanded_input_at_i, char *input,
 		&& input[*i + size] != '\"' && !is_onstr(QUOTES, input[*i + size])
 		&& input[*i + size] != '$')
 		size += 1;
-	var_value = get_varvalue_fromvlst(ft_substr(input, *i, size), shell);
+	var_value = get_varvalue_envp(ft_substr(input, *i, size), shell);
 	*i += size;
 	if (!var_value)
 		return (0);

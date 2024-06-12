@@ -6,11 +6,33 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:39:22 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 19:26:12 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 21:06:36 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+t_operator	get_operator(char *operator)
+{
+	t_operator	op;
+
+	if (!operator)
+		op = NONE;
+	else if (strcmp_ms(operator, "|"))
+		op = PIPE;
+	else if (strcmp_ms(operator, ">>"))
+		op = APPEND;
+	else if (strcmp_ms(operator, ">"))
+		op = GREAT;
+	else if (strcmp_ms(operator, "<<"))
+		op = HEREDOC;
+	else if (strcmp_ms(operator, "<"))
+		op = LESS;
+	else
+		op = NONE;
+	free(operator);
+	return (op);
+}
 
 size_t	get_token_count(char **token)
 {
@@ -20,18 +42,6 @@ size_t	get_token_count(char **token)
 	while (token[i])
 		i++;
 	return (i);
-}
-
-t_parser	*p_new_node(int token_count)
-{
-	t_parser	*new;
-
-	new = malloc(sizeof(t_parser));
-	new->token_count = token_count;
-	new->token = malloc((token_count + 1) * sizeof(char *));
-	new->operator = NONE;
-	new->next = NULL;
-	return (new);
 }
 
 size_t	remove_quotes_size(char	*token)
@@ -88,28 +98,6 @@ char	*remove_quotes(char	*token)
 	unquoted_token[j] = '\0';
 	free(token);
 	return (unquoted_token);
-}
-
-t_operator	get_operator(char *operator)
-{
-	t_operator	op;
-
-	if (!operator)
-		op = NONE;
-	else if (strcmp_ms(operator, "|"))
-		op = PIPE;
-	else if (strcmp_ms(operator, ">>"))
-		op = APPEND;
-	else if (strcmp_ms(operator, ">"))
-		op = GREAT;
-	else if (strcmp_ms(operator, "<<"))
-		op = HEREDOC;
-	else if (strcmp_ms(operator, "<"))
-		op = LESS;
-	else
-		op = NONE;
-	free(operator);
-	return (op);
 }
 
 t_parser	*parsing(char *input)

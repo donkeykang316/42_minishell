@@ -6,13 +6,11 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:10:12 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 19:24:22 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/12 19:59:05 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-extern long long	g_exit_status;
 
 size_t	get_token_len(char *input_at_i)
 {
