@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   util_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 19:35:25 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 19:39:01 by kaan             ###   ########.fr       */
+/*   Created: 2024/06/10 17:00:23 by kaan              #+#    #+#             */
+/*   Updated: 2024/06/11 15:15:01 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
+#include "../../inc/minishell.h"
 
-# include "minishell.h"
+void	exit_shell(t_shell *shell, char *msg, int exit_status)
+{
+	(void)shell;
+	//if (shell)
+		//destroy(shell);
+	if (msg)
+		ft_putendl_fd(msg, STDERR_FILENO);
+	exit(exit_status);
+}
 
-typedef struct s_shell	t_shell;
-typedef struct s_parser	t_parser;
+bool	strcmp_ms(char *s1, char *s2)
+{
+	int	i;
 
-//execution
-void	execution(t_parser *parser, t_shell *shell);
-
-#endif
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	if (s1[i] == '\0' && s2[i] == '\0')
+		return (true);
+	return (false);
+}

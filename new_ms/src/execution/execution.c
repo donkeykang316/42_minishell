@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 18:00:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/06 17:23:14 by kaan             ###   ########.fr       */
+/*   Created: 2024/06/12 19:33:36 by kaan              #+#    #+#             */
+/*   Updated: 2024/06/12 19:34:51 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "../../inc/minishell.h"
 
-# include "minishell.h"
-
-//prototyping prompt struct
-typedef struct s_shell	t_shell;
-
-
-
-#endif
+void	execution(t_parser *parser, t_shell *shell)
+{
+    
+}

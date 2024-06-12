@@ -6,7 +6,7 @@
 #    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/06/06 17:27:31 by kaan             ###   ########.fr        #
+#    Updated: 2024/06/12 19:40:37 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,16 +26,22 @@ READFLAG = -lreadline
 
 RM = rm -f
 
-SRC =	src/expander/expander_process.c\
-		src/expander/expander_struct.c\
-		src/expander/expander.c\
-		src/lexer/lexer_redir.c\
-		src/lexer/lexer_struct.c\
-		src/lexer/lexer_word.c\
-		src/lexer/lexer.c\
-		src/main/error_seq.c\
-		src/main/minishell.c\
-		
+SRC =	src/main/testing.c\
+		src/main/main.c\
+		src/main/ms_init.c\
+		src/main/ms_init_util.c\
+		src/main/signal.c\
+		src/utils/util_1.c\
+		src/utils/util_2.c\
+		src/utils/util_3.c\
+		src/parser/pre_process.c\
+		src/parser/syntax.c\
+		src/parser/syntax_util.c\
+		src/parser/expander.c\
+		src/parser/expander_util.c\
+		src/parser/parser.c\
+		src/parser/tokenizer.c\
+		src/execution/execution.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 
