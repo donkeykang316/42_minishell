@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:33:36 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:48:26 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/13 17:58:48 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,5 @@ void	execution(t_shell *shell)
 		exec_cmd(shell, parser);
 	waitpid(-1, &status, 0);
 	if (!WTERMSIG(status))
-		exit_status = status >> 8;
+		exit_status = status / 256;
 }

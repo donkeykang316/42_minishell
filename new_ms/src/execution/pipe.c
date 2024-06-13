@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:45:51 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:49:13 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/13 17:58:08 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ void	pipe_exe(t_shell *shell, t_parser *parser)
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	waitpid(child_pid, &status, 0);
-	exit_status = status >> 8;
+	exit_status = status / 256;
 }
