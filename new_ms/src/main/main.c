@@ -6,13 +6,19 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:54:24 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 20:36:33 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/13 17:45:27 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 long long	exit_status = 0;
+
+void	final_clean(t_shell *shell)
+{
+	parser_clean(&shell->parser);
+	shell->parser = NULL;
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -30,8 +36,8 @@ int	main(int ac, char **av, char **envp)
 		input = expanding(input, &shell);
 		add_history(input);
 		shell.parser = parsing(input);
-		//print_parser(shell.parser);
 		execution(&shell);
+		final_clean(&shell);
 	}
 	return (EXIT_SUCCESS);
 }

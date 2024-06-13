@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:52:13 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 14:37:09 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/13 17:51:46 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,6 @@ typedef struct s_shell
 	t_parser	*parser;
 }				t_shell;
 
-//expander util
-static inline bool	single_dollar(char *input_at_i)
-{
-	return ((!input_at_i[1]
-			|| input_at_i[1] == ' '
-			|| input_at_i[1] == '\"'));
-}
-
 //testing
 void	print_envp(t_envp **envp);
 void    print_parser(t_parser *parser);
@@ -135,5 +127,8 @@ char	*get_envp(char *var_name, t_envp **envp);
 char	*get_varvalue_envp(char *var_name, t_shell *shell);
 size_t	parser_size(t_parser *parser);
 bool	ft_isnum(char *str);
+char	*ft_strjoin_ms(char *s1, char *s2);
+void	envp_clean(t_envp **list);
+void	parser_clean(t_parser **parser);
 
 #endif

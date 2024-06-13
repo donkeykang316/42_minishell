@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:10:54 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 14:55:13 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/13 17:16:15 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,6 @@ int	single_export(t_shell *shell)
 		envp = envp->next;
 	}
 	return (EXIT_SUCCESS);
-}
-
-bool	is_valid_id(char *token)
-{
-	size_t	i;
-
-	i = 0;
-	if (strcmp_ms(token, "="))
-		return (false);
-	while (token[i] && token[i] != '=')
-	{
-		if (ft_isdigit(token[i]) || token[i] == '!' || token[i] == '@'
-			|| token[i] == '{' || token[i] == '}' || token[i] == '-')
-			return (false);
-		i++;
-	}
-	return (true);
 }
 
 int	err_export_identifier(char *token)
@@ -67,13 +50,11 @@ void	exp_export(char *token, t_shell *shell)
 	}
 }
 
-int	cmd_export(t_shell *shell)
+int	cmd_export(t_shell *shell, t_parser *parser)
 {
-	t_parser	*parser;
 	int			exit_status_x;
 	size_t		i;
 
-	parser = shell->parser;
 	if (parser->token_count == 1)
 		return (single_export(shell));
 	exit_status_x = EXIT_SUCCESS;

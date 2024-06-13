@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:11:10 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 14:20:42 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/13 16:42:18 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,9 @@ int	unset_util(t_parser *parser, t_envp **envp_list)
 	return (EXIT_SUCCESS);
 }
 
-int	cmd_unset(t_shell *shell)
+int	cmd_unset(t_shell *shell, t_parser *parser)
 {
-	t_parser	*paser;
-
-	paser = shell->parser;
-	if (paser->token_count == 1)
+	if (parser->token_count == 1)
 		return (EXIT_SUCCESS);
-	return (unset_util(paser, &shell->envp_lst));
+	return (unset_util(parser, &shell->envp_lst));
 }

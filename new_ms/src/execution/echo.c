@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:42:36 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 14:00:55 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/13 17:12:56 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,10 @@ int	echo_util(t_parser *parser, bool option)
 	return (EXIT_SUCCESS);
 }
 
-int	cmd_echo(t_shell *shell)
+int	cmd_echo(t_parser *parser)
 {
-	t_parser	*parser;
 	bool		option_n;
 
-	parser = shell->parser;
 	option_n = false;
 	if (parser->token_count >= 2)
 		option_n = strcmp_ms(parser->token[1], "-n");
