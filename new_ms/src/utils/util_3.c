@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:46:55 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 20:54:44 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/13 14:36:53 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,21 @@ bool	unexpected_token(char token)
 	ft_putstr_fd(UNEXPECTED_TOKEN, STDERR_FILENO);
 	ft_putchar_fd(token, STDERR_FILENO);
 	ft_putendl_fd("'", STDERR_FILENO);
+	return (true);
+}
+
+bool	ft_isnum(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (false);
+		i++;
+	}
 	return (true);
 }

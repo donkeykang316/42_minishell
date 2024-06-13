@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:52:13 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 21:07:31 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/13 14:37:09 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void    print_parser(t_parser *parser);
 void	shell_init(char **envp, t_shell *shell);
 void	init_oldpwd(t_envp **head);
 char	**split_envp(char *envp);
+int		save_user_vars(char *statement, t_envp **envp, bool to_export);
 
 //signal
 void	config_signals(void);
@@ -133,5 +134,6 @@ void	envp_add_back(t_envp **envp, t_envp *new);
 char	*get_envp(char *var_name, t_envp **envp);
 char	*get_varvalue_envp(char *var_name, t_shell *shell);
 size_t	parser_size(t_parser *parser);
+bool	ft_isnum(char *str);
 
 #endif

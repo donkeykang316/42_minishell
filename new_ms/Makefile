@@ -6,7 +6,7 @@
 #    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/06/12 21:12:10 by kaan             ###   ########.fr        #
+#    Updated: 2024/06/13 14:20:02 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,13 @@ SRC =	src/main/testing.c\
 		src/parser/tokenizer.c\
 		src/execution/execution.c\
 		src/execution/exit.c\
+		src/execution/cd.c\
+		src/execution/cd_util.c\
+		src/execution/env.c\
+		src/execution/echo.c\
+		src/execution/pwd.c\
+		src/execution/unset.c\
+		src/execution/export.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 
