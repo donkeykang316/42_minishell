@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pre_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:14:49 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 19:58:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 13:47:13 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	exit_status;
+extern int	exit_status;
 
 int	unclosed_quotes(char *str)
 {

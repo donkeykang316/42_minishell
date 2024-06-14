@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:54:24 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:45:27 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 17:35:01 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-long long	exit_status = 0;
+int	exit_status = 0;
 
 void	final_clean(t_shell *shell)
 {

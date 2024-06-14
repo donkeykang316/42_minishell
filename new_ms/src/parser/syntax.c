@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:31:54 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/11 18:47:37 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 16:18:54 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	invalid_syntax2(char *input)
 				|| input[i] == ';' || input[i] == '&' || input[i] == '*')
 			&& !in_quotes)
 			return (unexpected_token(input[i]));
-		i += 1;
+		i++;
 	}
 	return (false);
 }

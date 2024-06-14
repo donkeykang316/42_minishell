@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 21:09:22 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 19:57:32 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 13:47:02 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	exit_status;
+extern int	exit_status;
 
 size_t	exit_status_size(void)
 {

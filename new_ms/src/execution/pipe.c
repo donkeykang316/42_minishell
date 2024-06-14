@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:45:51 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:58:08 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 13:46:09 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	exit_status;
+extern int	exit_status;
 
 void	left_side(t_parser *parser, t_shell *shell, int pipe_fd[2])
 {

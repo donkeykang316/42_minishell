@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 14:10:54 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:16:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 13:57:47 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	single_export(t_shell *shell)
 
 int	err_export_identifier(char *token)
 {
-	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+	ft_putstr_fd("minishell: export: '", STDERR_FILENO);
 	ft_putstr_fd(token, STDERR_FILENO);
 	ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
 	return (EXIT_FAILURE);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:11:27 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 19:55:38 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 13:46:46 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	exit_status;
+extern int	exit_status;
 
 void	child_signals(int signum)
 {

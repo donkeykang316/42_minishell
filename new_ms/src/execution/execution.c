@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:33:36 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:58:48 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 18:14:55 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	exit_status;
+extern int	exit_status;
 
 bool	is_valid_id(char *token)
 {
@@ -92,6 +92,12 @@ void	execution(t_shell *shell)
 	else if (fork() == 0)
 		exec_cmd(shell, parser);
 	waitpid(-1, &status, 0);
-	if (!WTERMSIG(status))
-		exit_status = status / 256;
+	if (exit_status)
+		return ;
+	else if (WIFSIGNALED(status))
+		exit_status = 128 + WTERMSIG(status);
+	else if (WIFEXITED(status))
+		exit_status = WEXITSTATUS(status);
+	else
+		exit_status = status;
 }

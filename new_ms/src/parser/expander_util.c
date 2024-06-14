@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expander_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:26:15 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 21:02:18 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 13:46:56 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	exit_status;
+extern int	exit_status;
 
 size_t	exp_size(char *input_at_i, size_t *i, t_shell *shell)
 {

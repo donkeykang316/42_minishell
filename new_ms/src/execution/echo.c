@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:42:36 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:12:56 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 18:24:40 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ int	echo_util(t_parser *parser, bool option)
 	while (parser->token[i] && i != parser->token_count)
 	{
 		printf("%s", parser->token[i]);
+		if (parser->token[i + 1])
+			printf(" ");
+		if (parser->next)
+			printf(" ");
 		if (!parser->token[i + 1] && parser->operator != LESS)
 			break ;
-		ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
 	}
 	return (EXIT_SUCCESS);

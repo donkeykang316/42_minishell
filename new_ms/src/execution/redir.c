@@ -3,28 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:20:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:49:25 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 18:36:14 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-extern long long	exit_status;
+extern int	exit_status;
 
 void	less(t_parser *parser)
 {
 	int		fd;
 	char	*err_msg;
+	int		i;
 
+	i = 0;
+	printf("file_count:%d\n", parser->next->token_count);
 	if (parser->next->token[0])
 	{
-		while (parser->next->operator == LESS)
+		/*while (parser->next->operator == LESS)
 			parser = parser->next;
 		while (parser->next->operator == LESS)
 			parser = parser->next;
+		*/
 		if (access(parser->next->token[0], F_OK) == 0)
 		{
 			fd = open(parser->next->token[0], O_RDONLY, 0666);
@@ -35,7 +39,7 @@ void	less(t_parser *parser)
 			err_msg = ft_strjoin("minishell: ", parser->next->token[0]);
 			perror(err_msg);
 			free(err_msg);
-		    exit_status = 2;
+			exit_status = 2;
 			exit(EXIT_FAILURE);
 		}
 	}

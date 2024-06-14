@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:52:13 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:51:46 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 15:11:15 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@
 # define SYTX_ERR_RDR "minishell: syntax error near unexpected token"
 
 // EXIT CMD
-# define EXIT_TOO_MANY_ARGS "minishell: exit: too many arguments"
-# define EXIT_NON_NUMERIC_ARG "minishell: exit: numeric argument required" 
+# define EXIT_TOO_MANY_ARGS "exit: too many arguments"
+# define EXIT_NON_NUMERIC_ARG "exit: numeric argument required" 
 
 // CD CMD
 # define PATH_MAX	4096
-# define CD_TOO_MANY_ARGS "minishell: cd: too many arguments"
-# define OLDPWD_NOT_SET "minishell: cd: OLDPWD not set"
+# define CD_TOO_MANY_ARGS "cd: too many arguments"
+# define OLDPWD_NOT_SET "cd: OLDPWD not set"
 
 typedef enum e_operator
 {
