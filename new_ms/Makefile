@@ -6,7 +6,7 @@
 #    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/06/13 17:46:53 by kaan             ###   ########.fr        #
+#    Updated: 2024/06/14 22:54:52 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRC =	src/main/testing.c\
 		src/execution/find_path.c\
 		src/execution/pipe.c\
 		src/execution/redir.c\
+		src/execution/less_util.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 

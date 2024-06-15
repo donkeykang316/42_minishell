@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:45:51 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/14 13:46:09 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/15 01:39:32 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,28 @@
 
 extern int	exit_status;
 
+bool	more_pipe_check(t_parser *parser)
+{
+	t_parser	*temp;
+
+	temp = parser;
+	while (temp)
+	{
+		if (temp->operator == PIPE)
+			return (false);
+		temp = temp->next;
+	}
+	return (true);
+}
+
 void	left_side(t_parser *parser, t_shell *shell, int pipe_fd[2])
 {
 	close(STDOUT_FILENO);
 	dup(pipe_fd[1]);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
+	if (parser->operator != NONE && more_pipe_check(parser->next))
+		exit(exit_status);
 	exec_cmd(shell, parser);
 }
 

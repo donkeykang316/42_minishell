@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:52:13 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/14 15:11:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/14 22:14:42 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@
 # define PATH_MAX	4096
 # define CD_TOO_MANY_ARGS "cd: too many arguments"
 # define OLDPWD_NOT_SET "cd: OLDPWD not set"
+
+//READ FILE
+ # define NO_FILE " No such file or directory"
 
 typedef enum e_operator
 {

@@ -1,1 +1,4 @@
-cat <./test_files/infile_big ./test_files/infile ./test_to_do.txt ./file 
+cat <"./test_files/infile" | grep hello
+grep hi <./test_files/infile
+echo hi < ./test_files/infile bye bye
+echo <"./test_files/infile" "bonjour       42"

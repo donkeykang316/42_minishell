@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:33:36 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/14 18:14:55 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/15 01:05:20 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,6 @@ void	execution(t_shell *shell)
 	else if (fork() == 0)
 		exec_cmd(shell, parser);
 	waitpid(-1, &status, 0);
-	if (exit_status)
-		return ;
-	else if (WIFSIGNALED(status))
-		exit_status = 128 + WTERMSIG(status);
-	else if (WIFEXITED(status))
-		exit_status = WEXITSTATUS(status);
-	else
-		exit_status = status;
+	if (!WTERMSIG(status))
+		exit_status = status / 256;
 }
