@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:20:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/15 14:48:37 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/15 16:14:40 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,9 @@ void	redir_exe(t_shell *shell, t_parser *parser)
 		parser = parser->next;
 	if (parser->operator == NONE)
 	{
-		if (pipe_check(parser))
-			pipe_exe(shell, parser);
+		/*if (pipe_check(parser))
+			pipe_exe(shell, parser);*/
+		perror("error");
 		exec_cmd(shell, temp);
 	}
 	else

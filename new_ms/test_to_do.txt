@@ -1,1 +1,2 @@
 echo <"./test_files/infile_big" | cat <"./test_files/infile"
+echo <"./test_files/infile" "bonjour       42"

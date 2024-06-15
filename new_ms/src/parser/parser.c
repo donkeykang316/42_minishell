@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:39:22 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/15 14:58:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/15 16:28:24 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_parser	*parsing(char *input)
 		if (!tokens[idx[0]])
 			break ;
 		temp->operator = get_operator(tokens[idx[0]++]);
-		temp->next = p_new_node(get_token_count(&tokens[idx[0]]));
+		temp->next = p_new_node(get_token_count(&tokens[idx[1]]));
 		temp = temp->next;
 	}
 	return (head);
