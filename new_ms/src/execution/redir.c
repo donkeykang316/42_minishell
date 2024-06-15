@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:20:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/15 01:28:56 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/15 14:48:37 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,24 +81,37 @@ void	redir_output(t_parser *parser)
 		open(parser->next->token[0], O_WRONLY | O_APPEND | O_CREAT, 0666);
 }
 
+t_parser	*pipe_check(t_parser *parser)
+{
+	while (parser)
+	{
+		if (parser->operator == PIPE)
+			return (parser);
+		parser = parser->next;
+	}
+	return (NULL);
+}
+
 void	redir_exe(t_shell *shell, t_parser *parser)
 {
-	//t_parser	*temp;
+	t_parser	*temp;
 
-	//temp = parser;
+	temp = parser;
 	if (parser->operator == LESS)
 		less(parser);
 	else if (parser->operator == HEREDOC)
 		heredoc(parser);
 	else
 		redir_output(parser);
-	while (parser->next)
-	{
-		//printf("parser:%s\n", parser->token[0]);
-		if (parser->operator != PIPE && parser->next->operator != PIPE)
-			single_exe(shell, parser);
-		else
-			pipe_exe(shell, parser);
+	temp->operator = NONE;
+	while (parser->operator != NONE && parser->operator != PIPE)
 		parser = parser->next;
+	if (parser->operator == NONE)
+	{
+		if (pipe_check(parser))
+			pipe_exe(shell, parser);
+		exec_cmd(shell, temp);
 	}
+	else
+		pipe_exe(shell, parser);
 }
