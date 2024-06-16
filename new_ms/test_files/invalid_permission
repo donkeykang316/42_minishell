@@ -1,0 +1,13 @@
+file
+inc
+lib
+Makefile
+manual_tests
+minishell
+minishell_tester
+obj
+src
+suppressions.supp
+test_files
+test_to_do.txt
+todo.txt

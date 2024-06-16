@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:20:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/15 16:14:40 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/16 12:42:05 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,15 @@ void	heredoc(t_parser *parser)
 	free(buff);
 }
 
+void	ft_open(char *token, int option)
+{
+	if (open(token, O_WRONLY | option | O_CREAT, 0666) == -1)
+	{
+		perror(" ");
+		exit(EXIT_FAILURE);
+	}
+}
+
 void	redir_output(t_parser *parser)
 {
 	close(STDOUT_FILENO);
@@ -69,16 +78,16 @@ void	redir_output(t_parser *parser)
 		|| parser->next->operator == APPEND)
 	{
 		if (parser->operator == GREAT)
-			open(parser->next->token[0], O_WRONLY | O_TRUNC | O_CREAT, 0666);
+			ft_open(parser->next->token[0], O_TRUNC);
 		else if (parser->operator == APPEND)
-			open(parser->next->token[0], O_WRONLY | O_APPEND | O_CREAT, 0666);
+			ft_open(parser->next->token[0], O_APPEND);
 		parser = parser->next;
-		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
 	}
 	if (parser->operator == GREAT)
-		open(parser->next->token[0], O_WRONLY | O_TRUNC | O_CREAT, 0666);
+		ft_open(parser->next->token[0], O_TRUNC);
 	else if (parser->operator == APPEND)
-		open(parser->next->token[0], O_WRONLY | O_APPEND | O_CREAT, 0666);
+		ft_open(parser->next->token[0], O_APPEND);
 }
 
 t_parser	*pipe_check(t_parser *parser)
@@ -110,7 +119,6 @@ void	redir_exe(t_shell *shell, t_parser *parser)
 	{
 		/*if (pipe_check(parser))
 			pipe_exe(shell, parser);*/
-		perror("error");
 		exec_cmd(shell, temp);
 	}
 	else
