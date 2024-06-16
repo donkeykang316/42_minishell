@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:35:25 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/15 01:20:54 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/16 14:23:41 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,8 @@ void	less_nofile_exit(void);
 void	less_multi_file(t_parser *parser, int fd);
 void	less_one_file(t_parser *parser, int fd);
 void	less_invalid_input(char *token);
+
+//test
+t_parser	*test_exec_cmd(t_shell *shell, t_parser *parser);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:33:36 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/15 01:05:20 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/16 13:38:31 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,10 @@ void	execution(t_shell *shell)
 		exec_cmd(shell, parser);
 	waitpid(-1, &status, 0);
 	if (!WTERMSIG(status))
-		exit_status = status / 256;
+	{
+		if (exit_status)
+			return ;
+		else
+			exit_status = status / 256;
+	}
 }

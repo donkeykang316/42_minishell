@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:20:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/16 12:42:05 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/16 13:41:45 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,20 @@ t_parser	*pipe_check(t_parser *parser)
 	return (NULL);
 }
 
+bool	pipe_redir_check(t_parser *parser)
+{
+	t_parser	*temp;
+
+	temp = parser;
+	while (temp)
+	{
+		if (temp->operator != NONE)
+			return (false);
+		temp = temp->next;
+	}
+	return (true);
+}
+
 void	redir_exe(t_shell *shell, t_parser *parser)
 {
 	t_parser	*temp;
@@ -115,12 +129,10 @@ void	redir_exe(t_shell *shell, t_parser *parser)
 	temp->operator = NONE;
 	while (parser->operator != NONE && parser->operator != PIPE)
 		parser = parser->next;
-	if (parser->operator == NONE)
-	{
-		/*if (pipe_check(parser))
-			pipe_exe(shell, parser);*/
+	if (!pipe_redir_check(parser) && fork() == 0)
 		exec_cmd(shell, temp);
-	}
+	else if (parser->operator == NONE)
+		exec_cmd(shell, temp);
 	else
 		pipe_exe(shell, parser);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:52:13 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/14 22:14:42 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/16 14:07:53 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define CL_ARGUMENTS_ERR "minishell: no support for command-line arguments"
 # define NO_PIPE_PROMPT "minishell: no support for pipe prompt"
 # define NO_SYTX_PROMPT "minishell: no support for syntax prompt"
-# define PIPE_ERR "minishell: pipe() failed"
+# define PIPE_ERR "minishell: pipe() failed"extern int	exit_status;
 # define FORK_ERR "minishell: fork() failed"
 
 // SYNTAX
