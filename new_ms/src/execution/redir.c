@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:20:11 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/16 13:41:45 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/18 14:21:08 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,29 @@ void	less(t_parser *parser)
 	fd = 0;
 	if (parser->next->token[0])
 	{
-		while (parser->next->operator == LESS)
+		while (parser->operator == LESS)
 		{
+			parser->operator = NONE;
 			if (access(parser->next->token[0], F_OK) == -1)
 				less_nofile_exit();
 			parser = parser->next;
 		}
-		while (parser->next->operator == LESS)
+		while (parser->operator == LESS)
 		{
+			parser->operator = NONE;
 			if (access(parser->next->token[0], F_OK) == -1)
 				less_nofile_exit();
 			parser = parser->next;
 		}
-		if (parser->next->token_count > 2
-			&& parser->next->token[1])
+		//ft_putnbr_fd(parser->token_count, 2);
+		//perror(parser->token[0]);
+		if (parser->token_count > 2
+			&& parser->token[1])
 			less_multi_file(parser, fd);
-		else if (access(parser->next->token[0], F_OK) == 0)
+		else if (access(parser->token[0], F_OK) == 0)
 			less_one_file(parser, fd);
-		else
-			less_invalid_input(parser->next->token[0]);
+		else if (pipe_check(parser) && redir_check(parser))
+			less_invalid_input(parser->token[0]);
 	}
 }
 
@@ -90,29 +94,65 @@ void	redir_output(t_parser *parser)
 		ft_open(parser->next->token[0], O_APPEND);
 }
 
-t_parser	*pipe_check(t_parser *parser)
+char	**add_string(char **array, int *size, const char *new_string)
 {
-	while (parser)
+	char	**new_array;
+	int		i;
+
+	new_array = malloc((*size + 1) * sizeof(char *));
+	if (new_array == NULL)
 	{
-		if (parser->operator == PIPE)
-			return (parser);
-		parser = parser->next;
+		perror("malloc failed");
+		exit(EXIT_FAILURE);
 	}
-	return (NULL);
+	i = 0;
+	while (i < *size)
+	{
+		new_array[i] = ft_strdup(array[i]);
+		i++;
+	}
+	new_array[*size] = ft_strdup(new_string);
+	free_d_lst(array);
+	array = malloc((*size + 2) * sizeof(char *));
+	i = 0;
+	while (i < *size + 1)
+	{
+		array[i] = ft_strdup(new_array[i]);
+		i++;
+	}
+	i = 0;
+	while (new_array[i] && i < *size + 1)
+	{
+		free(new_array[i]);
+		i++;
+	}
+	free(new_array);
+	(*size)++;
+	return (array);
 }
 
-bool	pipe_redir_check(t_parser *parser)
+t_parser	*cat_parser(t_parser *parser)
 {
-	t_parser	*temp;
+	t_parser *first;
+	t_parser *third;
+	int	size;
+	int	i;
 
-	temp = parser;
-	while (temp)
+	first = parser;
+	size = get_token_count(first->token);
+	while (first->next->token[i])
 	{
-		if (temp->operator != NONE)
-			return (false);
-		temp = temp->next;
+		first->token = add_string(first->token, &size, first->next->token[i]);
+		i++;
 	}
-	return (true);
+	first->token[i + 1] = NULL;
+	first->operator = first->next->operator;
+	free_d_lst(first->next->token);
+	free(first->next);
+	if (parser->next->next)
+		third = parser->next->next;
+	first->next = third;
+	return (first);
 }
 
 void	redir_exe(t_shell *shell, t_parser *parser)
@@ -126,12 +166,15 @@ void	redir_exe(t_shell *shell, t_parser *parser)
 		heredoc(parser);
 	else
 		redir_output(parser);
+	//print_parser(temp);
 	temp->operator = NONE;
-	while (parser->operator != NONE && parser->operator != PIPE)
-		parser = parser->next;
-	if (!pipe_redir_check(parser) && fork() == 0)
-		exec_cmd(shell, temp);
-	else if (parser->operator == NONE)
+	if (pipe_check(temp) || redir_check(temp))
+		temp = cat_parser(temp);
+	//print_parser(temp);
+	//print_token(temp->token);
+	/*while (parser->operator != NONE && parser->operator != PIPE)
+		parser = parser->next;*/
+	if (parser->operator == NONE)
 		exec_cmd(shell, temp);
 	else
 		pipe_exe(shell, parser);

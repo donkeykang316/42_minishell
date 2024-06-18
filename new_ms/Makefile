@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: kaan <kaan@student.42.de>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/06/16 13:42:03 by kaan             ###   ########.fr        #
+#    Updated: 2024/06/18 14:11:03 by kaan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC =	src/main/testing.c\
 		src/parser/parser_util.c\
 		src/parser/tokenizer.c\
 		src/execution/execution.c\
+		src/execution/execution_util.c\
 		src/execution/exit.c\
 		src/execution/cd.c\
 		src/execution/cd_util.c\

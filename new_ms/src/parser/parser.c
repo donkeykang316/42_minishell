@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:39:22 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/15 16:28:24 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/17 21:17:37 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ t_operator	get_operator(char *operator)
 	return (op);
 }
 
-size_t	get_token_count(char **token)
+int	get_token_count(char **token)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (token[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:35:25 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/16 14:23:41 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/18 14:07:55 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_shell	t_shell;
 //execution
 void	execution(t_shell *shell);
 bool	is_valid_id(char *token);
+bool	redir_check(t_parser *parser);
+bool	pipe_check(t_parser *parser);
 
 //builtin
 void	single_exe(t_shell *shell, t_parser *parser);
@@ -41,8 +43,5 @@ void	less_nofile_exit(void);
 void	less_multi_file(t_parser *parser, int fd);
 void	less_one_file(t_parser *parser, int fd);
 void	less_invalid_input(char *token);
-
-//test
-t_parser	*test_exec_cmd(t_shell *shell, t_parser *parser);
 
 #endif

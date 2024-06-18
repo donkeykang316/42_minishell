@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:52:14 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/15 01:45:09 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/18 13:55:19 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ extern int	exit_status;
 void	less_nofile_exit(void)
 {
 	ft_putendl_fd(NO_FILE, STDERR_FILENO);
-	exit(EXIT_FAILURE);
+	//exit(EXIT_FAILURE);
 }
 
 void	less_multi_file(t_parser *parser, int fd)
@@ -25,10 +25,10 @@ void	less_multi_file(t_parser *parser, int fd)
 	int	i;
 
 	i = 1;
-	while (parser->next->token[i]
-		&& access(parser->next->token[i], F_OK) == 0)
+	while (parser->token[i]
+		&& access(parser->token[i], F_OK) == 0)
 	{
-		fd = open(parser->next->token[i], O_RDONLY, 0666);
+		fd = open(parser->token[i], O_RDONLY, 0666);
 		dup2(fd, STDIN_FILENO);
 		i++;
 	}
@@ -36,7 +36,7 @@ void	less_multi_file(t_parser *parser, int fd)
 
 void	less_one_file(t_parser *parser, int fd)
 {
-	fd = open(parser->next->token[0], O_RDONLY, 0666);
+	fd = open(parser->token[0], O_RDONLY, 0666);
 	dup2(fd, STDIN_FILENO);
 }
 

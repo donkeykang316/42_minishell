@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:52:13 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/16 14:07:53 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/17 22:21:22 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define CL_ARGUMENTS_ERR "minishell: no support for command-line arguments"
 # define NO_PIPE_PROMPT "minishell: no support for pipe prompt"
 # define NO_SYTX_PROMPT "minishell: no support for syntax prompt"
-# define PIPE_ERR "minishell: pipe() failed"extern int	exit_status;
+# define PIPE_ERR "minishell: pipe() failed"
 # define FORK_ERR "minishell: fork() failed"
 
 // SYNTAX
@@ -67,7 +67,7 @@
 # define OLDPWD_NOT_SET "cd: OLDPWD not set"
 
 //READ FILE
- # define NO_FILE " No such file or directory"
+# define NO_FILE " No such file or directory"
 
 typedef enum e_operator
 {
@@ -100,11 +100,13 @@ typedef struct s_shell
 	char		**envp;
 	t_envp		*envp_lst;
 	t_parser	*parser;
+	bool		more_redir_pipe;
 }				t_shell;
 
 //testing
 void	print_envp(t_envp **envp);
 void    print_parser(t_parser *parser);
+void    print_token(char **token);
 
 //init
 void	shell_init(char **envp, t_shell *shell);

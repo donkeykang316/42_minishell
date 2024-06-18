@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:04:26 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/12 21:01:43 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/17 22:25:12 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	shell_init(char **envp, t_shell *shell)
 	shell->envp = envp;
 	shell->envp_lst = init_envp_lst(envp);
 	shell->parser = NULL;
+	shell->more_redir_pipe = false;
 	config_signals();
 }

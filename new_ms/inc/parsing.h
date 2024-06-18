@@ -6,7 +6,7 @@
 /*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:24:44 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/13 17:52:00 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/17 21:16:12 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ char	**tokenizer(char *input);
 t_parser	*parsing(char *input);
 t_parser	*p_new_node(int token_count);
 bool		single_dollar(char *input_at_i);
+int			get_token_count(char **token);
 
 #endif

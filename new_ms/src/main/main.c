@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:54:24 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/14 17:35:01 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/17 21:08:29 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ int	main(int ac, char **av, char **envp)
 		input = expanding(input, &shell);
 		add_history(input);
 		shell.parser = parsing(input);
-		execution(&shell);
-		final_clean(&shell);
+		if (shell.parser->token_count != 0)
+		{
+			execution(&shell);
+			final_clean(&shell);
+		}
 	}
 	return (EXIT_SUCCESS);
 }
