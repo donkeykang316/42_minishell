@@ -6,34 +6,91 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:37:46 by kaan              #+#    #+#             */
-/*   Updated: 2024/03/22 14:57:37 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/21 18:01:52 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "minishell.h"
+# include "minishell.h"
 
-//prototyping prompt struct
-typedef struct s_prompt t_prompt;
+//prototyping shell struct
+typedef struct s_shell	t_shell;
+
+typedef enum e_io
+{
+	NONE,
+	GREAT,
+	APPEND,
+	LESS,
+	HEREDOC,
+	PIPE,
+}	t_io;
+
+typedef struct s_parser
+{
+	char			*cmd;
+	char			**args;
+	int				input;
+	char			*i_str;
+	int				output;
+	char			*o_str;
+	char			**files;
+	int				*file_types;
+	int				index;
+	struct s_parser	*prev;
+	struct s_parser	*next;
+}	t_parser;
 
 typedef struct s_exec
 {
-    char                *cmd; //command to search for teh executable
-    char                **args; //list of arguments for the command
+	int				token_count;
+	char			**token;
+	t_io			operator;
+	struct	s_exec	*next;
 
-    int                 input; //input type
-    char                *i_str; //inpur file
+}	t_exec;
 
-    int                 output; //output type
-    char                *o_str; //output file
+typedef struct s_info
+{
+	char	**args;
+	char	**io;
+	char	**files;
+	int		*file_types;
+}				t_info;
+//parser.c
+void 	parser(t_shell *shell);
+void parser_exec(t_shell *shell);
+char	***group_io(t_shell *shell, t_expand *expand);
+void	create_cmd_node(t_shell *shell, t_expand *expand);
+void create_redir_nodes(t_shell *shell, char ***redir);
+void adjust_redir(t_shell *shell, t_expand *expand);
 
-    char                **files; //when multiple I/O check for names and create empties
-    int                 index; //which command in the sequence
+//parser_utils_1.c
+void remove_pipe_and_prev(t_shell *shell, t_expand *expand);
+void remove_redir_nodes(t_shell *shell, t_expand *expand);
 
-    struct  s_exec      *prev; //address of previous node
-    struct  s_exec      *next; //address of next node
-} t_exec;
+//prep_exec.c
+void	prep_exec(t_shell *shell);
+void	create_input_node(t_shell *shell, t_parser *parser);
+void create_output_node(t_shell *shell, t_parser *parser);
+int	count_dblptr(char **args);
+
+//prep_exec_2.c
+void	remove_pipe_on_input(t_shell *shell);
+void	free_nodes_on_pipe(t_shell *shell, int pipe_count);
+void	get_token_count(t_shell *shell);
+
+//prep_exec_3.c
+void remove_non_exist_input(t_shell *shell);
+void purge_till_input(t_shell *shell, int i);
+void check_file_existance(t_shell *shell);
+
+//exec_struct.c
+t_exec	*execfreelist_ms(t_exec **lst);
+void	execaddback_ms(t_exec **lst, t_exec *new);
+void	create_exec_node(t_shell *shell, char **args, int operand);
+t_expand *remove_current_node(t_expand *expand);
 
 #endif

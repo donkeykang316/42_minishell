@@ -1,6 +1,6 @@
 {
-    "files.associations": {
-        "readline.h": "c",
-        "stdio.h": "c"
-    }
+	"files.associations": {
+		"random": "c",
+		"minishell.h": "c"
+	}
 }

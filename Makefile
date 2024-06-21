@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/03/22 15:09:46 by kaan             ###   ########.fr        #
+#    Updated: 2024/06/21 17:59:16 by mdomnik          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,44 @@ READFLAG = -lreadline
 
 RM = rm -f
 
-SRC = 	src/main/minishell_exe.c\
-		src/main/exe_utils.c\
-		src/main/error_free.c\
+SRC =	src/builtin/cd.c\
+		src/builtin/echo.c\
+		src/builtin/env.c\
+		src/builtin/exit.c\
+		src/builtin/export.c\
+		src/builtin/pwd.c\
+		src/builtin/unset.c\
+		src/execution/execution_util.c\
+		src/execution/execution.c\
+		src/execution/find_path.c\
+		src/execution/less_util.c\
+		src/execution/pipe.c\
+		src/execution/redir.c\
+		src/expander/expander_process.c\
+		src/expander/expander_struct.c\
+		src/expander/expander.c\
+		src/lexer/lexer_redir.c\
+		src/lexer/lexer_struct.c\
+		src/lexer/lexer_word.c\
 		src/lexer/lexer.c\
-		src/utils/lexer_struct.c\
-		src/utils/lexer_utils.c\
-		src/utils/lexer_utils_2.c\
-		src/utils/main_utils.c\
+		src/main/error_seq.c\
+		src/main/main.c\
+		src/main/signal.c\
+		src/main/testing.c\
+		src/parser/parser.c\
+		src/parser/parser_utils_1.c\
+		src/parser/translator/prep_exec.c\
+		src/parser/translator/prep_exec_2.c\
+		src/parser/translator/prep_exec_3.c\
+		src/parser/translator/exec_struct.c\
+		src/utils/gen_utils_1.c\
+		src/utils/gen_utils_2.c\
+		src/utils/gen_utils_3.c\
+		src/utils/gen_utils_4.c\
+		src/utils/gen_utils_split.c\
+		src/utils/util_1.c\
+		src/utils/util_3.c\
+		src/utils/util_4.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 
@@ -61,5 +91,14 @@ fclean: clean
 	@$(RM) $(LIBFT)
 
 re: fclean all
+
+norminette:
+	@norminette $(SRC)
+
+comp: re
+	@./$(NAME)
+
+memcheck: re
+	@valgrind -s --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=suppressions.supp ./$(NAME)
 
 .PHONY: start all clean fclean re
