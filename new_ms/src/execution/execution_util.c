@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   execution_util.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:08:26 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/18 14:08:46 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/22 13:33:48 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool	redir_check(t_parser *parser)
+bool	input_redir_check(t_parser *parser)
 {
 	t_parser	*temp;
 
 	temp = parser;
 	while (temp->next && temp->operator == NONE)
 		temp = temp->next;
-	if (temp->operator != NONE && temp->operator != PIPE)
+	if (temp->operator == LESS)
 		return (true);
 	return (false);
 }

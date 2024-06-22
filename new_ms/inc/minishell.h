@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:52:13 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/17 22:21:22 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/22 13:09:03 by kaan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 
 //READ FILE
 # define NO_FILE " No such file or directory"
+# define NO_PERMIT " Permission denied"
 
 typedef enum e_operator
 {

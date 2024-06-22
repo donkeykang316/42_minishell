@@ -1,2 +1,2 @@
 error output:
-grep hi <./test_files/infile_big <./test_files/infile
+echo <123 <456 hi | echo 42
