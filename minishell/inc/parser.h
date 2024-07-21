@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:37:46 by kaan              #+#    #+#             */
-/*   Updated: 2024/06/01 16:45:53 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/24 19:55:39 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,71 +18,45 @@
 //prototyping shell struct
 typedef struct s_shell	t_shell;
 
+//enum for io redirection
 typedef enum e_io
 {
-	I_STDIN = 10,
-	O_STDOUT = 20,
-	I_PIPE = 30,
-	O_PIPE = 40,
+	NONE,
+	GREAT,
+	APPEND,
+	LESS,
+	HEREDOC,
+	PIPE,
 }	t_io;
 
-typedef struct s_parser
+//exec struct for use in exection
+typedef struct s_exec
 {
-	char			*cmd;
-	char			**args;
-	int				input;
-	char			*i_str;
-	int				output;
-	char			*o_str;
-	char			**files;
-	int				*file_types;
+	int				token_count;
+	char			**token;
+	t_io			operator;
 	int				index;
-	struct s_parser	*prev;
-	struct s_parser	*next;
-}	t_parser;
+	struct s_exec	*next;
+}	t_exec;
 
-typedef struct s_info
-{
-	char	**args;
-	char	**io;
-	char	**files;
-	int		*file_types;
-}				t_info;
-
-//parser_node.c
-void		set_io(char **io, t_parser *element);
-void		set_input(char **io, t_parser *element);
-void		set_output(char **io, t_parser *element);
+//parser_helpers.c
+void		adjust_exec_operand(t_shell *shell, int pipe_count);
+void		set_token_count(t_shell *shell);
+void		create_redir_node(t_shell *shell, char *file, int type);
+void		remove_nodes_till_pipe(t_shell *shell);
+void		set_index_exec(t_shell *shell);
 
 //parser_struct.c
-t_parser	*parsernew_ms(char **args, char **io,
-				char **files, int *file_types);
-int			reset_increment_k(int x);
-void		parseraddback_ms(t_parser **lst, t_parser *new);
-t_parser	*parserfreelist_ms(t_parser **lst);
-
-//parser_utils_1.c
-char		**pop_io(char **io, char *str1, char *str2, int token);
-char		**remove_first(char **args);
-int			find_redir(char *str);
-int			ft_memcmp_ms(const void *s1, const void *s2);
-
-//parser_utils_2.c
-void		purge_redir(t_shell *shell);
-void		delete_node(t_shell *shell, t_expand *current);
-void		free_io(char **double_str);
-void		create_parser_node(t_shell *shell, t_info info);
-void		adjust_output(t_shell *shell);
-
-//parser_utils_3.c
-void		handle_token(t_expand *cur, char **io, int *file_num);
-int			count_args_before_pipe(t_expand *expand);
+void		create_exec_node(t_shell *shell, char **args, int operand);
+t_exec		*execfreelist_ms(t_exec **lst);
+void		execaddback_ms(t_exec **lst, t_exec *new);
+void		remove_exec_node_at_index(t_shell *shell, int index);
 
 //parser.c
 void		parser(t_shell *shell);
-void		group_redir(t_shell *shell);
-void		group_files(t_shell *shell, char **io, int file_num);
-void		group_args(t_shell *shell, char **io,
-				char **files, int *file_types);
+void		create_cmd_node(t_shell *shell, t_expand *expand);
+int			count_args_cmd(t_expand *expand);
+void		create_input_node(t_shell *shell, t_expand *expand);
+void		create_output_node(t_shell *shell, t_expand *expand);
 
 #endif

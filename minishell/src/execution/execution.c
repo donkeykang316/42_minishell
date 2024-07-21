@@ -3,150 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.de>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 19:54:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/11 15:41:22 by kaan             ###   ########.fr       */
+/*   Created: 2024/06/12 19:33:36 by kaan              #+#    #+#             */
+/*   Updated: 2024/06/25 16:39:40 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// Fork and execute command
-void	single_cmd_exe(t_shell *shell)
-{
-	pid_t		pid;
-	//t_parser	*current;
-	int			input_fd;
-	int			output_fd;
-
-	input_fd = STDIN_FILENO;
-	output_fd = STDOUT_FILENO;
-	//current = shell->parser;
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	if (pid == 0)
-	{
-		set_signals_child();
-		if (input_fd != STDIN_FILENO)
-		{
-			if (dup2(input_fd, STDIN_FILENO) == -1)
-			{
-				perror("dup2 input_fd");
-				exit(EXIT_FAILURE);
-			}
-			close(input_fd);
-		}
-		if (output_fd != STDOUT_FILENO)
-		{
-			if (dup2(output_fd, STDOUT_FILENO) == -1)
-			{
-				perror("dup2 output_fd");
-				exit(EXIT_FAILURE);
-			}
-			close(output_fd);
-		}
-		if (find_path(shell) == 1)
-			exit(EXIT_SUCCESS);
-		proc_termination(shell, NULL, shell->parser->cmd);
-	}
-	wait_processes(shell);
-	if (input_fd != STDIN_FILENO)
-		close(input_fd);
-	if (output_fd != STDOUT_FILENO)
-	{
-		close(output_fd);
-	}
-	//reset_loop(shell, NULL, shell->parser->cmd, 0);
-}
-
-/**
- * Take output from parser and executes it. The final part of the shell.
- *
- * @param shell The shell structure containing the parsed command.
- */
-
-void	execute(t_shell *shell)
-{
-	//print_parser(shell);
-	shell->pid = -2;
-	if (shell->parser->output == T_PIPE
-		|| shell->parser->output == T_GREATER
-		|| shell->parser->output == T_APPEND
-		|| shell->parser->input == T_LESSER
-		|| shell->parser->input == T_HEREDOC)
-		pipex(shell);
-	else if (shell->parser->cmd != NULL && shell->parser->output != 1)
-		find_builtin(shell);
-}
-
-/* Finds and executes the appropriate built-in
- * command based on the given command.
- * If the command is not a built-in command, 
- * it attempts to find the command in the system's PATH.
- * If the command is not found, an error message is printed.
- *
- * @param shell The shell structure containing the parsed 
- * command and other shell data.
- */
-int	find_builtin(t_shell *shell)
+int	find_builtin(t_shell *shell, t_exec *exec)
 {
 	char	*cmd;
 
-	cmd = shell->parser->cmd;
+	cmd = exec->token[0];
 	if (cmp_str(cmd, "echo") == 0)
-		builtin_echo(shell);
+		return (builtin_echo(exec));
 	else if (cmp_str(cmd, "env") == 0)
-		builtin_env(shell);
+		return (builtin_env(shell, exec));
 	else if (cmp_str(cmd, "exit") == 0)
-		builtin_exit(shell);
+		builtin_exit(shell, exec);
 	else if (cmp_str(cmd, "export") == 0)
-		builtin_export(shell);
+		return (builtin_export(shell, exec));
 	else if (cmp_str(cmd, "pwd") == 0)
-		builtin_pwd(shell);
+		return (builtin_pwd(shell));
 	else if (cmp_str(cmd, "unset") == 0)
-		builtin_unset(shell);
+		return (builtin_unset(shell, exec));
 	else if (cmp_str(cmd, "cd") == 0)
-		builtin_cd(shell);
+		return (builtin_cd(shell, exec));
 	else
-		single_cmd_exe(shell);
-	if (shell->pid != -2)
-	{
-		proc_termination(shell, NULL, shell->parser->cmd);
-	}
-	reset_loop(shell, NULL, shell->parser->cmd);
+		return (2);
 	return (1);
 }
 
-int	find_builtin_pipe(t_shell *shell)
+void	single_exe(t_shell *shell, t_exec *exec)
 {
-	char	*cmd;
-
-	cmd = shell->parser->cmd;
-	if (cmp_str(cmd, "echo") == 0)
-		builtin_echo(shell);
-	else if (cmp_str(cmd, "env") == 0)
-		builtin_env(shell);
-	else if (cmp_str(cmd, "exit") == 0)
-		builtin_exit(shell);
-	else if (cmp_str(cmd, "export") == 0)
-		builtin_export(shell);
-	else if (cmp_str(cmd, "pwd") == 0)
-		builtin_pwd(shell);
-	else if (cmp_str(cmd, "unset") == 0)
-		builtin_unset(shell);
-	else if (cmp_str(cmd, "cd") == 0)
-		builtin_cd(shell);
-	else
-		find_path(shell);
-	if (shell->pid != -2)
+	if (find_builtin(shell, exec) == 0)
 	{
-		proc_termination(shell, NULL, shell->parser->cmd);
+		free_shell(shell);
+		exit (EXIT_SUCCESS);
 	}
-	reset_loop(shell, NULL, shell->parser->cmd);
-	return (1);
+	find_path(shell, exec);
+}
+
+void	exec_cmd(t_shell *shell, t_exec *exec)
+{
+	signal(SIGINT, child_signals);
+	if (exec->operator == PIPE)
+		pipe_exe(shell, exec);
+	else if (exec->operator == NONE)
+		single_exe(shell, exec);
+	else
+		redir_exe(shell, exec);
+	free_shell(shell);
+	exit(EXIT_SUCCESS);
+}
+
+void	execution(t_shell *shell)
+{
+	t_exec	*exec;
+	int		status;
+	int		ret;
+
+	status = 0;
+	exec = shell->exec;
+	if (exec_size(exec) == 1)
+	{
+		ret = single_exec(shell, exec);
+		if (ret == 1)
+			return ;
+	}
+	else if (fork() == 0)
+		exec_cmd(shell, exec);
+	waitpid(-1, &status, 0);
+	if (WIFEXITED(status))
+		*(shell->exit_status) = WEXITSTATUS(status);
+	else if (*(shell->exit_status) > 1)
+		*(shell->exit_status) = 1;
+	else if (WIFSIGNALED(status))
+		*(shell->exit_status) = WTERMSIG(status) - 1;
+	execfreelist_ms(&shell->exec);
+	reset_loop(shell);
+}
+
+int	single_exec(t_shell *shell, t_exec *exec)
+{
+	int	ret;
+
+	ret = find_builtin(shell, exec);
+	if (ret == 2)
+	{
+		if (fork() == 0)
+		{
+			signal(SIGINT, child_signals);
+			find_path(shell, exec);
+		}
+	}
+	else if (ret == -1)
+	{
+		*(shell->exit_status) = 1;
+		execfreelist_ms(&shell->exec);
+		reset_loop(shell);
+		return (1);
+	}
+	return (0);
 }

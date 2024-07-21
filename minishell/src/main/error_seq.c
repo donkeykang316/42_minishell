@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_seq.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:19:13 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 18:32:25 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/25 15:27:23 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,27 @@ void	free_err(char *err_str, t_shell *shell)
 	exit(1);
 }
 
-void	ft_perror(const char *msg, char *cmd)
+/**
+ * Prints an error message and updates the shell's exit status.
+ *
+ * @param msg The error message to be printed (optional).
+ * @param cmd The command associated with the error (optional).
+ * @param err The error code.
+ * @param shell The shell structure.
+ */
+void	ft_perror(char *msg, char *cmd, unsigned int err, t_shell *shell)
 {
-	if (cmd != NULL && msg != NULL)
+	if (msg != NULL)
+		ft_putendl_fd(msg, 2);
+	else if (cmd != NULL)
 	{
 		write(2, cmd, ft_strlen(cmd));
 		write(2, ": ", 2);
 		write(2, msg, ft_strlen(msg));
 		write(2, "\n", 1);
 	}
-	else if (msg != NULL)
-	{
-		write(2, msg, ft_strlen(msg));
-		write(2, "\n", 1);
-	}
-	return ;
+	*(shell->exit_status) = err;
+	reset_loop(shell);
 }
 
 /**
@@ -71,10 +77,8 @@ void	free_shell(t_shell *shell)
 		lexerfreelist_ms(&shell->lexer);
 	if (shell->expand)
 		expandfreelist_ms(&shell->expand);
-	if (shell->parser)
-		parserfreelist_ms(&shell->parser);
-	if (shell->last_dir)
-		free(shell->last_dir);
+	if (shell->exec)
+		execfreelist_ms(&shell->exec);
 	if (shell->exit_status)
 		free(shell->exit_status);
 	free(shell);

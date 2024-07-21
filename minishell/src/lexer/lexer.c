@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:43:18 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 18:40:13 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/25 16:55:58 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,8 @@
  * 
  * @param shell The shell structure containing the input line.
  */
-void	tokenizer(t_shell *shell)
+void	tokenizer(t_shell *shell, int i, int split)
 {
-	int	i;
-	int	split;
-
-	i = 0;
-	split = 1;
 	shell->line = trim_whitespace(shell);
 	if (!shell->line)
 		return ;
@@ -44,10 +39,12 @@ void	tokenizer(t_shell *shell)
 		}
 	}
 	if (!shell->lexer)
-		reset_loop(shell, ERR_CMD, shell->parser->cmd);
+		ft_perror(ERR_CMD, NULL, 258, shell);
 	adjust_lexer_redir(shell);
 	delete_empty_nodes(shell);
 	check_final_lexer(shell);
+	adjust_token_values(shell);
+	check_redir_faults(shell);
 	expander(shell);
 }
 
@@ -91,7 +88,7 @@ int	double_quote(t_shell *shell, int i, int split)
 	while (shell->line[i + j] != 34 && shell->line[i + j] != '\0')
 		j++;
 	if (shell->line[i + j] == '\0' && shell->line[i + j] != 34)
-		reset_loop(shell, ERR_QUOTE, shell->parser->cmd);
+		ft_perror(ERR_QUOTE, NULL, 258, shell);
 	temp = ft_substr(shell->line, (i + 1), (j - 1));
 	if (!temp)
 		free_err(ERR_MALLOC, shell);
@@ -118,7 +115,7 @@ int	single_quote(t_shell *shell, int i, int split)
 	while (shell->line[i + j] != 39 && shell->line[i + j] != '\0')
 		j++;
 	if (shell->line[i + j] == '\0' && shell->line[i + j] != 39)
-		reset_loop(shell, ERR_QUOTE, shell->parser->cmd);
+		ft_perror(ERR_QUOTE, NULL, 258, shell);
 	temp = ft_substr(shell->line, (i + 1), (j - 1));
 	if (!temp)
 		free_err(ERR_MALLOC, shell);

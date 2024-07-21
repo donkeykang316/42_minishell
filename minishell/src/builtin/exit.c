@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:16:07 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 18:59:28 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/24 19:52:58 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,44 +20,51 @@
  * 
  * @param shell A pointer to the shell structure.
  */
-void	builtin_exit(t_shell *shell)
+void	builtin_exit(t_shell *shell, t_exec *exec)
 {
-	int exit_code;
+	int	exit_code;
 
 	exit_code = 0;
-	if (count_args(shell->parser->args) > 1)
+	if (exec->token_count > 2)
 	{
-		*(shell->exit_status) = 1;
-		reset_loop(shell, ERR_ARG, shell->parser->cmd);
-		return ;
+		ft_putendl_fd("exit: too many arguments", 2);
+		exit(EXIT_FAILURE);
 	}
-	else if (count_args(shell->parser->args) == 1)
+	else if (exec->token_count == 2)
 	{
-		if (ft_isnum(shell->parser->args[0]) == 0)
+		if (ft_isnum(exec->token[1]) == 1)
 		{
-			*(shell->exit_status) = 2;
-			reset_loop(shell, ERR_NUM, shell->parser->cmd);
-			return ;
+			ft_putendl_fd("exit: numeric argument required", 2);
+			exit(2);
 		}
-		exit_code = get_exit(ft_atoi(shell->parser->args[0]));
+		exit_code = get_exit(ft_atoi(exec->token[1]));
 		*(shell->exit_status) = exit_code;
 	}
+	free_structs(shell);
+	free(shell);
+	printf("exit\n");
+	exit(exit_code);
+}
+
+void	free_structs(t_shell *shell)
+{
 	if (shell->env)
 		free_double(shell->env);
+	if (shell->declare)
+		free_double(shell->declare);
 	if (shell->line)
 		free(shell->line);
 	if (shell->lexer)
 		lexerfreelist_ms(&shell->lexer);
 	if (shell->expand)
 		expandfreelist_ms(&shell->expand);
-	if (shell->parser)
-		parserfreelist_ms(&shell->parser);
-	free(shell);
-	printf("exit\n");
-	exit(exit_code);
+	if (shell->exec)
+		execfreelist_ms(&shell->exec);
+	if (shell->exit_status)
+		free(shell->exit_status);
 }
 
-int get_exit(int exit_code)
+int	get_exit(int exit_code)
 {
 	if (exit_code < 0)
 		exit_code = 256 + (exit_code % 256);
@@ -66,9 +73,9 @@ int get_exit(int exit_code)
 	return (exit_code);
 }
 
-int ft_isnum(char *str)
+int	ft_isnum(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
@@ -76,8 +83,8 @@ int ft_isnum(char *str)
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			return (0);
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }

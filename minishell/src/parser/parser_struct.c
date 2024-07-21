@@ -3,65 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   parser_struct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 13:37:38 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/31 12:47:27 by kaan             ###   ########.fr       */
+/*   Created: 2024/06/18 15:02:20 by mdomnik           #+#    #+#             */
+/*   Updated: 2024/06/24 19:51:10 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_parser	*parsernew_ms(char **args, char **io, char **files, int *file_types)
-{
-	t_parser		*element;
-
-	element = (t_parser *)malloc(sizeof(t_parser));
-	if (!element)
-		return (NULL);
-	element->index = (reset_increment_k(1) - 1);
-	if (args[0] != NULL)
-		element->cmd = ft_strdup(args[0]);
-	else
-		element->cmd = NULL;
-	element->args = remove_first(args);
-	set_io(io, element);
-	element->files = double_dup(files);
-	element->file_types = file_types;
-	element->prev = NULL;
-	element->next = NULL;
-	return (element);
-}
-
 /**
- * @brief Resets or increments the value of the static variable k.
+ * Creates and adds a new execution node to the shell's execution list.
  *
- * This function is used to reset the value of k to 0 or increment it by 1,
- * depending on the value of the parameter x.
- *
- * @param x The value used to determine whether to reset or increment k.
- * @return The updated value of k.
+ * @param shell The shell structure.
+ * @param args The array of arguments for the execution node.
+ * @param operand The operator associated with the execution node.
  */
-int	reset_increment_k(int x)
+void	create_exec_node(t_shell *shell, char **args, int operand)
 {
-	static int	k = 0;
+	t_exec	*node;
 
-	if (x == 0)
-		k = 0;
-	else
-		k++;
-	return (k);
+	node = (t_exec *)malloc(sizeof(t_exec));
+	node->token = double_dup(args);
+	node->token_count = 0;
+	node->operator = operand;
+	node->index = 0;
+	node->next = NULL;
+	execaddback_ms(&shell->exec, node);
 }
 
 /**
- * Adds a new t_parser node to the end of the linked list.
+ * Frees the memory allocated for a linked list of t_exec structures.
+ *
+ * @param lst A pointer to the head of the linked list.
+ * @return NULL.
+ */
+t_exec	*execfreelist_ms(t_exec **lst)
+{
+	t_exec	*temp;
+
+	temp = *lst;
+	if (!(*lst))
+		return (NULL);
+	while (*lst)
+	{
+		temp = (*lst)->next;
+		if ((*lst)->token != NULL)
+			free_double((*lst)->token);
+		free(*lst);
+		*lst = temp;
+	}
+	*lst = NULL;
+	return (NULL);
+}
+
+/**
+ * Adds a new t_exec node to the end of the linked list.
  *
  * @param lst The pointer to the head of the linked list.
- * @param new The pointer to the new t_parser node to be added.
+ * @param new The new t_exec node to be added.
  */
-void	parseraddback_ms(t_parser **lst, t_parser *new)
+void	execaddback_ms(t_exec **lst, t_exec *new)
 {
-	t_parser		*temp;
+	t_exec	*temp;
 
 	temp = *lst;
 	if (*lst == NULL)
@@ -72,42 +76,40 @@ void	parseraddback_ms(t_parser **lst, t_parser *new)
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new;
-	new->prev = temp;
 }
 
 /**
- * Frees the memory allocated for the parser list.
+ * Removes an execution node at the specified index from the exec list.
+ * If the list is empty or the node at the specified index is not found,
+ *  an error message is printed.
  *
- * @param lst The pointer to the head of the linked list.
- * @return NULL.
+ * @param shell The shell structure.
+ * @param index The index of the execution node to be removed.
  */
-t_parser	*parserfreelist_ms(t_parser **lst)
+void	remove_exec_node_at_index(t_shell *shell, int index)
 {
-	t_parser	*temp;
+	t_exec	*exec;
+	t_exec	*temp;
 
-	temp = *lst;
-	if (!(*lst))
-		return (NULL);
-	while (*lst)
+	if (shell->exec == NULL)
+		return ;
+	exec = shell->exec;
+	if (exec->index == index)
 	{
-		temp = (*lst)->next;
-		if ((*lst)->cmd)
-			free ((*lst)->cmd);
-		if ((*lst)->args != NULL)
-			free_double((*lst)->args);
-		if ((*lst)->files != NULL)
-			free_double((*lst)->files);
-		if (ft_memcmp_ms((*lst)->i_str, "STDIN") 
-			&& ft_memcmp_ms((*lst)->i_str, "PIPE") && (*lst)->i_str != NULL)
-			free((*lst)->i_str);
-		if (ft_memcmp_ms((*lst)->o_str, "STDOUT") 
-			&& ft_memcmp_ms((*lst)->o_str, "PIPE") && (*lst)->o_str != NULL)
-			free((*lst)->o_str);
-		if ((*lst)->file_types != NULL)
-			free((*lst)->file_types);
-		free(*lst);
-		*lst = temp;
+		shell->exec = exec->next;
+		free_double(exec->token);
+		free(exec);
+		return ;
 	}
-	*lst = NULL;
-	return (NULL);
+	while (exec->next != NULL && exec->next->index != index)
+		exec = exec->next;
+	if (exec->next == NULL)
+	{
+		perror("Node not found");
+		return ;
+	}
+	temp = exec->next;
+	exec->next = temp->next;
+	free_double(temp->token);
+	free(temp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:27:52 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/05 18:33:15 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/25 15:28:05 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ arguments are given, return error. else,
 main initializes components of s_shell struct,
 copies all environmental variables to shell->env
 and starts the core loop ("shell_loop") */
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	*shell;
@@ -37,7 +36,6 @@ int	main(int argc, char **argv, char **envp)
 	if (!shell->declare)
 		free_err(ERR_ENV, shell);
 	prep_declare(shell);
-	starting_dir(shell);
 	rl_clear_history();
 	shell_loop(shell);
 	return (0);
@@ -46,10 +44,9 @@ int	main(int argc, char **argv, char **envp)
 /* core loop of the shell
     waits for input from user, then
     sends it for processing */
-
 void	shell_loop(t_shell *shell)
 {
-	set_signals_parent();
+	config_signals();
 	shell->line = readline(CL_NAME);
 	if (!shell->line) 
 	{
@@ -57,8 +54,6 @@ void	shell_loop(t_shell *shell)
 			free_double(shell->declare);
 		if (shell->env)
 			free_double(shell->env);
-		if (shell->last_dir)
-			free(shell->last_dir);
 		if (shell->exit_status)
 			free(shell->exit_status);
 		free(shell);
@@ -68,7 +63,7 @@ void	shell_loop(t_shell *shell)
 	if (shell->line[0] != '\0')
 	{
 		add_history(shell->line);
-		tokenizer(shell);
+		tokenizer(shell, 0, 1);
 	}
 	if (shell->line)
 		free(shell->line);
@@ -81,25 +76,22 @@ void	shell_loop(t_shell *shell)
  *
  * @param shell A pointer to the t_shell struct representing the shell.
  */
-void	reset_loop(t_shell *shell, char *msg, char *cmd)
+void	reset_loop(t_shell *shell)
 {
-	if (msg)
-		ft_perror(msg, cmd);
 	if (shell->line)
 		free(shell->line);
 	if (shell->lexer)
 		lexerfreelist_ms(&shell->lexer);
 	if (shell->expand)
 		expandfreelist_ms(&shell->expand);
-	if (shell->parser)
-		parserfreelist_ms(&shell->parser);
-	*(shell->cmd_count) = 1;
+	if (shell->exec)
+		execfreelist_ms(&shell->exec);
 	shell->expand = NULL;
 	shell->lexer = NULL;
 	shell->parser = NULL;
-	reset_increment_k(0);
-	if (shell->pid == 0)
-		exit(1);
+	shell->exec = NULL;
+	shell->in_fd = -1;
+	shell->out_fd = -1;
 	shell_loop(shell);
 }
 
@@ -117,26 +109,12 @@ t_shell	*init_shell(t_shell *shell)
 	shell->expand = NULL;
 	shell->lexer = NULL;
 	shell->parser = NULL;
+	shell->exec = NULL;
 	shell->env = NULL;
 	shell->declare = NULL;
-	shell->last_dir = NULL;
 	shell->exit_status = malloc(sizeof(int));
 	*(shell->exit_status) = 0;
-	shell->pid = -1;
-	shell->cmd_count = malloc(sizeof(int));
-	*(shell->cmd_count) = 1;
+	shell->in_fd = -1;
+	shell->out_fd = -1;
 	return (shell);
-}
-
-void	starting_dir(t_shell *shell)
-{
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-		free_err(ERR_PWD, shell);
-	shell->last_dir = ft_strdup(cwd);
-	if (shell->last_dir == NULL)
-		free_err(ERR_MALLOC, shell);
-	free(cwd);
 }

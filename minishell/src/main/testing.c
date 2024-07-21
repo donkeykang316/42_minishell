@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:40:24 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/05/29 14:13:11 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/26 12:49:42 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,58 +63,6 @@ void	print_expand(t_shell *shell)
 }
 
 /**
- * Prints the contents of the parser in the given shell.
- *
- * @param shell The shell containing the parser.
- */
-void	print_parser(t_shell *shell)
-{
-	t_parser	*current;
-	int			i;
-
-	current = shell->parser;
-	if (shell->parser == NULL)
-		printf("Stack is empty\n");
-	printf("parser contents:\n");
-	while (current != NULL)
-	{
-		printf("cmd: [%s] ", current->cmd);
-		printf("args: ");
-		i = 0;
-		if (current->args != NULL)
-		{
-			while (current->args[i] != NULL)
-			{
-				printf("[%s] ", current->args[i]);
-				i++;
-			}		
-		}	
-		printf("\n");
-		printf("input: [%d] [%s]\n", current->input, current->i_str);
-		printf("output: [%d] [%s]\n", current->output, current->o_str);
-		printf("files: ");
-		i = 0;
-		while (current->files[i] != NULL)
-		{
-			printf("[%s] ", current->files[i]);
-			i++;
-		}
-		printf("\n");
-		i = 0;
-		printf("file_types: ");
-		while (current->file_types[i] != 0)
-		{
-			printf("[%d] ", current->file_types[i]);
-			i++;
-		}
-		printf("\n");
-		printf("index: %d\n", current->index);
-		current = current->next;
-	}
-	printf("----------------------\n");
-}
-
-/**
  * This function is used to test the pointers in the parser.
  * It takes three arrays of strings as arguments: args, io, and files.
  * It prints the values of the files array, args array, and io array.
@@ -144,4 +92,81 @@ void	test_parser_pointers(char **args, char **io, char **files)
 	printf("io[2]: %s\n", io[2]);
 	printf("io[3]: %s\n", io[3]);
 	printf("----------------\n");
+}
+
+void	print_exec(t_shell *shell)
+{
+	t_exec	*current;
+	int		i;
+
+	i = 0;
+	current = shell->exec;
+	if (shell->exec == NULL)
+		ft_putstr_fd("Stack is empty\n", 2);
+	ft_putstr_fd("exec Stack contents:\n", 2);
+	while (current != NULL)
+	{
+		ft_putstr_fd("tokens :", 2);
+		i = 0;
+		while (current->token[i] != NULL)
+		{
+			ft_putstr_fd(current->token[i], 2);
+			ft_putstr_fd(" ", 2);
+			i++;
+		}
+		if (current->operator == NONE)
+			ft_putstr_fd(" [NONE]", 2);
+		else if (current->operator == GREAT)
+			ft_putstr_fd(" [GREAT]", 2);
+		else if (current->operator == APPEND)
+			ft_putstr_fd(" [APPEND]", 2);
+		else if (current->operator == LESS)
+			ft_putstr_fd(" [LESS]", 2);
+		else if (current->operator == HEREDOC)
+			ft_putstr_fd(" [HEREDOC]", 2);
+		else if (current->operator == PIPE)
+			ft_putstr_fd(" [PIPE]", 2);
+		ft_putstr_fd(" [index: ", 2);
+		ft_putnbr_fd(current->index, 2);
+		ft_putstr_fd("] ", 2);
+		ft_putstr_fd(" [TC: ", 2);
+		ft_putnbr_fd(current->token_count, 2);
+		ft_putstr_fd("]\n", 2);
+		current = current->next;
+	}
+	ft_putstr_fd("----------------------\n", 2);
+}
+
+void	print_double_pointer(char **list)
+{
+	int	i;
+
+	i = 0;
+	printf("Printing double pointer\n");
+	while (list[i] != NULL)
+	{
+		printf("list[%d]: %s\n", i, list[i]);
+		i++;
+	}
+	printf("----------------\n");
+}
+
+void	print_triple_pointer(char ***triple_pointer)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	printf("Printing triple pointer\n");
+	while (triple_pointer[i] != NULL)
+	{
+		j = 0;
+		while (triple_pointer[i][j] != NULL)
+		{
+			printf("%s ", triple_pointer[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 }

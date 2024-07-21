@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 21:52:00 by kaan              #+#    #+#              #
-#    Updated: 2024/06/02 15:57:10 by kaan             ###   ########.fr        #
+#    Updated: 2024/06/26 12:36:43 by mdomnik          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,14 @@ SRC =	src/builtin/cd.c\
 		src/builtin/export.c\
 		src/builtin/pwd.c\
 		src/builtin/unset.c\
+		src/execution/execution_util.c\
 		src/execution/execution.c\
-		src/execution/pathexec.c\
+		src/execution/find_path_1.c\
+		src/execution/find_path_2.c\
+		src/execution/pipe.c\
+		src/execution/redir_1.c\
+		src/execution/redir_2.c\
+		src/expander/expander_delim.c\
 		src/expander/expander_process.c\
 		src/expander/expander_struct.c\
 		src/expander/expander.c\
@@ -44,23 +50,19 @@ SRC =	src/builtin/cd.c\
 		src/lexer/lexer.c\
 		src/main/error_seq.c\
 		src/main/main.c\
-		src/main/signals.c\
+		src/main/signal.c\
+		src/main/signal_2.c\
 		src/main/testing.c\
-		src/parser/parser_node.c\
+		src/parser/parser_helpers.c\
 		src/parser/parser_struct.c\
-		src/parser/parser_utils_1.c\
-		src/parser/parser_utils_2.c\
-		src/parser/parser_utils_3.c\
 		src/parser/parser.c\
-		src/utils/gen_utils_1.c\
-		src/utils/gen_utils_2.c\
-		src/utils/gen_utils_3.c\
-		src/utils/gen_utils_4.c\
-		src/utils/gen_utils_split.c\
-		src/builtin/pipe.c\
-		src/builtin/redir.c\
-		src/builtin/pipex_util_1.c\
-		src/builtin/pipex_util_2.c\
+		src/utils/utils_1.c\
+		src/utils/utils_2.c\
+		src/utils/utils_3.c\
+		src/utils/utils_4.c\
+		src/utils/utils_5.c\
+		src/utils/utils_6.c\
+		src/utils/utils_7.c\
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,$(SRC))
 
@@ -96,6 +98,6 @@ comp: re
 	@./$(NAME)
 
 memcheck: re
-	@valgrind -s --leak-check=full --show-leak-kinds=all --suppressions=suppressions.supp ./$(NAME)
+	@valgrind -s --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=suppressions.supp ./$(NAME)
 
 .PHONY: start all clean fclean re

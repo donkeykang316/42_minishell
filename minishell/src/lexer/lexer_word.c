@@ -6,7 +6,7 @@
 /*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:43:48 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/04/25 12:56:24 by mdomnik          ###   ########.fr       */
+/*   Updated: 2024/06/24 19:45:38 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,15 @@ int	check_whitespace(char *str)
 	return (0);
 }
 
+/**
+ * @brief Increments the index to skip over whitespace characters.
+ * 
+ * this function increments over whitespaces in the beginning or enf of line
+ * 
+ * @param shell A pointer to the `t_shell` structure.
+ * @param i The current index value.
+ * @return The updated index value after skipping over whitespace characters.
+ */
 int	inc_whitespace(t_shell *shell, int i)
 {
 	if (i > 0)

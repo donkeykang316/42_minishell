@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaan <kaan@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mdomnik <mdomnik@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:59:37 by mdomnik           #+#    #+#             */
-/*   Updated: 2024/06/03 14:41:14 by kaan             ###   ########.fr       */
+/*   Updated: 2024/06/25 15:15:22 by mdomnik          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,33 @@
  *
  * @param shell The shell structure.
  */
-void	builtin_echo(t_shell *shell)
+int	builtin_echo(t_exec *exec)
 {
-	int	n_flag_value;
-	int	*n_flag;
-	int	i;
+	char	**tokens;
+	int		n_flag_value;
+	int		*n_flag;
+	int		i;
 
 	n_flag_value = 0;
 	n_flag = &n_flag_value;
-	i = check_echo_option(shell->parser->args, &n_flag, 0);
-	while (shell->parser->args[i])
+	if (exec->token[1] == NULL)
 	{
-		printf("%s", shell->parser->args[i]);
-		if (shell->parser->args[i + 1])
+		printf("\n");
+		return (0);
+	}
+	tokens = remove_echo_str(exec->token);
+	i = check_echo_option(tokens, &n_flag, 0);
+	while (tokens[i])
+	{
+		printf("%s", tokens[i]);
+		if (tokens[i + 1])
 			printf(" ");
 		i++;
 	}
 	if (n_flag_value == 0)
 		printf("\n");
+	free_double(tokens);
+	return (0);
 }
 
 /**
@@ -94,4 +103,20 @@ int	find_if_n(char *str)
 	if (n_flag == 1)
 		return (1);
 	return (0);
+}
+
+char	**remove_echo_str(char **str)
+{
+	char	**ret;
+	int		i;
+
+	i = 1;
+	ret = (char **)malloc(count_args(str) * sizeof(char *));
+	while (str[i])
+	{
+		ret[i - 1] = ft_strdup(str[i]);
+		i++;
+	}
+	ret[i - 1] = NULL;
+	return (ret);
 }
