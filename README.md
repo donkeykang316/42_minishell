@@ -1,4 +1,4 @@
-## Minishell
+## Minishell (project collaboration with [Maciej Domnik](https://github.com/mdomnik))
 Minishell is an intermediate project at 42 that involves creating a simple shell, similar to the Unix shell, from scratch. The goal is to develop a basic command-line interpreter that can execute commands, manage processes, and handle input/output redirection.
 
 ### Key features of the Minishell project include:
@@ -10,4 +10,4 @@ Minishell is an intermediate project at 42 that involves creating a simple shell
 - **Signal Handling:** Managing signals to handle user interruptions (like Ctrl+C, Ctrl+D, etc.) and ensuring the shell remains responsive.
 - **Environment Variables:** Managing environment variables and allowing their use and modification within the shell.
 <br>
-The Minishell project challenges students to delve deep into the Unix process model, inter-process communication, and system calls. By building their own shell, students gain a thorough understanding of how command-line interfaces work, how to manage processes and resources efficiently, and how to handle various edge cases in a real-world application. This project is an excellent exercise in systems programming and provides a strong foundation for understanding more complex operating system concepts.
+The Minishell project challenges students to delve deep into the Unix process model, inter-process communication, and system calls. By building their own shell, students not only gain a thorough understanding of how command-line interfaces work, but they also learn to manage processes and resources efficiently. This project emphasizes team collaboration, as students work together to address various edge cases and integrate different components. It serves as an excellent exercise in systems programming and provides a strong foundation for understanding more complex operating system concepts.
