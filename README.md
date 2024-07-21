@@ -1,4 +1,4 @@
-Minishell
+## Minishell
 Minishell is an intermediate project at 42 that involves creating a simple shell, similar to the Unix shell, from scratch. The goal is to develop a basic command-line interpreter that can execute commands, manage processes, and handle input/output redirection.
 
 Key features of the Minishell project include:
